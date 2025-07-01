@@ -1,0 +1,87 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(232, 232, 233, 0.329);
+  font: bold;
+  font-family: Impact, Haettenschweiler, Arial Narrow Bold, sans-serif;
+  flex: 0 0 40%;
+  height: auto;
+  min-width: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 3px rgba(98, 118, 139, 0.329);
+  position: relative;
+}
+
+.sidebar ul {
+  padding: 5px;
+  color: black;
+  list-style: none;
+}
+
+.sidebar ul li {
+  min-width: 0; /* allow shrinking */
+  overflow: hidden; /* optional, hides overflow */
+  text-overflow: ellipsis; /* optional, for long text */
+  white-space: nowrap; /* optional, for single-line ellipsis */
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  display: block;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a:active {
+  background-color: rgb(23, 23, 252);
+  color: white;
+}
+
+.form-search {
+  width: 100%;
+  align-self: stretch;
+  flex-direction: row;
+  display: flex;
+  margin: 10px 0;
+  /* padding:  10px */
+  gap: 10px;
+  justify-content: center;
+}
+
+.q {
+  flex: auto;
+  outline: none;
+  height: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.329);
+  border-radius: 8px;
+  box-shadow: 1px 1px 2px rgba(101, 114, 128, 0.329),
+    -1px -1px 2px rgba(233, 235, 236, 0.329);
+  line-height: 36px;
+  background-color: rgb(255, 255, 255);
+  padding-left: 36px;
+  caret-color: black;
+  color: black;
+}
+
+.svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.button {
+  height: 32px;
+  width: auto;
+  line-height: 36px;
+  padding: 0 10px;
+  border-radius: 20%;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  color: rgb(0, 102, 255);
+  box-shadow: 2px 2px 2px rgb(233, 231, 231), -2px -2px 2px rgb(241, 239, 239);
+}
+
+
