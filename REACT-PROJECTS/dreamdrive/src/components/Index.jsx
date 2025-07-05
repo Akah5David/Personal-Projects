@@ -2,7 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 
 function HomePage() {
   const usersData = useLoaderData();
-
+  
   return (
     <div
       style={{

@@ -1,13 +1,10 @@
-import { Outlet, useMatches } from "react-router-dom";
+import { Outlet, useLoaderData, useMatches } from "react-router-dom";
 
-import SideBar from "./SideBar";
+import SideBarPage from "./SideBar";
 
 function RootPage() {
-  const matches = useMatches();
+  const usersData = useLoaderData();
 
-  const sidebarDatas = matches.filter(
-    (match) => match.route.element?.type?.name === "SideBarPage"
-  )?.data;
   return (
     <div
       style={{
@@ -21,10 +18,20 @@ function RootPage() {
         // backgroundColor: "red",
       }}
     >
-      <SideBar usersData={sidebarDatas} />
+      <SideBarPage usersData={usersData} />
       <Outlet />
     </div>
   );
 }
 
 export default RootPage;
+
+//use is used to return the id, pathname, handle, data, params of the current route to
+//  either the parents or the child that wants to use any of those
+//whenever we leave that current route, i.e whenever we move away from the url that the
+// parent or child route is checking for its match the return value of the useMatches hook
+
+// useMatches
+// const matches = useMatches();
+//   let usersData = matches.find((match) => match.id === "homepage")?.data;
+//   console.log(usersData);

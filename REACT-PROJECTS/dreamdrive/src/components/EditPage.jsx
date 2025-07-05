@@ -1,6 +1,6 @@
-import { Form, Link, useRouteLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
 function EditPage() {
-  const user = useRouteLoaderData("user-detail");
+  const user = useLoaderData();
   console.log("I am coming from edit page", user);
 
   return (

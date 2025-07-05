@@ -1,13 +1,8 @@
-import {
-  useRouteLoaderData,
-  useSubmit,
-  Link,
-  useFetcher,
-} from "react-router-dom";
+import { useLoaderData, useSubmit, Link, useFetcher } from "react-router-dom";
 
 function UserDetailsPage() {
   // const [isFilled, setIsFilled] = useState(false);
-  const user = useRouteLoaderData("user-detail");
+  const user = useLoaderData();
   const submit = useSubmit();
 
   const fetcher = useFetcher();

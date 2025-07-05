@@ -1,6 +1,6 @@
 [
   {
-    "id": "2025-06-30T09:49:50.770Z-3941",
+    "id": "2025-07-01T09:11:28.222Z-5370",
     "firstName": "Chandra",
     "lastName": "Yadav",
     "image": "/Images/Wallpaper-2.png",
@@ -8,23 +8,23 @@
     "favorite": "filled"
   },
   {
-    "id": "2025-06-30T09:49:50.771Z-652",
+    "id": "2025-07-01T09:11:28.222Z-1239",
     "firstName": "Subash",
     "lastName": "Prashad",
     "image": "/Images/Wallpaper-3.png",
     "occupation": "A Academia with 5 yrs experience",
+    "favorite": "empty"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-9270",
+    "firstName": "hggdh",
+    "lastName": "Akah",
+    "image": "https://images.pexels.com/photos/9750927/pexels-photo-9750927.jpeg?auto=compress&cs=tinysrgb&w=300",
+    "occupation": "hghdghd",
     "favorite": " empty"
   },
   {
-    "id": "2025-06-30T09:49:50.771Z-9417",
-    "firstName": "Emmanuel",
-    "lastName": "Sabestian",
-    "image": "/Images/Wallpaper-4.png",
-    "occupation": "A Writer with 4 yrs experience",
-    "favorite": " empty"
-  },
-  {
-    "id": "2025-06-30T09:49:50.771Z-4438",
+    "id": "2025-07-01T09:11:28.222Z-1698",
     "firstName": "Miguel",
     "lastName": "Arnold",
     "image": "/Images/Wallpaper-5.png",
@@ -32,7 +32,7 @@
     "favorite": "filled"
   },
   {
-    "id": "2025-06-30T09:49:50.772Z-2754",
+    "id": "2025-07-01T09:11:28.222Z-7683",
     "firstName": "Sargam",
     "lastName": "pradash",
     "image": "/Images/Wallpaper-6.png",
@@ -40,7 +40,7 @@
     "favorite": " empty"
   },
   {
-    "id": "2025-06-30T09:49:50.772Z-6160",
+    "id": "2025-07-01T09:11:28.222Z-1937",
     "firstName": "Siddhi",
     "lastName": "Rigidhta",
     "image": "/Images/Wallpaper7.png",
@@ -48,7 +48,7 @@
     "favorite": " empty"
   },
   {
-    "id": "2025-06-30T09:49:50.772Z-6221",
+    "id": "2025-07-01T09:11:28.222Z-7469",
     "firstName": "Trisha",
     "lastName": "Yadav",
     "image": "/Images/Wallpaper-8.png",
@@ -56,35 +56,11 @@
     "favorite": " empty"
   },
   {
-    "id": "2025-06-30T09:49:50.772Z-9140",
+    "id": "2025-07-01T09:11:28.222Z-3493",
     "firstName": "Sakshi",
     "lastName": "Thakur",
     "image": "/Images/Wallpaper-9.png",
     "occupation": "A Social media Influencer with 4 yrs experience",
-    "favorite": " empty"
-  },
-  {
-    "firstName": "David",
-    "lastName": "Akah",
-    "image": "4aa3892d-45d6-45ce-b31f-19c7e5f42064.jpeg",
-    "occupation": "Student",
-    "id": "2025-06-30T09:49:50.772Z-8405",
-    "favorite": " empty"
-  },
-  {
-    "firstName": "David",
-    "lastName": "Akah",
-    "image": "4aa3892d-45d6-45ce-b31f-19c7e5f42064.jpeg",
-    "occupation": "Priest",
-    "id": "2025-06-30T09:49:50.772Z-6720",
-    "favorite": " empty"
-  },
-  {
-    "firstName": "David",
-    "lastName": "Akah",
-    "image": "03b46d6b-3637-45f0-866f-ed70c5bc7e38.jpeg",
-    "occupation": "afadfaf",
-    "id": "2025-06-30T09:49:50.772Z-8406",
     "favorite": " empty"
   }
 ]

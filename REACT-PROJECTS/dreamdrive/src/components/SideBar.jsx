@@ -61,12 +61,12 @@ function SideBarPage({ usersData }) {
             defaultValue={q} //persist input value
           />
         </div>
-        <div id="search-spinner" aria-hidden={!searching} hidden={!searching}>
-          loading...
-        </div>
-        <button type="button" className={classes.button}>
-          New
-        </button>
+        {searching && <p>loading...</p>}
+        {!searching && (
+          <button type="button" className={classes.button}>
+            New
+          </button>
+        )}
       </Form>
 
       <hr

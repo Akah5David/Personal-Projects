@@ -4,7 +4,7 @@ function EditPage() {
   const [previewFile, setPreviewFile] = useState(null);
 
   function handlefileChange(e) {
-    const file = e.targert.files[0];
+    const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (ev) => setPreviewFile(ev.target.result);
@@ -90,7 +90,13 @@ function EditPage() {
             fontSize: "20px",
           }}
         />
-        {previewFile && <img src={previewFile} alt="Preview" />}
+        {previewFile && (
+          <img
+            style={{ height: "100px", width: "100px" }}
+            src={previewFile}
+            alt="Preview"
+          />
+        )}
 
         <label
           htmlFor="occupation"

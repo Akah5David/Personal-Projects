@@ -7,7 +7,7 @@ import ErrorPage from "./components/ErrorPage";
 import UserDetailsPage from "./components/UserDetailPage";
 import EditPage from "./components/EditPage";
 import DeleteErrorPage from "./components/DeleteErrorPage";
-import SideBarPage from "./components/SideBar";
+
 import {
   formAction,
   deleteUsersAction,
@@ -24,14 +24,23 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <RootPage />, // Layout with sidebar and main area
+      element: <RootPage />, // Root layout (if needed)
+      errorElement: <ErrorPage />,
+      loader: usersDataLoader,
       children: [
         {
-          path: "", // Sidebar route
-          element: <SideBarPage />,
-          loader: searchActionLoader, // Uses ?q= for filtering
+          id: "sidebar",
+          path: "",
+          loader: searchActionLoader,
         },
         {
+          id: "homepage",
+          index: true,
+          element: <HomePage />,
+          loader: usersDataLoader,
+        },
+        {
+          id: "new-user",
           path: "new-user",
           element: <FormPage />,
           action: formAction,
@@ -40,16 +49,21 @@ function App() {
           path: ":id",
           element: <UserDetailsPage />,
           loader: useDetailsLoader,
-          children: [
-            { path: "edit", element: <EditPage />, action: editformAction },
-            { path: "delete", action: deleteUsersAction },
-            { path: "favorite", action: updateFavoriteAction },
-          ],
         },
         {
-          index: true,
-          element: <HomePage />,
-          loader: usersDataLoader,
+          path: ":id/edit",
+          element: <EditPage />,
+          action: editformAction,
+          loader: useDetailsLoader,
+        },
+        {
+          path: ":id/delete",
+          action: deleteUsersAction,
+          errorElement: <DeleteErrorPage />,
+        },
+        {
+          path: ":id/favorite",
+          action: updateFavoriteAction,
         },
       ],
     },
