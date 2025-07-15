@@ -1,0 +1,79 @@
+[
+  {
+    "name": "Savanna",
+    "documentries": [
+      { "image": "/images/Lion.jpg" },
+      { "image": "/images/crocodile.jpg" },
+      { "image": "/images/dog.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/buffalo.jpg" },
+      { "image": "/images/waterfall.jpg" },
+      { "image": "/images/forest.jpg" },
+      { "image": "/images/forest.jpg" }
+    ]
+  },
+  {
+    "name": "Sea",
+    "documentries": [
+      { "image": "/images/crocodile.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/waterfall.jpg" },
+      { "image": "/images/forest.jpg" }
+    ]
+  },
+  {
+    "name": "Forest",
+    "documentries": [
+      { "image": "/images/woods.jpg" },
+      { "image": "/images/crocodile.jpg" },
+      { "image": "/images/Lion.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/tortoise.jpg" },
+      { "image": "/images/waterfall.jpg" },
+      { "image": "/images/forest.jpg" },
+      { "image": "/images/crocodile.jpg" },
+      { "image": "/images/Lion.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/tortoise.jpg" },
+      { "image": "/images/waterfall.jpg" }
+    ]
+  },
+  {
+    "name": "Jungle",
+    "documentries": [
+      { "image": "/images/tortoise.jpg" },
+      { "image": "/images/lizard.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/buffalo.jpg" },
+      { "image": "/images/waterfall.jpg" },
+      { "image": "/images/forest.jpg" },
+      { "image": "/images/Lion.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/buffalo.jpg" },
+      { "image": "/images/waterfall.jpg" },
+      { "image": "/images/forest.jpg" }
+    ]
+  },
+  {
+    "name": "Desert",
+    "documentries": [
+      { "image": "/images/lizard.jpg" },
+      { "image": "/images/crocodile.jpg" },
+      { "image": "/images/Lion.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/buffalo.jpg" },
+      { "image": "/images/forest.jpg" }
+    ]
+  },
+  {
+    "name": "Artic",
+    "documentries": [
+      { "image": "/images/waterfall.jpg" },
+      { "image": "/images/crocodile.jpg" },
+      { "image": "/images/Lion.jpg" },
+      { "image": "/images/snail.jpg" },
+      { "image": "/images/buffalo.jpg" },
+      { "image": "/images/forest.jpg" }
+    ]
+  }
+]
