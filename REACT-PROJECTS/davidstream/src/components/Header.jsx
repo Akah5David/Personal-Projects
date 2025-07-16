@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <div className=" relative w-screen h-screen">
       <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/70 via-black/80 to-black/100"></div>
-      <div className="bg-[url(/images/background.jpeg)] inset-0 absolute z-10"></div>
+      <div className="bg-[url(/images/background.jpeg)] inset-0 absolute z-10 bg-local"></div>
       <div className="relative z-30">
         <header className=" flex items-center gap-20 py-6 px-[50px]  text-white">
           <div className="flex gap-2 items-center min-w-max ">
