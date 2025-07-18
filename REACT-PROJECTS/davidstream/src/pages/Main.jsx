@@ -8,10 +8,10 @@ export default function MainPage() {
   const categories = useLoaderData();
   console.log("Loaded Categories", categories);
   return (
-    <main className="pl-[45px] w-screen h-screen">
+    <div className=" mt-[50px] min-w-screen min-h-screen max-w-screen max-h-screen bg-pink-600">
       <CategoriesPage categories={categories} />
       <DocumentriesPage categories={categories} />
       <LatestDocumentriesPage categories={categories} />
-    </main>
+    </div>
   );
 }

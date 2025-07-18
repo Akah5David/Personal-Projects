@@ -1,94 +1,105 @@
-import { useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 
-import leftArrow from "../assets/svgs/left-arrow.png";
-import rightArrow from "../assets/svgs/right-arrow.png";
+import SliderButton from "../Reusable-Components/SliderButton";
+import Section from "../Reusable-Components/Section";
 
 export default function CategoriesPage({ categories }) {
-  const imageListRefs = useRef([]);
-  const [activeIndex, setActiveIndex] = useState(0); // imageListRef.current = null
+  const itemRefs = useRef([]);
+  const [snapAlign, setSnapAlign] = useState("end");
+  const categoriesLength = categories.length;
 
-  function snapHandler(index) {
-    imageListRefs.current[index]?.scrollIntoView({
-      behaviour: "smooth",
-      // block: "nearest",
-      // inline: "center",
+  // Duplicate categories 3 times for seamless loop illusion
+  const duplicatedCategories = [...categories, ...categories, ...categories]; // allows for infinite loop
+
+  // Start in the middle set
+  const initialIndex = categoriesLength;
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
+
+  const snapHandler = (index) => {
+    setActiveIndex(index);
+    itemRefs.current[index]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "start",
     });
-  }
+  };
 
-  function handleNext() {
-    let nextIndex = Math.max(activeIndex + 1, categories.length - 1);
+  const handleNext = () => {
+    setSnapAlign(() => (activeIndex === activeIndex + 3 ? "start" : "end"));
+    snapHandler(activeIndex + 3);
+    console.log("snap-align", snapAlign);
+  };
 
-    if (nextIndex >= categories.length) {
-      nextIndex = 0;
+  const handlePrev = () => {
+    setSnapAlign(() => (activeIndex === activeIndex - 3 ? "end" : "start"));
+    snapHandler(activeIndex - 3);
+  };
+
+  useEffect(() => {
+    const middleStart = categoriesLength;
+    const middleEnd = categoriesLength * 2 - 3;
+
+    let timeout;
+    if (activeIndex > middleEnd) {
+      timeout = setTimeout(() => {
+        setActiveIndex(middleStart);
+        itemRefs.current[middleStart]?.scrollIntoView({
+          behavior: "instant",
+          block: "nearest",
+          inline: "start",
+        });
+      }, 300);
     }
-
-    snapHandler(nextIndex);
-    setActiveIndex(nextIndex);
-  }
-
-  function handlePrev() {
-    let prevIndex = Math.min(activeIndex - 1, categories.length - 1);
-
-    if (prevIndex < 0) {
-      prevIndex = categories.length - 1;
+    if (activeIndex < middleStart) {
+      const resetIndex = middleEnd;
+      timeout = setTimeout(() => {
+        setActiveIndex(resetIndex);
+        itemRefs.current[resetIndex]?.scrollIntoView({
+          behavior: "instant",
+          block: "nearest",
+          inline: "start",
+        });
+      }, 300);
     }
-    setActiveIndex(prevIndex);
-    snapHandler(prevIndex);
-  }
+    return () => clearTimeout(timeout);
+  }, [activeIndex, categoriesLength]);
 
   return (
-    <section className="relative w-full  my-[100px]">
-      <h1 className="text-[2rem] font-bold text-white pb-[1.5rem]">
-        Explore by category
-      </h1>
-      <div className="absolute flex justify-between top-[50%] w-[81.2rem] translate-y-[-50%] z-5">
-        <button
-          onClick={handlePrev}
-          className=" relative left-[-1.5rem] rounded-[50%] bg-[#ffffff4d]"
+    <div className="relative inset-0 bg-blue-400">
+      <SliderButton handleNext={handleNext} handlePrev={handlePrev} />
+      <section className="relative pl-[45px] pr-[20px] w-full my-[50px] bg-green-500 overflow-hidden">
+        <h1 className="text-[2rem] font-bold text-white pb-[1.5rem] ">
+          Explore by category
+        </h1>
+        <ul
+          dir="ltr"
+          className="flex bg-orange-600 gap-5 snap-x snap-mandatory scroll-smooth py-5 pr-2 pl-6 select-none overflow-x-hidden scroll-ps-4 scroll-pe-3 "
+          style={{ scrollBehavior: "smooth" }}
         >
-          <img
-            src={leftArrow}
-            alt=" absolute left arrow"
-            className="w-[3.5rem]"
-          />
-        </button>
-        <button
-          onClick={handleNext}
-          className=" relative right-[-1.4rem]  rounded-[50%] bg-[#ffffff4d]"
-        >
-          <img
-            src={rightArrow}
-            alt=" absolute left arrow"
-            className="w-[3.5rem]"
-          />
-        </button>
-      </div>
-
-      <ul
-        dir="ltr"
-        className="flex  w-full gap-5 overflow-x-auto snap-x scroll-ps-[1rem] scroll-pe-[1rem] snap-mandatory scroll-smooth scro bg-yellow-600 pr-6 pb-5"
-      >
-        {categories?.map((category, index) => (
-          <li
-            ref={(element) => (imageListRefs.current[index] = element)}
-            key={category.name}
-            className=" snap-center snap-always flex-none relative shadow-md/20 items-end  bg-cover bg-top-left bg-no-repeat aspect-[3/4] h-auto min-w-[25.2rem] rounded-t-2xl rounded-b-2xl ease-in-out transition-all duration-300 hover:scale-97 hover:transition-all hover:duration-300 hover:ease-out-in hover:bg-center "
-            style={{
-              backgroundImage: `url(${category.documentries[0].image})`,
-            }}
-          >
-            <div className="absolute z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 w-full h-full inset-0"></div>
-            <div className="absolute bottom-[3rem] left-[3rem]">
-              <div className="relative z-40 text-white w-full">
-                <h2 className=" text-[3rem] font-bold">{category.name}</h2>
-                <p>
+          {duplicatedCategories.map((category, index) => (
+            <motion.li
+              key={`${category.name}-${index}`}
+              ref={(el) => (itemRefs.current[index] = el)}
+              className=" flex-none relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-2/3 w-[31%] rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
+              style={{
+                backgroundImage: `url(${category.documentries[0].image})`,
+                scrollSnapAlign: snapAlign,
+              }}
+            >
+              <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl" />
+              <div className="absolute bottom-1/6 left-1/6 z-40 text-white">
+                <h2 className="text-5xl/10 mb-3 font-strech-condesed font-bold">
+                  {category.name}
+                </h2>
+                <p className=" text-2xl/10 mt-2">
                   <span>{category.documentries.length}</span> Documentaries
                 </p>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </section>
+            </motion.li>
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 }
