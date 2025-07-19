@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import SliderButton from "../Reusable-Components/SliderButton";
-import Section from "../Reusable-Components/Section";
+
 
 export default function CategoriesPage({ categories }) {
   const itemRefs = useRef([]);

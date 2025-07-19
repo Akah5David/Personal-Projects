@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logoImg from "../assets/svgs/logo.svg";
 import arrowImg from "../assets/svgs/arrow.svg";
 import profileImg from "../assets/svgs/profile.svg";
-import CategoriesSection from "./Catgories";
+import CategoriesSection from "./Categories";
 
 export default function Header() {
   return (

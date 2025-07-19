@@ -1,4 +1,4 @@
-export default async function CatgoryData() {
+export async function CatgoryData() {
   try {
     const response = await fetch("http://localhost:3000/");
     if (!response.ok) {
@@ -10,4 +10,20 @@ export default async function CatgoryData() {
   } catch (error) {
     console.error("Error fetching category data:", error.message);
   }
+}
+
+export async function QuestionsData() {
+  const response = await fetch("http://localhost:3000/");
+
+  if (!response.ok) {
+    throw new Response(
+      JSON.strignify({ message: "Network response was not ok" }),
+      { status: 404 }
+    );
+  }
+
+  const questionsData = await response.json();
+
+  console.log("Questions Data:", questionsData);
+  return questionsData.resData;
 }

@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Root from "./layouts/Root";
 import MainPage from "./pages/Main";
-import CategoryLoader from "./api/loader";
+import { CategoryLoader } from "./api/loader";
 
 function App() {
   const router = createBrowserRouter([

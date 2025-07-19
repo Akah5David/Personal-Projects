@@ -17,6 +17,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --categ-scroll-margin: 2rem;
+
+  --my-device-shadow {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+}
 }
 
 .scrollbar-hide {
@@ -26,11 +30,4 @@
   display: none; /* Chrome, Safari, Edge */
 }
 
-.categ-aspect-ratio {
-  aspect-ratio: 2/3;
-}
 
-.popular-aspect-ratio,
-.latest-aspect-ratio {
-  aspect-ratio: 16/9;
-}
