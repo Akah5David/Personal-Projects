@@ -68,7 +68,7 @@ export default function CategoriesPage({ categories }) {
   return (
     <div className="relative inset-0 bg-blue-400">
       <SliderButton handleNext={handleNext} handlePrev={handlePrev} />
-      <section className="relative pl-[45px] pr-[20px] w-full my-[50px] bg-green-500 overflow-hidden">
+      <section className="relative pl-[45px] pr-[15px] w-full my-[50px] bg-green-500 overflow-hidden">
         <h1 className="text-[2rem] font-bold text-white pb-[1.5rem] ">
           Explore by category
         </h1>

@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 import { __dirname } from "./util/path.js";
 import homeRouter from "./router/home.js";
-import questionRouter from "./router/question.js";
+// import questionRouter from "./router/question.js";
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use(homeRouter);
-app.use(questionRouter);
+// app.use(questionRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

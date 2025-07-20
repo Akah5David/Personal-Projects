@@ -1,17 +1,34 @@
 import { promises as fs } from "fs";
-
 import { __dirname } from "../util/path.js";
 
-const getAllImages = async (req, res) => {
+console.log("directory name", __dirname); // returns the directory(util) of path.js file where __dirname is defined
+const getHomefiles = async (req, res) => {
   try {
-    const response = await fs.readFile(__dirname + "/category.json", "utf-8");
+    
+    const categoryPromise = await fs.readFile(
+      __dirname + "/category.json",
+      "utf-8"
+    );
 
-    if (!response) {
+    const questionsPromise = await fs.readFile(
+      __dirname + "/question.json",
+      "utf-8"
+    );
+
+    if (!categoryPromise || !questionsPromise) {
       throw new Error("File not found");
     }
 
-    const resData = JSON.parse(response);
-    console.log("Response Data:", resData);
+    const categoryData = JSON.parse(categoryPromise);
+    const questionData = JSON.parse(questionsPromise);
+
+    const resData = {
+      categoryData,
+      questionData,
+    };
+
+    // console.log("Response Data:", resData);
+
     return res.status(200).json({ resData });
   } catch (error) {
     console.error("Error reading file:", error);
@@ -22,4 +39,4 @@ const getAllImages = async (req, res) => {
   }
 };
 
-export default getAllImages;
+export default getHomefiles;

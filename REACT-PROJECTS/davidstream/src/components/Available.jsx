@@ -1,6 +1,6 @@
 export default function Available() {
   return (
-    <section className="  relative w-screen h-screen bg-green-500">
+    <section className="  relative w-screen h-screen ">
       <div className="absolute w-full h-full flex flex-col justify-center md:pt-60 lg:pt-0 items-center  gap-10 bg-black left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <h1 className="text-5xl  text-white">Available on all your devices</h1>
         <div className="w-full flex items-center flex-wrap  justify-evenly">
