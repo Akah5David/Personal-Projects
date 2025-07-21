@@ -30,3 +30,7 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
 }
+
+.inclined-image{
+  clip-path: polygon(10% 50%, 0 50%, 10% 0, 10% 0);
+}

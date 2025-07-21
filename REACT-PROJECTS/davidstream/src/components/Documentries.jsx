@@ -66,17 +66,17 @@ export default function CategoriesPage({ categories }) {
   }, [activeIndex, categoriesLength]);
 
   return (
-    <div className="relative inset-0 bg-blue-400">
+    <section className="relative inset-0 ">
       <SliderButton handleNext={handleNext} handlePrev={handlePrev} />
-      <section className="relative pl-[45px] pr-[2px] w-full my-[50px] bg-green-500 overflow-hidden">
-        <div className="flex justify-between bg-pink-700 pr-[45px]">
-          <h1 className="text-[2rem] font-bold text-white pb-[1.5rem] ">
+      <div className="relative flex flex-col  pl-[45px] gap-5 pr-[2px] w-full pb-[100px]  bg-black overflow-hidden">
+        <div className="flex items-center justify-between  pr-[45px]">
+          <h1 className="text-[2rem] font-bold text-white  ">
             Popular documentaries
           </h1>
-          <p>Browse all</p>
+          <p >Browse all</p>
         </div>
         <ul
-          className="flex bg-orange-600 gap-5 snap-x snap-mandatory scroll-smooth pb-19 pt-2 pl-6  select-none overflow-x-hidden scroll-ps-4 scroll-pe-3 "
+          className="flex  gap-5 snap-x snap-mandatory scroll-smooth pb-19 pt-2 pl-6  select-none overflow-x-hidden scroll-ps-4 scroll-pe-3 "
           style={{ scrollBehavior: "smooth" }}
         >
           {duplicatedCategories.map((category, index) => (
@@ -94,7 +94,7 @@ export default function CategoriesPage({ categories }) {
                 <h2 className="text-5xl/10 mb-3 font-strech-condesed font-bold">
                   {category.name}
                 </h2>
-                <p className=" bg-amber-500 text-2xl/10 mt-2">
+                <p className=" text-2xl/10 mt-2">
                   <span>{category.documentries.length}</span> Documentaries
                 </p>
               </div>
@@ -107,7 +107,7 @@ export default function CategoriesPage({ categories }) {
             </motion.li>
           ))}
         </ul>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

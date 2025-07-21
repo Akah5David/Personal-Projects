@@ -66,15 +66,15 @@ export default function CategoriesPage({ categories }) {
   }, [activeIndex, categoriesLength]);
 
   return (
-    <div className="relative inset-0 bg-blue-400">
+    <section className="relative inset-0 my-0 bg-black">
       <SliderButton handleNext={handleNext} handlePrev={handlePrev} />
-      <section className="relative pl-[45px] pr-[15px] w-full my-[50px] bg-green-500 overflow-hidden">
+      <div className="relative pl-[45px] pr-[15px] w-full py-[50px] overflow-hidden">
         <h1 className="text-[2rem] font-bold text-white pb-[1.5rem] ">
           Explore by category
         </h1>
         <ul
           dir="ltr"
-          className="flex bg-orange-600 gap-5 snap-x snap-mandatory scroll-smooth py-5 pr-2 pl-6 select-none overflow-x-hidden scroll-ps-4 scroll-pe-3 "
+          className="flex gap-5 snap-x snap-mandatory scroll-smooth py-5 pr-2 pl-6 select-none overflow-x-hidden scroll-ps-4 scroll-pe-3 "
           style={{ scrollBehavior: "smooth" }}
         >
           {duplicatedCategories.map((category, index) => (
@@ -99,7 +99,7 @@ export default function CategoriesPage({ categories }) {
             </motion.li>
           ))}
         </ul>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }

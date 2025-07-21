@@ -7,16 +7,18 @@ import AvailablePage from "../components/Available";
 import QuestionsPage from "../components/Questions";
 import PlatformPage from "../components/Platform.jsx";
 import FooterPage from "../components/Footer";
+import SubscriptionPage from "../components/Subscription.jsx";
 
 export default function MainPage({ LoadersData }) {
   const categoryData = LoadersData.categData;
   const QuestionData = LoadersData.questionsData;
   console.log("Loaded Categories", categoryData);
   return (
-    <div className=" mt-[50px] min-w-screen min-h-screen max-w-screen max-h-screen">
+    <div className="  min-w-screen min-h-screen max-w-screen max-h-screen">
       <CategoriesPage categories={categoryData} />
       <DocumentriesPage categories={categoryData} />
       <LatestDocumentriesPage categories={categoryData} />
+      <SubscriptionPage />
       <AvailablePage />
       <hr className="border-0 bg-[#817d7d] h-[1px] mx-[50px]" />
       <QuestionsPage QuestionDatas={QuestionData} />
