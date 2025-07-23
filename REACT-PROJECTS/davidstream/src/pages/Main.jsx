@@ -8,8 +8,10 @@ import QuestionsPage from "../components/Questions";
 import PlatformPage from "../components/Platform.jsx";
 import FooterPage from "../components/Footer";
 import SubscriptionPage from "../components/Subscription.jsx";
+import { useOutletContext } from "react-router-dom";
 
-export default function MainPage({ LoadersData }) {
+export default function MainPage() {
+  const LoadersData = useOutletContext();
   const categoryData = LoadersData.categData;
   const QuestionData = LoadersData.questionsData;
   console.log("Loaded Categories", categoryData);

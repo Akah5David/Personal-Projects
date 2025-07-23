@@ -4,6 +4,16 @@ import Root from "./layouts/Root";
 import MainPage from "./pages/Main";
 import ComponentLoaders from "./api/loader";
 
+import SubscribePage from "./pages/SubscribePage";
+import DocumentriesPage from "./pages/DocumentriesPage";
+import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
+import LogoutPage from "./pages/LogoutPage";
+import FooterPage from "./pages/FooterPage";
+import CategoriesPage from "./pages/CategoryPage";
+
+import { QuestionLoader } from "./api/loader"
+
 function App() {
   const { CategoryLoader, RootLoader } = ComponentLoaders;
   const router = createBrowserRouter([
@@ -11,9 +21,22 @@ function App() {
       path: "/",
       element: <Root />,
       loader: RootLoader,
-      children: [
-        { path: "category", element: <MainPage />, loader: CategoryLoader },
-      ],
+      children: [{index: true, element: <MainPage />}],
+    },
+    { path: "/category", element: <CategoriesPage />, loader: CategoryLoader },
+    {
+      path: "/documentries",
+      element: <DocumentriesPage />,
+    },
+
+    { path: "pages", element: <FooterPage /> },
+    { path: "/cart", element: <CartPage /> },
+    { path: "/login", element: <LoginPage /> },
+    { path: "/logout", element: <LogoutPage /> },
+    {
+      path: "/subscribe",
+      element: <SubscribePage />,
+      loader: QuestionLoader
     },
   ]);
 

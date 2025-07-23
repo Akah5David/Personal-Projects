@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 import SliderButton from "../Reusable-Components/SliderButton";
-import Section from "../Reusable-Components/Section";
+import Section from "../Reusable-Components/SubscribeButton";
 
 export default function CategoriesPage({ categories }) {
   const itemRefs = useRef([]);
@@ -73,7 +73,7 @@ export default function CategoriesPage({ categories }) {
           <h1 className="text-[2rem] font-bold text-white  ">
             Popular documentaries
           </h1>
-          <p >Browse all</p>
+          <p>Browse all</p>
         </div>
         <ul
           className="flex  gap-5 snap-x snap-mandatory scroll-smooth pb-19 pt-2 pl-6  select-none overflow-x-hidden scroll-ps-4 scroll-pe-3 "

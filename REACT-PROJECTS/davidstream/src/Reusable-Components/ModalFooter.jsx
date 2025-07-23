@@ -2,9 +2,9 @@ import logoImg from "../assets/svgs/logo.svg";
 import { Link } from "react-router-dom";
 export default function Footer() {
   return (
-    <section className="h-screen w-screen pb-[50px] py-[100px] pr-[100px] pl-[50px] bg-black grid grid-cols-5 gap-7">
+    <section className="w-full rounded-[25px] pb-[50px] py-[100px] pr-[100px] pl-[50px] bg-black grid grid-cols-5 gap-7">
       <div className="flex flex-col  col-span-2">
-        <div className="mb-[19px] gap-5 flex flex-col">
+        <div className="mb-[19px]">
           <div className="flex gap-2 items-center min-w-max ">
             <img src={logoImg} alt="Logo" className="h-[60px] w-[30px] " />
             <h3 className="text-white font-bold font-serif text-[25px]">
@@ -83,7 +83,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-10 col-span-2">
+      <div className="flex flex-col gap-5 col-span-2">
         <h3 className="mt-2 text-xl font-bold">Pages(public)</h3>
         <div className=" grid grid-rows-7 grid-cols-2 gap-4">
           <Link to="/">Home</Link>
@@ -103,7 +103,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-5">
         <h3 className="mt-2 text-xl font-bold">Pages(Membership)</h3>
         <div className="flex flex-col gap-6 col-span-2">
           <Link to="/Home">Home</Link>

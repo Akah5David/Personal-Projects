@@ -1,6 +1,6 @@
 import { Outlet, useLoaderData } from "react-router-dom";
 
-import Header from "../components/Header";
+import Header from "../components/HomeHeader";
 import MainPage from "../pages/Main";
 // import FooterPage from "../components/Footer";
  
@@ -11,8 +11,7 @@ export default function Root() {
     <>
       <Header />
       <main>
-        <MainPage LoadersData={LoadersData} />
-        <Outlet />
+        <Outlet  context = {LoadersData}/>
       </main>
       {/* <FooterPage /> */}
     </>

@@ -2,6 +2,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        inter: ["Inter", "sans-serif"],
         androidtv: [
           'Product Sans',
           'Google Sans',

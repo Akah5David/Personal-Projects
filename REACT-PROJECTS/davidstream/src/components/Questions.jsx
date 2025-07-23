@@ -14,7 +14,7 @@ export default function Questions({ QuestionDatas }) {
   }
 
   return (
-    <section className=" flex flex-col justify-center items-center gap-11 w-screen h-full pt-[120px] pb-[130px] bg-black">
+    <section className=" flex flex-col justify-center items-center gap-11 w-full h-auto py-[120px]  bg-black">
       <div className="flex flex-col items-center w-[50%] gap-4 ">
         <h2 className="font-bold text-3xl font-sans text-center">
           Frequently Asked Questions

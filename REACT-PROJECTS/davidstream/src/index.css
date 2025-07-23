@@ -1,22 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  font-family: "Product Sans", "Google Sans", "Poppins", "Nunito", "Roboto",
-    sans-serif;
+  font-family: "Inter", "Product Sans", "Google Sans", "Poppins", "Nunito",
+    "Roboto", sans-serif;
   line-height: 1.5;
   font-weight: 400;
   margin: 0;
   padding: 0;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgb(255, 255, 255);
   background-color: #ffffff;
   z-index: 1;
 
+  font-size: 16px;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   --categ-scroll-margin: 2rem;
 
   --my-device-shadow {
@@ -31,6 +33,6 @@
   display: none; /* Chrome, Safari, Edge */
 }
 
-.inclined-image{
+.inclined-image {
   clip-path: polygon(10% 50%, 0 50%, 10% 0, 10% 0);
 }

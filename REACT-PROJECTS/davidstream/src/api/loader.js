@@ -1,4 +1,4 @@
-async function CategoryData() {
+export async function CategoryData() {
   try {
     const response = await fetch("http://localhost:3000/");
     if (!response.ok) {
@@ -13,7 +13,7 @@ async function CategoryData() {
   }
 }
 
-async function QuestionsData() {
+export async function QuestionLoader() {
   const response = await fetch("http://localhost:3000/");
 
   if (!response.ok) {
@@ -31,7 +31,7 @@ async function QuestionsData() {
 
 async function RootDatas() {
   const categResponse = await CategoryData();
-  const questionsResponse = await QuestionsData();
+  const questionsResponse = await QuestionLoader();
 
   if (!categResponse || !questionsResponse) {
     throw new Response(
@@ -46,7 +46,7 @@ async function RootDatas() {
 
 const ComponentLoaders = {
   CategoryLoader: CategoryData,
-  OuestionLoader: QuestionsData,
+  OuestionLoader: QuestionLoader,
   RootLoader: RootDatas,
 };
 
