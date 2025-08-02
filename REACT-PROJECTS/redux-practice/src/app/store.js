@@ -1,19 +1,20 @@
-import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/coreReduxToolkit";
-// import counterReducer from "../features/counter/counterSlice";
+// import { configureStore } from "@reduxjs/toolkit";
+// import counterReducer from "../features/counter/coreReduxToolkit";
+// // import counterReducer from "../features/counter/counterSlice";
 
-export default configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+// export default configureStore({
+//   reducer: {
+//     counter: counterReducer,
+//   },
+// });
 
-// import { combineReducers, createStore } from "redux";
+import { combineReducers, applyMiddleware, createStore } from "redux";
+import { thunk } from "redux-thunk";
 
-// import counterReducer from "../features/checkBox/checkboxSlicer.js";
+import counterReducer from "../features/checkBox/checkboxSlicer.js";
 
-// const rootReducer = combineReducers({ counter: counterReducer });
+const rootReducer = combineReducers({ counter: counterReducer });
 
-// const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
-// export default store;
+export default store;

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "2025-07-01T09:11:28.222Z-5370",
+    "firstName": "Chandra",
+    "lastName": "Yadav",
+    "image": "/Images/Wallpaper-2.png",
+    "occupation": "A Prompt Engineer with 4 yrs experience",
+    "favorite": "filled"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-1239",
+    "firstName": "Subash",
+    "lastName": "Prashad",
+    "image": "/Images/Wallpaper-3.png",
+    "occupation": "A Academia with 5 yrs experience",
+    "favorite": "empty"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-9270",
+    "firstName": "hggdh",
+    "lastName": "Akah",
+    "image": "https://images.pexels.com/photos/9750927/pexels-photo-9750927.jpeg?auto=compress&cs=tinysrgb&w=300",
+    "occupation": "hghdghd",
+    "favorite": " empty"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-1698",
+    "firstName": "Miguel",
+    "lastName": "Arnold",
+    "image": "/Images/Wallpaper-5.png",
+    "occupation": "An Entrpreneur, Public Speaker, Writer and Cloude specialist with 5 yrs experience",
+    "favorite": "filled"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-7683",
+    "firstName": "Sargam",
+    "lastName": "pradash",
+    "image": "/Images/Wallpaper-6.png",
+    "occupation": "A SoftWare Engineer with 3 yrs experience",
+    "favorite": " empty"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-1937",
+    "firstName": "Siddhi",
+    "lastName": "Rigidhta",
+    "image": "/Images/Wallpaper7.png",
+    "occupation": "A Full-Stack Developer with 5 yrs experience",
+    "favorite": " empty"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-7469",
+    "firstName": "Trisha",
+    "lastName": "Yadav",
+    "image": "/Images/Wallpaper-8.png",
+    "occupation": "A Data Analyst and Engineer with 3 yrs experience",
+    "favorite": " empty"
+  },
+  {
+    "id": "2025-07-01T09:11:28.222Z-3493",
+    "firstName": "Sakshi",
+    "lastName": "Thakur",
+    "image": "/Images/Wallpaper-9.png",
+    "occupation": "A Social media Influencer with 4 yrs experience",
+    "favorite": " empty"
+  }
+]
