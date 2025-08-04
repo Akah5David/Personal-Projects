@@ -1,6 +1,6 @@
 import {
   Form,
-  Link,
+  NavLink,
   useNavigation,
   useSearchParams,
   useSubmit,
@@ -81,12 +81,15 @@ function SideBarPage({ usersData }) {
       <ul>
         {usersData?.map((user) => {
           return (
-            <li key={user.id}>
-              <Link to={`/${user.id}`}>
-                <p>
-                  {user.firstName} {user.lastName}
-                </p>
-              </Link>
+            <li className="user" key={user.id}>
+              <NavLink
+                to={`/${user.id}`}
+                className={({ isActive }) => {
+                  isActive ? "active" : "";
+                }}
+              >
+                {user.firstName} {user.lastName}
+              </NavLink>
             </li>
           );
         })}

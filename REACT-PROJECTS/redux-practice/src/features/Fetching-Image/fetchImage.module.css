@@ -1,0 +1,19 @@
+.styleImage {
+  width: 200px;
+  aspect-ratio: 3/4;
+}
+
+.styleUL {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  flex-direction: row;
+  width: 100%;
+  list-style-type: none;
+  gap: 2rem;
+  margin-bottom: 3em;
+}
+
+.styleUL li {
+  border: 2px solid white;
+  padding: 0.9em
+}

@@ -8,13 +8,17 @@
 //   },
 // });
 
-import { combineReducers, applyMiddleware, createStore } from "redux";
+import { combineReducers, applyMiddleware, createStore, compose } from "redux";
 import { thunk } from "redux-thunk";
 
 import counterReducer from "../features/checkBox/checkboxSlicer.js";
 
 const rootReducer = combineReducers({ counter: counterReducer });
+const coreEnhancer = compose(
+  applyMiddleware(thunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, coreEnhancer);
 
 export default store;

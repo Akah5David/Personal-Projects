@@ -32,7 +32,11 @@
   display: block;
 }
 
-.sidebar ul li a:hover,
+.sidebar ul li a:hover {
+  background-color: rgb(23, 23, 252);
+  color: white;
+}
+
 .sidebar ul li a:active {
   background-color: rgb(23, 23, 252);
   color: white;
@@ -83,5 +87,3 @@
   color: rgb(0, 102, 255);
   box-shadow: 2px 2px 2px rgb(233, 231, 231), -2px -2px 2px rgb(241, 239, 239);
 }
-
-

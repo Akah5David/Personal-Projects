@@ -1,5 +1,5 @@
 import "./App.css";
-import Counter from "./features/counter/vanilla-Redux-Counter";
+import Counter from "./features/Fetching-Image/fetchImage";
 
 function App() {
   return (
