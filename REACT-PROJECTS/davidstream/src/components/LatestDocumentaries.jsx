@@ -76,7 +76,7 @@ export default function CategoriesPage({ categories }) {
           <p>Browse all</p>
         </div>
         <ul
-          className="flex  gap-5 snap-x snap-mandatory scroll-smooth pb-19 pt-2 pl-6  select-none overflow-x-hidden scroll-ps-4 scroll-pe-3 "
+          className="flex  gap-5 snap-x snap-mandatory scroll-smooth pb-19 pt-2 pl-6  select-none overflow-hidden  scroll-ps-4 scroll-pe-3 "
           style={{ scrollBehavior: "smooth" }}
         >
           {duplicatedCategories.map((category, index) => (
@@ -85,7 +85,7 @@ export default function CategoriesPage({ categories }) {
               ref={(el) => (itemRefs.current[index] = el)}
               className="  flex-none relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-16/9 w-[31%] rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
               style={{
-                backgroundImage: `url(${category.documentries[0].image})`,
+                backgroundImage: `url(${category.documentaries[0].image})`,
                 scrollSnapAlign: snapAlign,
               }}
             >
@@ -95,7 +95,7 @@ export default function CategoriesPage({ categories }) {
                   {category.name}
                 </h2>
                 <p className=" text-2xl/10 mt-2">
-                  <span>{category.documentries.length}</span> Documentaries
+                  <span>{category.documentaries.length}</span> Documentaries
                 </p>
               </div>
               <div className="relative bottom-[-103%] left-[0.5]  botttom-2 h-[30%] w-[100%] bg-black">

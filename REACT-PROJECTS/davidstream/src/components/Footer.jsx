@@ -111,6 +111,14 @@ export default function Footer() {
           <Link to="/Video single">Video single</Link>
         </div>
       </div>
+
+      <h1 className="font-poppins text-3xl font-semibold">This is Poppins</h1>
+
+      <p className="font-inter">This is Inter</p>
+
+      <p className="font-nunito">This is Nunito</p>
+
+      <p className="font-roboto">This is Roboto</p>
     </section>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function Questions({ QuestionDatas }) {
+export default function Questions({ QuestionsData }) {
   const [activeIndexes, setActiveIndexes] = useState([]);
 
   function handleViewQuestion(index) {
@@ -27,7 +27,7 @@ export default function Questions({ QuestionDatas }) {
       </div>
 
       <ul className=" flex flex-col gap-6 w-[80%] ">
-        {QuestionDatas.map((quest, index) => (
+        {QuestionsData.map((quest, index) => (
           <li key={quest.question}>
             <div className="flex flex-col  py-[43px] px-[35px] gap-1 rounded-2xl border-1 border-[#6d6c6c] hover:scale-95">
               <div className="flex justify-between items-center ">
@@ -47,7 +47,7 @@ export default function Questions({ QuestionDatas }) {
                 </div>
               </div>
               {activeIndexes.includes(index) && (
-                <p >
+                <p>
                   {quest.answer} {activeIndexes}
                 </p>
               )}

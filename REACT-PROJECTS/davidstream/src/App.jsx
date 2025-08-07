@@ -5,7 +5,7 @@ import MainPage from "./pages/Main";
 import ComponentLoaders from "./api/loader";
 
 import SubscribePage from "./pages/SubscribePage";
-import DocumentriesPage from "./pages/DocumentriesPage";
+import DocumentariesPage from "./pages/DocumentariesPage";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
@@ -25,8 +25,8 @@ function App() {
     },
     { path: "/category", element: <CategoriesPage />, loader: CategoryLoader },
     {
-      path: "/documentries",
-      element: <DocumentriesPage />,
+      path: "/documentaries",
+      element: <DocumentariesPage />,
     },
 
     { path: "pages", element: <FooterPage /> },

@@ -30,23 +30,23 @@ export async function QuestionLoader() {
 }
 
 async function RootDatas() {
-  const categResponse = await CategoryData();
+  const categoriesResponse = await CategoryData();
   const questionsResponse = await QuestionLoader();
 
-  if (!categResponse || !questionsResponse) {
+  if (!categoriesResponse || !questionsResponse) {
     throw new Response(
       JSON.stringify({ message: "Network response was not ok" }),
       { status: 404 }
     );
   }
-  console.log("Root Categ Data:", categResponse.data);
+  console.log("Root Categories Data:", categoriesResponse.data);
   console.log("Root Quest Data:", questionsResponse);
-  return { categData: categResponse.data, questionsData: questionsResponse };
+  return { categoriesData: categoriesResponse.data, questionsData: questionsResponse };
 }
 
 const ComponentLoaders = {
   CategoryLoader: CategoryData,
-  OuestionLoader: QuestionLoader,
+  QuestionLoader: QuestionLoader,
   RootLoader: RootDatas,
 };
 
