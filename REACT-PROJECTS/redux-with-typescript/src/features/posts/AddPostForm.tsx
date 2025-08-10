@@ -1,8 +1,7 @@
-import { nanoid } from "@reduxjs/toolkit";
 import { useAppDispatch } from "../../app/hooks";
-import { type Post, postAdded } from "./postsSlice";
+import { postAdded } from "./postsSlice";
 
-//let AddPostFormFields become equivalent to HTMLFormControlsCollection we specify the properties that the form elements is suppose to contain
+//let AddPostFormFields become an alias for HTMLFormControlsCollection we specify the properties that the form elements is suppose to contain
 interface AddPostFormFields extends HTMLFormControlsCollection {
   postTitle: HTMLInputElement;
   postContent: HTMLTextAreaElement;
@@ -27,13 +26,12 @@ export const AddPostForm = () => {
     const content = elements.postContent.value;
 
     // Create the post object and dispatch the `postAdded` action while ensuring it matches the shape of Post
-    const newPost: Post = {
-      id: nanoid(),
-      title,
-      content,
-    };
-
-    dispatch(postAdded(newPost));
+    dispatch(
+      postAdded({
+        title,
+        content,
+      })
+    );
 
     e.currentTarget.reset();
   };

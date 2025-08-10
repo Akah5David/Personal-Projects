@@ -269,6 +269,13 @@ button.reaction-button {
   right: 0;
 }
 
+a {
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 @-webkit-keyframes load3 {
   0% {
     -webkit-transform: rotate(0deg);

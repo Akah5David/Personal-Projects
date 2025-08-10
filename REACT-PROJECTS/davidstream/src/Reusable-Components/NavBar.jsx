@@ -11,6 +11,7 @@ import CartModal from "../pages/CartPage";
 export default function Header({ LoadersData }) {
   const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
   const [pageMenuOpen, setPageMenuOpen] = useState(false);
+  const [toggleModal, setToggleModal] = useState(false);
   const [openDocumentariesMenu, setOpenDocumentariesMenu] = useState(false);
   const pageMenuCloseTimeout = useRef(null);
   const categoryMenuCloseTimeout = useRef(null);
@@ -19,8 +20,14 @@ export default function Header({ LoadersData }) {
 
   const categories = LoadersData.categoriesData;
 
-  function openCartModle() {
+  function openCartModal() {
     cartModalRef.current?.open();
+    setToggleModal(true);
+  }
+
+  function closeCartModal() {
+    setToggleModal(false);
+    cartModalRef.current?.close();
   }
 
   function handlePageMenuOpen() {
@@ -122,8 +129,10 @@ export default function Header({ LoadersData }) {
             </li>
 
             <li>
-              <button onClick={openCartModle}>Cart</button>
-              <CartModal ref={cartModalRef} />
+              <button onClick={openCartModal}>Cart</button>
+              {toggleModal && (
+                <CartModal ref={cartModalRef} closeModalFn={closeCartModal} />
+              )}
             </li>
             <li>
               <Link to="/login">

@@ -1,0 +1,114 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 4rem;
+  padding: 13px 2rem;
+  background-color: blue
+}
+
+.clip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  height: auto;
+  gap: 1rem;
+  padding: 1rem 1rem;
+  background-color: aquamarine;
+}
+
+.container {
+  aspect-ratio: 1;
+  border: 2px solid black;
+}
+
+.container #shape1 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: circle(50px at center);
+}
+.container #shape2 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: circle(50% at 50% 50%);
+}
+.container #shape3 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: circle(50px at 0 0);
+}
+.container #shape4 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: circle(25% at 25%);
+}
+.container #shape5 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: circle(60%);
+}
+
+.hero {
+  width: 100%;
+  height: 300px;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+}
+
+.divider {
+  width: 100%;
+  height: 100px;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+}

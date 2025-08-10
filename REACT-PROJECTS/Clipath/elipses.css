@@ -1,0 +1,74 @@
+.container #shape6 {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: ellipse(100% 100% at 0 0);
+}
+
+.container #shape6 div {
+  height: 50%;
+  width: 50%;
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container #shape7 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: ellipse(50px 80px);
+}
+.container #shape8 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: ellipse(80px 40px at center);
+}
+.container #shape9 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: ellipse(80px 40px at 40px 20px);
+}
+
+.container #shape10 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: ellipse(80px 40px at 0 0);
+}

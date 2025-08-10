@@ -11,7 +11,9 @@ const CartModal = forwardRef(function CartModal({ closeModalFn }, ref) {
         dialogRef.current.showModal();
       },
 
-      close: () => {},
+      close: () => {
+        dialogRef.current.close();
+      },
     };
   });
 
@@ -23,18 +25,14 @@ const CartModal = forwardRef(function CartModal({ closeModalFn }, ref) {
     >
       <div className="flex justify-between items-center py-6 px-5 ">
         <h3 className="text-2xl font-bold">Your Cart</h3>
-        <button
-          className="aria-label"
-          onClick={() => dialogRef.current?.close()}
+        <svg
+          onClick={closeModalFn}
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          className="fill-white h-[25px] w-[25px] cursor-pointer"
         >
-          <svg
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-            className="fill-white h-[25px] w-[25px] cursor-pointer"
-          >
-            <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z" />
-          </svg>
-        </button>
+          <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z" />
+        </svg>
       </div>
 
       <div className=" flex flex-col pb-6 items-center gap-20 ">
