@@ -8,6 +8,7 @@ import { selectPostById } from "../features/posts/postsSlice";
 export default function EditPostForm() {
   const navigate = useNavigate();
   const { postId } = useParams();
+  console.log("EditPostForm postId:", postId);
   const dispatch = useAppDispatch();
   const post = useAppSelector((state) => selectPostById(state, postId!));
 
@@ -38,7 +39,7 @@ export default function EditPostForm() {
     }
 
     dispatch(postUpdated({ id: post.id, title, content }));
-    navigate(`/post/:${postId}`);
+    navigate(`/posts/${postId}`);
   };
 
   return (
@@ -57,7 +58,7 @@ export default function EditPostForm() {
         <textarea
           id="postContent"
           name="postContent"
-          defaultValue={post?.title}
+          defaultValue={post?.content}
           required
         ></textarea>
 

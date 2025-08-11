@@ -1,5 +1,7 @@
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { postAdded } from "./postsSlice";
+// import { selectAllUsers } from "../users/usersSlice";
+import { selectCurrentUsername } from "../auth/authSlice";
 
 //let AddPostFormFields become an alias for HTMLFormControlsCollection we specify the properties that the form elements is suppose to contain
 interface AddPostFormFields extends HTMLFormControlsCollection {
@@ -14,6 +16,8 @@ interface AddPostFormElements extends HTMLFormElement {
 
 export const AddPostForm = () => {
   const dispatch = useAppDispatch();
+  // const users = useAppSelector(selectAllUsers);
+  const userId = useAppSelector(selectCurrentUsername);
 
   //creates a function that receives submitted form details and processes it
   const handleSubmit = (e: React.FormEvent<AddPostFormElements>) => {
@@ -26,15 +30,16 @@ export const AddPostForm = () => {
     const content = elements.postContent.value;
 
     // Create the post object and dispatch the `postAdded` action while ensuring it matches the shape of Post
-    dispatch(
-      postAdded({
-        title,
-        content,
-      })
-    );
+    dispatch(postAdded(title, content, userId!));
 
     e.currentTarget.reset();
   };
+
+  // const userOptions = users.map((user) => (
+  //   <option key={user.id} value={user.id}>
+  //     {user.name}
+  //   </option>
+  // ));
 
   return (
     <section className="postform-data">
@@ -48,6 +53,13 @@ export const AddPostForm = () => {
           defaultValue=""
           required
         />
+
+        {/* <label htmlFor="postAuthor">Author:</label>
+        <select id="postAuthor" name="postAuthor" className="select">
+          <option value=""></option>
+          {userOptions}
+        </select> */}
+        
         <label htmlFor="postContent">Content:</label>
         <textarea
           id="postContent"
