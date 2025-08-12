@@ -1,0 +1,68 @@
+.container #shape11 {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: inset(20px round 10px 30px);
+}
+
+
+
+.container #shape12 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: inset(20px 30px )
+}
+
+.container #shape13 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path:inset(20px 30px 40px 50px round 10px);
+}
+
+
+.container #shape14 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: inset(10% round 50%);
+}
+.container #shape15 {
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+  background-size: cover;
+  clip-path: inset(40px 20px round 15% 0)
+}
+

@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 
-import dolphineImage from "../assets/photos/dophine.jpg";
+import dolphinImage from "../assets/photos/dolphin.jpg";
+import pandaImage from "../assets/photos/panda.jpg";
 import cheetahImage from "../assets/photos/cheetah.jpg";
-import pandaImage from "../assets/photos/panda-bear.jpg";
 
 export default function Subscription() {
   return (
-    <section className=" grid grid-cols-5 grid-rows-1 text-white w-screen bg-green-600">
-      <div className=" flex flex-col gap-6 py-[100px] bg-[#464040] col-span-2 grid-start-1 px-[50px]">
+    <section className=" flex text-white w-screen bg-green-600">
+      <div className="my-clip-path z-40 flex flex-none basis-[45%] flex-col gap-6 py-[100px] bg-[#464040] col-span-2 grid-start-1 px-[50px]">
         <div className=" flex flex-col gap-6">
           <h2 className="text-3xl font-sans font-bold">
-            Enjoy your favorite documentries for $9.99
+            Enjoy your favorite documentaries for $9.99
           </h2>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit quam tellus
@@ -64,20 +64,22 @@ export default function Subscription() {
         </Link>
       </div>
 
-      <div className=" grid grid-cols-3 grid-rows-1 col-start-3 col-end-6 bg-red-500">
-        <div
-          className="bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${pandaImage})` }}
-        ></div>
-
-        <div
-          className=" bg-cover bg-left bg-no-repeat "
-          style={{ backgroundImage: `url(${dolphineImage})` }}
-        ></div>
-        <div
-          className="bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${cheetahImage})` }}
-        ></div>
+      <div className="container flex box-content flex-none basis-[55%]">
+        <img
+          src={pandaImage}
+          alt="Panda"
+          className="my-clip-path flex-none basis-[50%] -ml-[10%] z-30 object-cover"
+        />
+        <img
+          src={dolphinImage}
+          alt="Dolphin"
+          className="my-clip-path flex-none basis-[40%] -ml-[10%]  z-20  object-cover"
+        />
+        <img
+          src={cheetahImage}
+          alt="chetah"
+          className="flex-none basis-[10%] -ml-[15%]  z-10 object-cover "
+        />
       </div>
     </section>
   );

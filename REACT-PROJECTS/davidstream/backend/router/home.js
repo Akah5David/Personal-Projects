@@ -1,4 +1,4 @@
-import getHomefiles from "../controller/home.js";
+import { getHomefiles } from "../controller/home.js";
 import { Router } from "express";
 
 const router = Router();

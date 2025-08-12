@@ -4,6 +4,7 @@ import NavBar from "../Reusable-Components/NavBar";
 import SubscribeButton from "../Reusable-Components/SubscribeButton";
 
 export default function Header({ LoadersData }) {
+  console.log("LoadersData", LoadersData);
   return (
     <div>
       <div className=" relative w-screen h-screen bg-orange-700">

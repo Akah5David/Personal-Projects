@@ -1,0 +1,156 @@
+.mask #shape27 {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+
+  -webkit-mask-image: url("flower.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+
+  mask-image: url("flower.png");
+  mask-repeat: repeat-y;
+  mask-size: 50%;
+  mask-position: 20px 30px;
+}
+.mask #shape28 {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+
+  /* -webkit-mask-image: url("flower.png");
+  -webkit-mask-repeat: repeat;
+  -webkit-mask-size: 50%; */
+
+  mask-image: url("flower.png");
+  mask-repeat: repeat-x;
+  mask-size: 50% 25%;
+  mask-position: bottom right;
+}
+.mask #shape29 {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+
+  -webkit-mask-image: url("flower.png");
+  -webkit-mask-repeat: repeat;
+  -webkit-mask-size: 50% auto;
+
+  mask-image: url("flower.png");
+  mask-repeat: repeat;
+  mask-size: 50% auto;
+  mask-position: bottom;
+}
+.mask #shape30 {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+
+  -webkit-mask-image: url("flower.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+
+  mask-image: url("flower.png");
+  mask-repeat: no-repeat;
+  mask-size: 50%;
+  mask-position: center;
+}
+.mask #shape31 {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(148, 22, 22, 0.5),
+    rgba(40, 19, 228, 0.5),
+    rgba(211, 30, 181, 0.5)
+  );
+
+  mask: url("flower.png") center / 80px 100px no-repeat;
+}
+.mask #shape32 {
+  height: 100%;
+  width: 100%;
+  -webkit-mask-image: url("flower.png");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
+
+  mask-image: url("flower.png");
+  mask-repeat: repeat;
+  mask-size: cover;
+}
+
+.mask #shape33 {
+  height: 100%;
+  width: 100%;
+
+  background: linear-gradient(
+    to right,
+    rgba(24, 22, 148, 0.664),
+    rgba(198, 5, 216, 0.664),
+    rgba(255, 3, 3, 0.699)
+  );
+
+  /* Linear Gradient */
+  mask: linear-gradient(#0000, #000);
+  mask: linear-gradient(transparent, #000);
+  mask: linear-gradient(rgb(0 0 0/ 10%), #000);
+
+  mask: linear-gradient(to top, #0000, #000);
+  mask: linear-gradient(90deg, #0000, #000);
+
+  mask: linear-gradient(
+    #000 0 25%,
+    #0000 25% 50%,
+    #000 50% 75%,
+    #0000 75% 100%
+  );
+  mask-size: 100% 12px;
+
+  mask: linear-gradient(
+    45deg,
+    #000 0 25%,
+    #0000 25% 50%,
+    #000 50% 75%,
+    #0000 75% 100%
+  );
+  mask-size: 10px; 
+
+  /* Radial Gradient */
+  mask: radial-gradient(#0000, #000);
+  mask: radial-gradient(#0000 50px, #000 50px);
+  mask: radial-gradient(circle at bottom,  #0000 20px, #000 20px);
+
+  mask-size: 25% 100%;
+
+    mask: radial-gradient(30px at 50% 30px,  #0000 0 99%, #000) 50% -30px / 50px 100%;
+}
+
+/* .beauty {
+  border: none;
+} */
+
+.mask img {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}

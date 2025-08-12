@@ -6,9 +6,12 @@ import NavBarPage from "../Reusable-Components/NavBar";
 
 export default function SubscribePage() {
   const QuestionDatas = useLoaderData();
+  console.log("QuestionDatas", QuestionDatas);
   return (
     <>
-      <div className = "bg-black"><NavBarPage /></div>
+      <div className="bg-black">
+        <NavBarPage />
+      </div>
       <main className="w-screen h-auto bg-black ">
         <section className="w-full bg-black mb-[50px] py-[100px] pr-[4em] grid grid-cols-2 grid-rows-1 ">
           <div className="  px-[4em] col-start-1 flex flex-col items-center gap-10">

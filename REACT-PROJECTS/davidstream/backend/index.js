@@ -2,11 +2,14 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 
-import { __dirname } from "./util/path.js";
 import homeRouter from "./router/home.js";
-// import questionRouter from "./router/question.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log("Server directory:", __dirname); // Log the server directory
 dotenv.config();
 
 const app = express();

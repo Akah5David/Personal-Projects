@@ -8,11 +8,12 @@ body {
 
 main {
   display: flex;
+  width: 90%;
   flex-direction: column;
   flex-wrap: wrap;
   gap: 4rem;
-  padding: 13px 2rem;
-  background-color: blue
+  padding: 2rem 2rem;
+  background-color: blue;
 }
 
 .clip {
@@ -28,6 +29,7 @@ main {
 .container {
   aspect-ratio: 1;
   border: 2px solid black;
+ 
 }
 
 .container #shape1 {
@@ -93,7 +95,9 @@ main {
 
 .hero {
   width: 100%;
-  height: 300px;
+  height: 40vh;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  clip-path: polygon(0 30%, 100% 0, 100% 70%, 0 100%);
 }
 
 .hero img {
@@ -106,9 +110,19 @@ main {
   height: 100px;
   background-image: linear-gradient(
     to right,
-    rgba(148, 22, 22, 0.5),
-    rgba(40, 19, 228, 0.5),
-    rgba(211, 30, 181, 0.5)
+    rgba(148, 22, 22, 0.8),
+    rgba(14, 255, 26, 0.8),
+    rgba(211, 30, 181, 0.8)
   );
   background-size: cover;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 55% 70%, 50% 100%, 45% 70%, 0 70%);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 30px),
+    calc(50% + 20px) calc(100% - 30px),
+    50% 100%,
+    calc(50% - 20px) calc(100% - 30px),
+    0 calc(100% - 30px)
+  );
 }

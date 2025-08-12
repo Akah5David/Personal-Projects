@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
+import { createPortal } from "react-dom";
 
 import SubscribeButton from "../Reusable-Components/SubscribeButton";
 
@@ -17,35 +18,41 @@ const CartModal = forwardRef(function CartModal({ closeModalFn }, ref) {
     };
   });
 
-  return (
-    <dialog
-      className="w-[35%]  flex flex-col left-1/2 top-1/2 -translate-1/2 rounded-4xl overflow-hidden bg-[#363434]"
-      ref={dialogRef}
-      method="dialog"
-    >
-      <div className="flex justify-between items-center py-6 px-5 ">
-        <h3 className="text-2xl font-bold">Your Cart</h3>
-        <svg
-          onClick={closeModalFn}
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          className="fill-white h-[25px] w-[25px] cursor-pointer"
-        >
-          <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z" />
-        </svg>
-      </div>
+  return createPortal(
+    <>
+      <div
+        onClick={closeModalFn}
+        className="fixed inset-0  bg-black/87 z-80"
+      ></div>
+      <dialog
+        className="w-[35%] fixed z-80 flex flex-col left-1/2 top-1/2 -translate-1/2 rounded-4xl overflow-hidden bg-[#363434]"
+        ref={dialogRef}
+      >
+        <div className="flex justify-between items-center py-6 px-5 ">
+          <h3 className="text-2xl font-bold">Your Cart</h3>
+          <svg
+            onClick={closeModalFn}
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            className="fill-white h-[25px] w-[25px] cursor-pointer"
+          >
+            <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z" />
+          </svg>
+        </div>
 
-      <div className=" flex flex-col pb-6 items-center gap-20 ">
-        <hr className="border-0 bg-[#817d7d] h-[1px] w-full"></hr>
-        <div className="bg-blue text-lg flex flex-col gap-6 justify-between items-center">
-          <p>You haven't added any plan</p>
-          <SubscribeButton btnAction="Subscribe now" />
+        <div className=" flex flex-col pb-6 items-center gap-20 ">
+          <hr className="border-0 bg-[#817d7d] h-[1px] w-full"></hr>
+          <div className="bg-blue text-lg flex flex-col gap-6 justify-between items-center">
+            <p>You haven't added any plan</p>
+            <SubscribeButton btnAction="Subscribe now" />
+          </div>
+          <div className="text-center flex-none w-[90%] rounded-2xl text-red-500 bg-red-200 py-6 px-8">
+            <p>Product is not available in this quantity.</p>
+          </div>
         </div>
-        <div className="text-center flex-none w-[90%] rounded-2xl text-red-500 bg-red-200 py-6 px-8">
-          <p>Product is not available in this quantity.</p>
-        </div>
-      </div>
-    </dialog>
+      </dialog>
+    </>,
+    window.document.getElementById("cart-modal")
   );
 });
 

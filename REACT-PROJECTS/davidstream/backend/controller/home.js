@@ -1,17 +1,21 @@
 import { promises as fs } from "fs";
-import { __dirname } from "../util/path.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
-console.log("directory name", __dirname); // returns the directory(util) of path.js file where __dirname is defined
-const getHomefiles = async (req, res) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log("controller directory:", __dirname);
+// Log the file path for debugging
+export const getHomefiles = async (req, res, next) => {
   try {
-    
     const categoryPromise = await fs.readFile(
-      __dirname + "/category.json",
+      path.join(__dirname, "..", "util", "category.json"),
       "utf-8"
     );
 
     const questionsPromise = await fs.readFile(
-      __dirname + "/question.json",
+      path.join(__dirname, "..", "util", "question.json"),
       "utf-8"
     );
 
@@ -27,7 +31,7 @@ const getHomefiles = async (req, res) => {
       questionData,
     };
 
-    // console.log("Response Data:", resData);
+    console.log("Response Data:", resData);
 
     return res.status(200).json({ resData });
   } catch (error) {
@@ -38,5 +42,3 @@ const getHomefiles = async (req, res) => {
     });
   }
 };
-
-export default getHomefiles;

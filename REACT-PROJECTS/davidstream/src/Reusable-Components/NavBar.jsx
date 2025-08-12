@@ -129,10 +129,9 @@ export default function Header({ LoadersData }) {
             </li>
 
             <li>
-              <button onClick={openCartModal}>Cart</button>
-              {toggleModal && (
-                <CartModal ref={cartModalRef} closeModalFn={closeCartModal} />
-              )}
+              <button className="cursor-pointer" onClick={openCartModal}>
+                Cart
+              </button>
             </li>
             <li>
               <Link to="/login">
@@ -191,6 +190,9 @@ export default function Header({ LoadersData }) {
           <hr className="border-0 h-[1px] w-full bg-[grey]"></hr>
           <DocumentariesPage categories={categories} />
         </div>
+      )}
+      {toggleModal && (
+        <CartModal ref={cartModalRef} closeModalFn={closeCartModal} />
       )}
     </>
   );
