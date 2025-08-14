@@ -7,4 +7,3 @@ import type { AppDispatch, RootState } from "./store";
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
 
-//the above ensures that we will never have use the built useDipatch which does not have the pac

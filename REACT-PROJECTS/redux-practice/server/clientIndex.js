@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.get("/", async (req, res) => {
   try {
-    const filePath = path.join(PULIC_PATH, "data", "user.json");
+    const filePath = path.join(PULIC_PATH, "data", "client.json");
     const response = await fs.readFile(filePath, "utf-8");
     const data = await JSON.parse(response);
 
@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
 
 app.get("/:id", async (req, res) => {
   try {
-    const filePath = path.join(PULIC_PATH, "data", "user.json");
+    const filePath = path.join(PULIC_PATH, "data", "client.json");
     const response = await fs.readFile(filePath, "utf-8"); //returns a string
     const datas = await JSON.parse(response);
 
@@ -50,30 +50,25 @@ app.get("/:id", async (req, res) => {
 
 app.post("/new-user", async (req, res) => {
   try {
-    const filePath = path.join(PULIC_PATH, "data", "user.json");
+    const filePath = path.join(PULIC_PATH, "data", "client.json");
     const newUser = req.body;
     console.log("i am the new user", newUser);
 
     const response = await fs.readFile(filePath, "utf-8");
     const AppendUsers = [...JSON.parse(response), newUser];
 
-    const updateUsers = AppendUsers.map((d) => ({
-      ...d,
-      id: `${new Date().toISOString()}-${Math.floor(Math.random() * 10000)}`,
-    }));
-
-    await fs.writeFile(filePath, JSON.stringify(updateUsers, null, 2), "utf-8");
+    await fs.writeFile(filePath, JSON.stringify(AppendUsers, null, 2), "utf-8");
 
     return res.status(200).json({ message: "successfully added a new user" });
   } catch (error) {
-    console.error("Error reading JSON: ", error.messsage);
+    console.error("Error reading JSON: ", error.message);
     return res.status(500).json({ error: "Could not read data file" });
   }
 });
 
 app.put("/:id/edit", async (req, res) => {
   try {
-    const filePath = path.join(PULIC_PATH, "data", "user.json");
+    const filePath = path.join(PULIC_PATH, "data", "client.json");
     const response = await fs.readFile(filePath, "utf-8"); //returns a string
     const datas = await JSON.parse(response);
 
@@ -100,7 +95,7 @@ app.post("/:id/favorite", async (req, res) => {
   try {
     const { favorite } = req.body;
 
-    const filePath = path.join(PULIC_PATH, "data", "user.json");
+    const filePath = path.join(PULIC_PATH, "data", "client.json");
     const response = await fs.readFile(filePath, "utf-8"); //returns a string
     const datas = await JSON.parse(response);
 
@@ -126,7 +121,7 @@ app.post("/:id/favorite", async (req, res) => {
 
 app.delete("/:id/delete", async (req, res) => {
   try {
-    const filePath = path.join(PULIC_PATH, "data", "user.json");
+    const filePath = path.join(PULIC_PATH, "data", "client.json");
     const response = await fs.readFile(filePath, "utf-8"); //returns a string
     const datas = await JSON.parse(response);
 
@@ -151,7 +146,7 @@ app.delete("/:id/delete", async (req, res) => {
   }
 });
 
-const port = 3000
+const port = 3000;
 app.listen(3000, () => {
   console.log("I am listening to ur request from port: ", port);
 });

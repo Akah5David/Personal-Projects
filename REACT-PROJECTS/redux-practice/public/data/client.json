@@ -1,0 +1,16 @@
+[
+  {
+    "id": "134ed",
+    "title": "First Post",
+    "content": "This is my first post",
+    "user": "userId",
+    "date": "2025-08-13T06:08:49.123Z",
+    "reactions": {
+      "thumbsUp": 0,
+      "hooray": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    }
+  }
+]

@@ -1,33 +1,71 @@
 import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 
-import { useAppSelector } from "../../app/hooks";
-import { selectPosts } from "./postsSlice";
+import Spinner from "../../components/Spinner";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import {
+  selectPosts,
+  selectPostsStatus,
+  selectPostsError,
+  fetchPosts,
+  type Post,
+} from "./postsSlice";
 import PostAuthor from "../../components/PostAuthor";
 import TimeAgo from "../../components/TimeAgo";
-import ReactionButton from "../../components/ReactionButton";
+import ReactionButtons from "../../components/ReactionButton";
+
+interface postExcerptProps {
+  post: Post;
+}
+
+function PostExcerpt({ post }: postExcerptProps) {
+  return (
+    <article key={post.id}>
+      <h3>
+        <Link to={`/posts/${post.id}`}>{post.title}</Link>
+      </h3>
+      <div>
+        <PostAuthor userId={post.user} />
+        <TimeAgo timestamp={post.date} />
+      </div>
+      <p className="post-content">{post.content.substring(0, 100)}</p>
+      <ReactionButtons post={post} />
+    </article>
+  );
+}
 
 export const PostsList = () => {
-  const posts = useAppSelector(selectPosts);
-  const sortedPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+  const dispatch = useAppDispatch();
+  const postsState = useAppSelector(selectPosts);
+  const postStatus = useAppSelector(selectPostsStatus);
+  const postsError = useAppSelector(selectPostsError);
 
-  const renderedPosts = sortedPosts.map((post) => (
-    <article className="post-excerpt" key={post.id}>
-      <Link to={`/posts/${post.id}`} className="post-title">
-        {post.title}
-      </Link>
-      <p className="post-content">{post.content.substring(0, 100)}</p>
-      <PostAuthor userId={post.user} />
-      <TimeAgo timestamp={post.date} />
-      <ReactionButton post={post} />
-    </article>
-  ));
+  useEffect(() => {
+    if (postStatus === "idle") {
+      dispatch(fetchPosts());
+    }
+  }, [postStatus, dispatch]);
+
+  let content: React.ReactNode;
+
+  if (postStatus === "pending") {
+    content = <Spinner text="loading..." />;
+  } else if (postStatus === "succeeded") {
+    const sortedPosts = postsState.posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+
+    content = sortedPosts.map((post) => (
+      <PostExcerpt key={post.id} post={post} />
+    ));
+  } else if (postStatus === "failed") {
+    content = <div>{postsError}</div>;
+  }
 
   return (
     <section className="posts-list">
       <h2>Posts</h2>
-      {renderedPosts}
+      {content}
     </section>
   );
 };

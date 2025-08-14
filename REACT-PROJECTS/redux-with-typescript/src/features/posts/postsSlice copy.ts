@@ -5,6 +5,25 @@ import { client } from "../../api/client";
 import { userLoggedOut } from "../auth/authSlice";
 import { createAppAsyncThunk } from "../../app/withTypes";
 
+export const fetchPosts = createAppAsyncThunk(
+  "posts/fetchPosts",
+  async () => {
+    const res = await client.get<Post[]>("/fakeApi/posts");
+
+    //simulates network delay after fetching data
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    return res.data;
+  },
+  {
+    condition(arg, thunkApi) {
+      const postsStatus = selectPostsStatus(thunkApi.getState());
+      if (postsStatus !== "idle") {
+        return false;
+      }
+    },
+  }
+);
+
 interface Reactions {
   thumbsUp: number;
   hooray: number;
@@ -42,39 +61,67 @@ const initialState: PostState = {
   error: null,
 };
 
-export const addNewPost = createAppAsyncThunk(
-  "users/addNewPost",
-  async (initialPost: NewPost) => {
-    const res = await client.post<Post>("/fakeApi/posts", initialPost);
-    return res.data;
-  }
-);
+export const addNewPost = createAppAsyncThunk("users/addNewPost", async () => {
+  const res = await client.post<Post>("/fakeApi/posts", initialState);
+  return res.data;
+});
 
-export const fetchPosts = createAppAsyncThunk(
-  "posts/fetchPosts",
-  async () => {
-    const res = await client.get<Post[]>("/fakeApi/posts");
-
-    //simulates network delay after fetching data
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    return res.data;
-  },
-  {
-    condition(arg, thunkApi) {
-      const postsStatus = selectPostsStatus(thunkApi.getState());
-      if (postsStatus !== "idle") {
-        return false;
-      }
-    },
-  }
-);
 
 const postsSlice = createSlice({
   name: "posts",
   initialState: initialState,
   reducers: {
-    postUpdated: (state, action) => {},
-    reactionAdded: (state, action) => {},
+    postAdded: {
+      reducer: (state, action: PayloadAction<Post>) => {
+        // state.posts.push(action.payload); OR
+        return {
+          ...state,
+          posts: state.posts.concat(action.payload),
+        };
+      },
+      prepare: (title: string, content: string, userId: string) => {
+        const id = nanoid();
+        const date = new Date().toISOString();
+        return {
+          payload: {
+            id: id,
+            title,
+            content,
+            user: userId,
+            date: date,
+            reactions: {
+              thumbsUp: 0,
+              hooray: 0,
+              heart: 0,
+              rocket: 0,
+              eyes: 0,
+            },
+          },
+        };
+      },
+    },
+
+    postUpdated: (state, action: PayloadAction<PostUpdate>) => {
+      const { id, title, content } = action.payload;
+      const existingPost = state.posts.find((post) => post.id === id);
+
+      if (existingPost) {
+        existingPost.title = title;
+        existingPost.content = content;
+      }
+    },
+
+    reactionAdded: (
+      state,
+      action: PayloadAction<{ postId: string; reaction: ReactionName }>
+    ) => {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.posts.find((post) => post.id === postId);
+
+      if (existingPost) {
+        existingPost.reactions[reaction]++;
+      }
+    },
   },
   selectors: {
     selectPosts: (state: PostState) => {
@@ -115,15 +162,12 @@ const postsSlice = createSlice({
           status: "failed",
           error: action.error.message ?? "Unknown error",
         };
-      })
-      .addCase(addNewPost.fulfilled, (state, action) => {
-        state.posts.push(action.payload);
       });
   },
 });
 
 // Export the auto-generated action creator with the same name
-export const { postUpdated, reactionAdded } = postsSlice.actions;
+export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions;
 
 //exporting the selectors to be used in components
 export const {
