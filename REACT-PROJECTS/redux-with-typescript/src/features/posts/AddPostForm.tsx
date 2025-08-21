@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { postAdded } from "./postsSlice";
 // import { selectAllUsers } from "../users/usersSlice";
-import { selectCurrentUsername } from "../auth/authSlice";
+import { selectCurrentUserId } from "../auth/authSlice";
 import { addNewPost } from "./postsSlice";
 
 //let AddPostFormFields become an alias for HTMLFormControlsCollection we specify the properties that the form elements is suppose to contain
@@ -23,7 +22,7 @@ export const AddPostForm = () => {
   );
   const dispatch = useAppDispatch();
   // const users = useAppSelector(selectAllUsers);
-  const userId = useAppSelector(selectCurrentUsername);
+  const userId = useAppSelector(selectCurrentUserId);
 
   //creates a function that receives submitted form details and processes it
   const handleSubmit = async (e: React.FormEvent<AddPostFormElements>) => {
@@ -47,7 +46,7 @@ export const AddPostForm = () => {
     }
 
     // Create the post object and dispatch the `postAdded` action while ensuring it matches the shape of Post
-    dispatch(postAdded(title, content, userId!));
+    // dispatch(postAdded(title, content, userId!));
 
     e.currentTarget.reset();
   };

@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import { selectAllUsers } from "../features/users/usersSlice";
 import { useAppSelector, useAppDispatch } from "../app/hooks";
-import { userLoggedIn } from "../features/auth/authSlice";
+import { login } from "../features/auth/authSlice"; 
+
 
 export default function LoginPage() {
   const users = useAppSelector(selectAllUsers);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const userOptions = users.map((user) => {
     return (
       <option key={user.id} value={user.id}>
@@ -25,7 +27,7 @@ export default function LoginPage() {
     elements: LoginPageFormFields;
   }
 
-  const handleSubmit = (e: React.FormEvent<LoginPageFormElements>) => {
+  const handleSubmit = async (e: React.FormEvent<LoginPageFormElements>) => {
     e.preventDefault();
 
     const author = e.currentTarget.elements.postAuthor.value;
@@ -34,7 +36,7 @@ export default function LoginPage() {
       return;
     }
 
-    dispatch(userLoggedIn(author));
+    await dispatch(login(author));
     navigate("/posts");
   };
   return (

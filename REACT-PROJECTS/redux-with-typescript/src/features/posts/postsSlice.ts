@@ -1,9 +1,17 @@
-import { createSlice, type PayloadAction, nanoid } from "@reduxjs/toolkit";
-
+import {
+  createEntityAdapter,
+  type EntityState,
+  createSlice,
+  type PayloadAction,
+  createSelector,
+} from "@reduxjs/toolkit";
 // import type { RootState } from "../../app/store";
 import { client } from "../../api/client";
-import { userLoggedOut } from "../auth/authSlice";
+import { logout } from "../auth/authSlice";
+import { type AppStartListening } from "../../app/listenerMIddleware";
 import { createAppAsyncThunk } from "../../app/withTypes";
+import type { RootState } from "../../app/store";
+import { ACTIONS } from "react-tiny-toast";
 
 interface Reactions {
   thumbsUp: number;
@@ -23,11 +31,19 @@ export interface Post {
   reactions: Reactions;
 }
 
-interface PostState {
-  posts: Post[];
+interface PostState extends EntityState<Post, string> {
   status: "idle" | "pending" | "succeeded" | "failed";
   error: string | null;
 }
+
+const postAdapter = createEntityAdapter<Post>({
+  sortComparer: (a, b) => b.date.localeCompare(a.date),
+});
+
+const initialState: PostState = postAdapter.getInitialState({
+  status: "idle",
+  error: null,
+});
 
 //extracting the type of Post and choosing which fields of the post we want to be included in named type "PostUpdate"
 type PostUpdate = Pick<Post, "id" | "title" | "content">;
@@ -35,12 +51,6 @@ type NewPost = Pick<Post, "title" | "content" | "user">;
 
 //extracts all the keys of Reactions(creates a union of keys)
 export type ReactionName = keyof Reactions;
-
-const initialState: PostState = {
-  posts: [],
-  status: "idle",
-  error: null,
-};
 
 export const addNewPost = createAppAsyncThunk(
   "users/addNewPost",
@@ -73,84 +83,92 @@ const postsSlice = createSlice({
   name: "posts",
   initialState: initialState,
   reducers: {
-    postUpdated: (state, action) => {},
-    reactionAdded: (state, action) => {},
-  },
-  selectors: {
-    selectPosts: (state: PostState) => {
-      return { ...state };
+    postUpdated: (state, action: PayloadAction<PostUpdate>) => {
+      const { id, title, content } = action.payload;
+      postAdapter.updateOne(state, { id, changes: { title, content } });
     },
-    selectPostById: (state: PostState, postId: string) => {
-      const post = state.posts.find((post) => post.id === postId);
-      console.log(post);
-      return post;
-    },
-    selectPostsStatus: (state: PostState) => {
-      const postStatus = state.status;
-      return postStatus;
-    },
-    selectPostsError: (state: PostState) => {
-      const postsError = state.error;
-      return postsError;
+
+    reactionAdded: (
+      state,
+      action: PayloadAction<{ postId: string; reaction: ReactionName }>
+    ) => {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.entities[postId];
+
+      if (existingPost) {
+        existingPost.reactions[reaction]++;
+      }
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(userLoggedOut, () => {
+      .addCase(logout.fulfilled, () => {
         return initialState;
       })
       .addCase(fetchPosts.pending, (state) => {
         state.status = "pending";
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
-        return {
-          ...state,
-          posts: action.payload,
-          status: "succeeded",
-        };
+        state.status = "succeeded";
+        postAdapter.setAll(state, action.payload);
       })
-      .addCase(fetchPosts.rejected, (state, action) => {
-        return {
-          ...state,
-          status: "failed",
-          error: action.error.message ?? "Unknown error",
-        };
-      })
-      .addCase(addNewPost.fulfilled, (state, action) => {
-        state.posts.push(action.payload);
-      });
+      .addCase(addNewPost.fulfilled, postAdapter.addOne);
   },
 });
 
 // Export the auto-generated action creator with the same name
 export const { postUpdated, reactionAdded } = postsSlice.actions;
 
-//exporting the selectors to be used in components
+//exporting customized adapter-based selectors
 export const {
-  selectPosts,
-  selectPostById,
-  selectPostsStatus,
-  selectPostsError,
-} = postsSlice.selectors;
+  selectAll: selectPosts,
+  selectById: selectPostById,
+  selectIds: selectPostIds,
+
+  //pass in a selector that returns the posts slice state
+} = postAdapter.getSelectors((state: RootState) => state.posts);
+
+//Manual Selectors
+export const selectPostsStatus = (state: RootState) => {
+  const postStatus = state.posts.status;
+  return postStatus;
+};
+
+export const selectPostsError = (state: RootState) => {
+  const postsError = state.posts.error;
+  return postsError;
+};
+
+export const selectPostsByUser = createSelector(
+  //pass in one or more "input selectors"
+  [
+    // reads something from the root `state` and returns it
+    selectPosts,
+
+    //function that extracts one of the arguments and passes that onward
+    (state: RootState, userId: string) => userId,
+  ], //the output function gets those values as its arguments,
+
+  // and will run when either input value changes
+  (posts, userId) => posts.filter((post) => post.user === userId)
+);
+
+export const addPostsListeners = (startAppListening: AppStartListening) => {
+  startAppListening({
+    actionCreator: addNewPost.fulfilled,
+    effect: async (action, listenerApi) => {
+      const {toast} =  await import ('react-tiny-toast')
+        const toastId = toast.show('New post added!', {
+          variant: 'success',
+          position: "bottom-right",
+          pause: true
+        })
+      
+        await listenerApi.delay(5000)
+        toast.remove(toastId)
+    }
+  });
+};
 
 //exporting generated reducer function
 export default postsSlice.reducer;
-
-//Alternative of preparing action object without using prepare function. useful for core redux
-/*postUpdated: (state, action: PayloadAction<Post>) => {
-  const { id, title, content } = action.payload;
-  return state.map((post) => {
-    if (post.id === id) {
-      return { ...post, title, content };
-    } else {
-      return post;
-    }
-  });
-},*/
-
-//Creating a standalone selector that will be exported to be used in components that need access to global state. should be used for core redux or redux-toolkit below v2
-/*export const selectPostById = (state: RootState, postId: string) => {
-  return state.posts.find((post) => post.id === postId);
-};
-
-export const selectPosts = (state: RootState) => state.posts; */

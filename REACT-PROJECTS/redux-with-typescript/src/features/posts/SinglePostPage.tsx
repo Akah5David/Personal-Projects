@@ -5,12 +5,12 @@ import { selectPostById } from "./postsSlice";
 import PostAuthor from "../../components/PostAuthor";
 import TimeAgo from "../../components/TimeAgo";
 import ReactionButton from "../../components/ReactionButton";
-import { selectCurrentUsername } from "../auth/authSlice";
+import { selectCurrentUserId } from "../auth/authSlice";
 
 export default function SinglePostPage() {
   const params = useParams();
   const { postId } = params;
-  const currentUserId = useAppSelector(selectCurrentUsername)!;
+  const currentUserId = useAppSelector(selectCurrentUserId)!;
 
   console.log("SinglePostPage postId:", postId);
 
@@ -41,7 +41,9 @@ export default function SinglePostPage() {
             Edit Post
           </Link>
         )}
-        <Link to="/posts" className="button">Back to Posts</Link>
+        <Link to="/posts" className="button">
+          Back to Posts
+        </Link>
       </article>
     </section>
   );

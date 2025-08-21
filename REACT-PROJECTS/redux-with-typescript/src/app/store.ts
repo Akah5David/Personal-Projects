@@ -7,14 +7,22 @@ import {
 import postsReducer from "../features/posts/postsSlice";
 import userReducer from "../features/users/usersSlice";
 import authReducer from "../features/auth/authSlice";
+import notificationReducer from "../features/notification/notificationSlice";
+import { listenerMiddleware, startAppListening } from "./listenerMIddleware";
+import { addPostsListeners } from "../features/posts/postsSlice"; 
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
     posts: postsReducer,
     users: userReducer,
+    notifications: notificationReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
+
+addPostsListeners(startAppListening);
 
 //infer the type of 'store'
 export type AppStore = typeof store;
