@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useState, useRef } from "react";
+import { Link, useLoaderData } from "react-router-dom";
+import { useState, useRef,  } from "react";
 
 import logoImg from "../assets/svgs/logo.svg";
 import profileImg from "../assets/svgs/profile.svg";
@@ -9,6 +9,7 @@ import DocumentariesPage from "../components/DropMenuDocumentaries";
 import CartModal from "../pages/CartPage";
 
 export default function Header({ LoadersData }) {
+  console.log("Subscribe LoadersData", LoadersData);
   const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
   const [pageMenuOpen, setPageMenuOpen] = useState(false);
   const [toggleModal, setToggleModal] = useState(false);
@@ -19,6 +20,7 @@ export default function Header({ LoadersData }) {
   const cartModalRef = useRef(null);
 
   const categories = LoadersData.categoriesData;
+  console.log("subscribe categories", categories);
 
   function openCartModal() {
     cartModalRef.current?.open();

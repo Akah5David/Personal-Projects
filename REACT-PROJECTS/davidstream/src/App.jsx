@@ -11,17 +11,19 @@ import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
 import FooterPage from "./pages/FooterPage";
 import CategoriesPage from "./pages/CategoryPage";
+import PremiumSubscribePage from "./pages/PremiumSub";
 
-import { QuestionLoader } from "./api/loader"
+// import { QuestionLoader } from "./api/loader";
 
 function App() {
   const { CategoryLoader, RootLoader } = ComponentLoaders;
+  console.log("ComponentLoaders ", ComponentLoaders);
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root />,
       loader: RootLoader,
-      children: [{index: true, element: <MainPage />}],
+      children: [{ index: true, element: <MainPage /> }],
     },
     { path: "/category", element: <CategoriesPage />, loader: CategoryLoader },
     {
@@ -36,11 +38,16 @@ function App() {
     {
       path: "/subscribe",
       element: <SubscribePage />,
-      loader: QuestionLoader
+      loader: RootLoader,
+    },
+    {
+      path: "/subscribe/premium",
+      element: <PremiumSubscribePage />,
+      loader: RootLoader,
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
 }
 
 export default App;

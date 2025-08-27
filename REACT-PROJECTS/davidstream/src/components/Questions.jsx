@@ -13,6 +13,8 @@ export default function Questions({ QuestionsData }) {
     });
   }
 
+  console.log("QuestionPage QuestionsData", QuestionsData);
+
   return (
     <section className=" flex flex-col justify-center items-center gap-11 w-full h-auto py-[120px]  bg-black">
       <div className="flex flex-col items-center w-[50%] gap-4 ">
