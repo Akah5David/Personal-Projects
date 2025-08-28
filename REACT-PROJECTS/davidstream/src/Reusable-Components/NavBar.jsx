@@ -1,5 +1,5 @@
-import { Link, useLoaderData } from "react-router-dom";
-import { useState, useRef,  } from "react";
+import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
 
 import logoImg from "../assets/svgs/logo.svg";
 import profileImg from "../assets/svgs/profile.svg";
@@ -19,7 +19,7 @@ export default function Header({ LoadersData }) {
   const documentariesMenuCloseTimeout = useRef(null);
   const cartModalRef = useRef(null);
 
-  const categories = LoadersData.categoriesData;
+  const categories = LoadersData?.categoriesData;
   console.log("subscribe categories", categories);
 
   function openCartModal() {
@@ -148,7 +148,10 @@ export default function Header({ LoadersData }) {
             </li>
 
             <li>
-              <Link to="/" className="bg-[#c5c1c16b] py-2 px-4 rounded-full">
+              <Link
+                to="/login"
+                className="bg-[#c5c1c16b] py-2 px-4 rounded-full"
+              >
                 Log Out
               </Link>
             </li>

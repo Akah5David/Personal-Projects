@@ -15,18 +15,18 @@ export default function PremiumSubscribePage() {
         <NavBar LoadersData={LoadersData} />
       </div>
       <main className="w-screen h-auto bg-black ">
-        <section className="relative grid grid-cols-3 gap-10 w-full px-[2em] bg-blue-800">
-          <div className="col-span-2 flex flex-col py-[4em]  gap-17 rounded-3xl bg-[#3b38386b]">
-            <div className="flex flex-col gap-5 bg-red-800">
-              <div className="flex flex-col justify-between gap-2">
+        <section className="relative grid grid-cols-10 grid-rows-1 py-[5em] gap-15 w-full">
+          <div className=" col-span-5 flex flex-col gap-17 pb-[4em] pl-[2em] rounded-3xl ">
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col justify-between gap-5">
                 {/* <h2 className="text-[60px] font-sans leading-[1.2]  font-stretch-extra-expanded font-bold">
                 $9.99
               </h2> */}
-                <h2 className="text-[2.5em] font-sans leading-[1.2]  font-stretch-extra-expanded font-medium">
+                <h2 className="text-[2.5em] font-sans leading-[1]  font-stretch-extra-expanded font-medium">
                   Premium
                 </h2>
 
-                <p className="text-left ">
+                <p className="text-left text-xl ">
                   Lorem ipsum dolor sit amet consectetur adipiscing elit tortor
                   eu egestas morbi sem vulputate etiam facilisis pellentesque ut
                   quis.
@@ -37,13 +37,13 @@ export default function PremiumSubscribePage() {
                 <div className="flex  items-center gap-4 ">
                   <div className="  items-center flex flex-col">
                     <div className="relative w-[40px] h-[40px] rounded-[50%] border-2 border-white   ">
-                      <div className="absolute left-[40%] bottom-1/4 -translatex-1/6 self-center flex flex-col rotate-45 ">
+                      <div className="absolute left-[40%] bottom-1/4 -translate-x-1/6 self-center flex flex-col rotate-45 ">
                         <div className="h-[13px] w-[2px] bg-white"></div>
                         <hr className="h-[2px] shadow-md/40 border-0 rounded-full  bg-[white] w-[20px] " />
                       </div>
                     </div>
                   </div>
-                  <p>Unlimited Access</p>
+                  <p className="text-left text-xl  ">Unlimited Access</p>
                 </div>
 
                 <div className="flex items-center gap-4 py-[1em]">
@@ -54,18 +54,18 @@ export default function PremiumSubscribePage() {
                     <div className="rounded-full relative z-20 bottom-[7px] h-[7px] w-[50px] border-2 bg-[#272626] "></div>
                   </div>
 
-                  <p>Available in All Platform</p>
+                  <p className="text-left text-xl ">Available in All Platform</p>
                 </div>
 
                 <div className="flex items-center gap-4 ">
                   <svg
                     fill="#ffffff"
                     viewBox="0 0 512.001 512.001"
-                    className="w-[40px] h-[40px]"
+                    className="w-[40px] h-[60px]"
                   >
                     <path d="M511.324,194.019c-1.763-5.195-6.643-8.696-12.128-8.696H322.848L268.227,8.55c-3.305-10.749-21.157-10.749-24.453,0 l-54.62,176.773H12.806c-5.494,0-10.365,3.492-12.128,8.696s-0.008,10.953,4.352,14.275l143.216,109.369L93.481,494.939 c-1.652,5.323,0.332,11.098,4.897,14.275c4.574,3.151,10.663,3.049,15.101-0.324l142.526-108.9l142.518,108.9 c2.3,1.746,5.042,2.623,7.776,2.623c2.564,0,5.127-0.775,7.333-2.3c4.557-3.177,6.55-8.952,4.897-14.275l-54.765-177.276 l143.207-109.369C511.332,204.972,513.087,199.223,511.324,194.019z M341.125,302.732c-4.259,3.254-6.03,8.824-4.446,13.951 l45.575,147.551l-118.474-90.52c-2.3-1.746-5.042-2.623-7.776-2.623c-2.742,0-5.477,0.877-7.785,2.632l-118.474,90.52 l45.575-147.551c1.593-5.127-0.187-10.698-4.446-13.951l-120.22-91.823h147.943c5.613,0,10.57-3.654,12.222-9.028l45.183-146.222 l45.192,146.214c1.644,5.374,6.609,9.028,12.222,9.028h147.926L341.125,302.732z"></path>
                   </svg>
-                  <p>Exclusive Content</p>
+                  <p className="text-left text-xl  ">Exclusive Content</p>
                 </div>
 
                 <div className="flex  items-center gap-4">
@@ -78,7 +78,7 @@ export default function PremiumSubscribePage() {
                       <path d="M202.82812,146.82812l-72,72a3.99853,3.99853,0,0,1-5.65625,0l-72-72a3.99957,3.99957,0,0,1,5.65625-5.65625L124,206.34277V40a4,4,0,0,1,8,0V206.34277l65.17187-65.1709a3.99957,3.99957,0,0,1,5.65625,5.65625Z"></path>
                     </svg>
                   </div>
-                  <p>Downloadable Content</p>
+                  <p className="text-left text-xl  ">Downloadable Content</p>
                 </div>
 
                 <div className="flex items-center gap-4 ">
@@ -107,52 +107,53 @@ export default function PremiumSubscribePage() {
                     />
                   </svg>
 
-                  <p>Content Every Week</p>
+                  <p className="text-left text-xl  ">Content Every Week</p>
                 </div>
 
                 <div className="flex items-center gap-4 ">
                   <div className="  items-center flex flex-col">
                     <div className="relative w-[40px] h-[40px] rounded-[50%] border-2 border-white   ">
-                      <div className="absolute left-[40%] bottom-1/4 -translatex-1/6 pr-1 self-center flex flex-col rotate-45 ">
+                      <div className="absolute left-[40%] bottom-1/4 -translate-x-1/6 pr-1 self-center flex flex-col rotate-45 ">
                         <div className="h-[13px] w-[2px] bg-white"></div>
                         <hr className="h-[2px] shadow-md/40 border-0 rounded-full  bg-[white] w-[20px] " />
                       </div>
                     </div>
                   </div>
-                  <p>Best Audio Quality</p>
+                  <p className="text-left text-xl  ">Best Audio Quality</p>
                 </div>
               </div>
             </div>
 
             <div className="flex flex-col gap-17">
               <div className="flex flex-col gap-5">
-                <h1 className="text-2xl font-medium font-sans text-white">
+                <h1 className="text-[1.7em] font-medium font-sans text-white">
                   Available on every device
                 </h1>
-                <div className="flex gap-17 items-center  flex-row bg-amber-500">
-                  <div className=" bg-green-600 justify-center gap-4 items-center flex flex-col ">
-                    <div className="pb-2">
+                <div className="flex gap-10 items-center  flex-row">
+                  <div className="  
+                   justify-center gap-5 items-center flex flex-col ">
+                    <div className="">
                       <div className="aspect-17/11 w-[60px] border-2 border-white shadow-md/40 rounded-[2px] "></div>
                       <div className="flex flex-col items-center ">
                         <div className="h-[4px] w-[2px] bg-[white]"></div>
                         <hr className="h-[2px] shadow-md/40 border-0 rounded-full  bg-[white] w-[20px] " />
                       </div>
                     </div>
-                    <p className="text-xl text-white">Smart TV</p>
+                    <p className="text-xl  text-white">Smart TV</p>
                   </div>
 
-                  <div className="   flex flex-col gap-4 items-center justify-center  ">
+                  <div className="  flex flex-col gap-4 items-center justify-center  ">
                     <div className=" flex items-end pb-2 aspect-3/5 w-[30px] border-2 border-white shadow-md/40 rounded-[8px] ">
                       <hr className="border-0 h-[2px] w-full bg-white"></hr>
                     </div>
-                    <p className="text-xl text-white">Mobile</p>
+                    <p className="text-xl  text-white">Mobile</p>
                   </div>
 
                   <div className="  justify-center gap-4 items-center flex flex-col ">
                     <div className="flex items-end justify-center aspect-6/8 h-[53px] border-2 border-white shadow-md/40 rounded-[8px] ">
                       <div className="bg-white rounded-[50%] w-[5px] h-[5px]"></div>
                     </div>
-                    <p className="text-xl text-white">Tablet</p>
+                    <p className="text-xl  text-white">Tablet</p>
                   </div>
 
                   <div className="  justify-center gap-0.5 items-center flex flex-col ">
@@ -178,7 +179,7 @@ export default function PremiumSubscribePage() {
                       />
                     </svg>
 
-                    <p className="text-xl text-white">Computer</p>
+                    <p className="text-xl  text-white">Computer</p>
                   </div>
 
                   <div className="  justify-center gap-2 items-center flex flex-col ">
@@ -219,22 +220,22 @@ export default function PremiumSubscribePage() {
                       <rect height="2" width="6" x="6" y="31.167" />
                     </svg>
 
-                    <p className="text-xl text-white">Console</p>
+                    <p className="text-xl  text-white">Console</p>
                   </div>
                 </div>
               </div>
               <hr className=" border-0 w-full h-[1px] bg-[grey]"></hr>
-              <div className="flex flex-col gap-4 pt-3">
-                <h1 className="text-2xl font-medium font-sans text-white">
+              <div className="flex flex-col gap-10 pt-3">
+                <h1 className="text-[1.7em] font-medium font-sans text-white">
                   About the plan
                 </h1>
-                <p>
+                <p className = "text-xl">
                   Duis aute irure dolor in reprehenderit in voluptate velit esse
                   cillum dolore eu fugiat nulla pariatur excepteur sint occaecat
                   cupidatat non proident, sunt in culpa qui officia deserunt
                   mollit anim id est laborum mollit anim.
                 </p>
-                <p>
+                <p className = "text-xl">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -244,26 +245,26 @@ export default function PremiumSubscribePage() {
             </div>
           </div>
 
-          <div className="col-span-1 py-[4em] px-[2em] gap-17 bg-black">
-            <div className = "flex flex-col rounded-3xl  bg-[#d614146b]">
+          <div className=" sticky col-start-7 col-end-11  self-start top-[1em] pr-[3em] ">
+            <div className="  flex flex-col rounded-3xl py-[3.0em] px-[2.3em] bg-[#3b38386b]">
               <div className="flex flex-col justify-between gap-6">
-                <h3 className="text-[1.5em] font-sans leading-[1.2]  font-stretch-extra-expanded font-medium">
+                <h3 className="text-[1.7em] font-sans leading-[1.2] font-stretch-extra-expanded font-medium">
                   Choose your plan
                 </h3>
-                <p className="text-left ">
+                <p className="text-left text-xl">
                   Lorem ipsum dolor sit amet consectetur adipiscing elit tortor
                   eu egestas morbi sem vulputate etiam facilisis pellentesque ut
                   quis.
                 </p>
-                <h2 className="text-[2.5em] font-sans leading-[1.2]  font-stretch-extra-expanded font-medium">
+                <h2 className="text-[2.8em] font-sans leading-[1] font-medium">
                   $9.99 USD
                 </h2>
-                <h3 className="text-[1.5em] font-sans leading-[1.2]  font-stretch-extra-expanded font-medium">
+                <h3 className="text-[1.7em] font-sans leading-[1] font-medium">
                   One-Time payment
                 </h3>
                 <Link
                   to="/"
-                  className="bg-[#19a3ff] w-full py-[1em] text-center px-4 rounded-full font-medium text-white"
+                  className="bg-[#19a3ff] w-full py-[1em] text-[1.4em] text-center px-4 rounded-full font-medium text-white"
                 >
                   Add to Cart
                 </Link>
@@ -271,8 +272,8 @@ export default function PremiumSubscribePage() {
             </div>
           </div>
         </section>
-        <hr className="border-0 bg-[#90909092] h-[0.3px] mx-[50px]" />
-        <hr className="border-0 bg-[#90909092] h-[0.5px]" />
+
+        <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />
       </main>
     </>
