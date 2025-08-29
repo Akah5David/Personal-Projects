@@ -1,11 +1,14 @@
-
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 import SliderButton from "../Reusable-Components/SliderButton";
 import Section from "../Reusable-Components/SubscribeButton";
 
-export default function CategoriesPage({ categories }) {
+export default function CategoriesPage({
+  categories,
+  caption = " Popular documentaries",
+}) {
   const itemRefs = useRef([]);
   const [snapAlign, setSnapAlign] = useState("end");
   const categoriesLength = categories.length;
@@ -67,12 +70,14 @@ export default function CategoriesPage({ categories }) {
   }, [activeIndex, categoriesLength]);
 
   return (
-    <section className="relative inset-0 ">
+    <section className="relative inset-0 w-screen ">
       <SliderButton handleNext={handleNext} handlePrev={handlePrev} />
       <div className="relative flex flex-col  pl-[45px] gap-5 pr-[2px] w-full pb-[100px]  bg-black overflow-hidden">
         <div className="flex items-center justify-between  pr-[45px]">
           <h1 className="text-[2rem] font-bold text-white  ">
-            Popular documentaries
+            {caption === "category"
+              ? "More categories"
+              : `${caption} documentaries`}
           </h1>
           <p>Browse all</p>
         </div>
@@ -84,27 +89,35 @@ export default function CategoriesPage({ categories }) {
             <motion.li
               key={`${category.name}-${index}`}
               ref={(el) => (itemRefs.current[index] = el)}
-              className="  flex-none relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-16/9 w-[31%] rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
-              style={{
-                backgroundImage: `url(${category.documentaries[0].image})`,
-                scrollSnapAlign: snapAlign,
-              }}
+              className="flex-none w-[31%]"
             >
-              <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl" />
-              <div className="absolute bottom-1/6 left-1/6 z-40 text-white">
-                <h2 className="text-5xl/10 mb-3 font-stretch-condensed font-extrabold font-sans">
-                  {category.name}
-                </h2>
-                <p className=" text-2xl/10 mt-2">
-                  <span>{category.documentaries.length}</span> Documentaries
-                </p>
-              </div>
-              <div className="relative bottom-[-103%] left-[0.5] w-[100%] bg-black">
-                <h4 className="font-bold text-2xl/8 ">Title-of-movie</h4>
-                <p className="text-[1rem]">
-                  <span>2022</span> -- <span>1hr 30ms</span>
-                </p>
-              </div>
+              <Link to={`/popular/${category.name}`}>
+                <div
+                  className=" relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-16/9 rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
+                  style={{
+                    backgroundImage: `url(${category.documentaries[0].image})`,
+                    scrollSnapAlign: snapAlign,
+                  }}
+                >
+                  <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl">
+                    <div className="absolute bottom-1/6 left-1/6 z-40 text-white">
+                      <h2 className="text-5xl/10 mb-3 font-stretch-condensed font-extrabold font-sans">
+                        {category.name}
+                      </h2>
+                      <p className=" text-2xl/10 mt-2">
+                        <span>{category.documentaries.length}</span>{" "}
+                        Documentaries
+                      </p>
+                    </div>
+                    <div className="relative bottom-[-103%] left-[0.5] w-[100%] bg-black">
+                      <h4 className="font-bold text-2xl/8 ">Title-of-movie</h4>
+                      <p className="text-[1rem]">
+                        <span>2022</span> -- <span>1hr 30ms</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </motion.li>
           ))}
         </ul>

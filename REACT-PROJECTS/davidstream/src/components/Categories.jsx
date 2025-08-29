@@ -6,20 +6,17 @@ import SliderButton from "../Reusable-Components/SliderButton";
 
 export default function CategoriesPage({ categories }) {
   const itemRefs = useRef([]);
+  const [snapAlign, setSnapAlign] = useState("end");
   const categoriesLength = categories.length;
-
-  // Start in the middle set
-  const middleStart = categoriesLength;
-  const middleEnd = categoriesLength * 2 - 3;
-
-  const ActiveIndexRef = useRef(middleStart);
 
   // Duplicate categories 3 times for seamless loop illusion
   const duplicatedCategories = [...categories, ...categories, ...categories]; // allows for infinite loop
 
-  const [activeIndex, setActiveIndex] = useState(middleStart);
+  // Start in the middle set
+  const initialIndex = categoriesLength;
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
 
-  const scrollToIndex = (index) => {
+  const snapHandler = (index) => {
     setActiveIndex(index);
     itemRefs.current[index]?.scrollIntoView({
       behavior: "smooth",
@@ -29,36 +26,44 @@ export default function CategoriesPage({ categories }) {
   };
 
   const handleNext = () => {
-    scrollToIndex(activeIndex + 3);
-    ActiveIndexRef.current = activeIndex;
-    console.log("ActiveIndexRef ", ActiveIndexRef.current);
+    setSnapAlign(() => (activeIndex === activeIndex + 3 ? "start" : "end"));
+    snapHandler(activeIndex + 3);
+    console.log("snap-align", snapAlign);
   };
 
   const handlePrev = () => {
-    scrollToIndex(activeIndex - 3);
-    ActiveIndexRef.current = activeIndex;
-    console.log("ActiveIndexRef ", ActiveIndexRef.current);
+    setSnapAlign(() => (activeIndex === activeIndex - 3 ? "end" : "start"));
+    snapHandler(activeIndex - 3);
   };
 
   useEffect(() => {
-    let timeout;
+    const middleStart = categoriesLength;
+    const middleEnd = categoriesLength * 2 - 3;
 
-    // Loop back to the middle if we go past the duplicated edges
+    let timeout;
     if (activeIndex > middleEnd) {
       timeout = setTimeout(() => {
-        scrollToIndex(middleStart, "instant");
+        setActiveIndex(middleStart);
+        itemRefs.current[middleStart]?.scrollIntoView({
+          behavior: "instant",
+          block: "nearest",
+          inline: "start",
+        });
       }, 300);
     }
     if (activeIndex < middleStart) {
+      const resetIndex = middleEnd;
       timeout = setTimeout(() => {
-        scrollToIndex(middleEnd, "instant");
+        setActiveIndex(resetIndex);
+        itemRefs.current[resetIndex]?.scrollIntoView({
+          behavior: "instant",
+          block: "nearest",
+          inline: "start",
+        });
       }, 300);
     }
-    ActiveIndexRef.current = activeIndex;
-    console.log("useEffect ActiveIndexRef ", ActiveIndexRef.current);
-
     return () => clearTimeout(timeout);
-  }, [activeIndex, middleStart, middleEnd]);
+  }, [activeIndex, categoriesLength]);
 
   return (
     <section className="relative inset-0 my-0 bg-black">
@@ -76,23 +81,27 @@ export default function CategoriesPage({ categories }) {
             <motion.li
               key={`${category.name}-${index}`}
               ref={(el) => (itemRefs.current[index] = el)}
+              className="flex-none w-[31%]"
             >
-              <Link
-                to={`/category/${category.name}`}
-                className=" flex-none relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-2/3 w-[31%] rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
-                style={{
-                  backgroundImage: `url(${category.documentaries[0].image})`,
-                  scrollSnapAlign: "start",
-                }}
-              >
-                <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl" />
-                <div className="absolute bottom-1/6 left-1/6 z-40 text-white">
-                  <h2 className="text-5xl/10 mb-3 font-stretch-condensed font-bold">
-                    {category.name}
-                  </h2>
-                  <p className=" text-2xl/10 mt-2">
-                    <span>{category.documentaries.length}</span> Documentaries
-                  </p>
+              <Link to={`/category/${category.name}`}>
+                <div
+                  className="relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-2/3  rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
+                  style={{
+                    backgroundImage: `url(${category.documentaries[0].image})`,
+                    scrollSnapAlign: snapAlign,
+                  }}
+                >
+                  <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl">
+                    <div className="absolute bottom-1/6 left-1/6 z-40 text-white">
+                      <h2 className="text-5xl/10 mb-3 font-strech-condesed font-bold">
+                        {category.name}
+                      </h2>
+                      <p className=" text-2xl/10 mt-2">
+                        <span>{category.documentaries.length}</span>{" "}
+                        Documentaries
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </Link>
             </motion.li>

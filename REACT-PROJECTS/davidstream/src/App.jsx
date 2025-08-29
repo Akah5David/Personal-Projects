@@ -12,6 +12,7 @@ import LogoutPage from "./pages/LogoutPage";
 import FooterPage from "./pages/FooterPage";
 import CategoriesPage from "./pages/CategoryPage";
 import PremiumSubscribePage from "./pages/PremiumSub";
+import ViewVideoPage from "./pages/ViewVideoPage";
 
 // import { QuestionLoader } from "./api/loader";
 
@@ -43,6 +44,21 @@ function App() {
     {
       path: "/subscribe/premium",
       element: <PremiumSubscribePage />,
+      loader: RootLoader,
+    },
+    {
+      path: "/popular/:name",
+      element: <ViewVideoPage />,
+      loader: RootLoader,
+    },
+    {
+      path: "/latest/:name",
+      element: <ViewVideoPage />,
+      loader: RootLoader,
+    },
+    {
+      path: "/category/:name",
+      element: <ViewVideoPage />,
       loader: RootLoader,
     },
   ]);

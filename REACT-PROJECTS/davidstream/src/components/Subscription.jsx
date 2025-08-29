@@ -6,7 +6,7 @@ import cheetahImage from "../assets/photos/cheetah.jpg";
 
 export default function Subscription() {
   return (
-    <section className=" flex text-white w-screen bg-green-600">
+    <section className=" overflow-hidden flex text-white w-screen bg-green-600">
       <div className="my-clip-path z-40 flex flex-none basis-[45%] flex-col gap-6 py-[100px] bg-[#464040] col-span-2 grid-start-1 px-[50px]">
         <div className=" flex flex-col gap-6">
           <h2 className="text-3xl font-sans font-bold">
