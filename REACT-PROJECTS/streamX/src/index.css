@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@400;600&family=Nunito:wght@400;700&family=Roboto:wght@400;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Inter", "Product Sans", "Google Sans", "Poppins", "Nunito",
+    "Roboto", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+
+  color-scheme: light dark;
+  color: white;
+  background-color: #311d1d;
+  z-index: 1;
+  overflow-x: hidden;
+
+  font-size: 16px;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --categ-scroll-margin: 2rem;
+
+  --my-device-shadow {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  }
+}
+
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.inclined-image {
+  clip-path: polygon(10% 50%, 0 50%, 10% 0, 10% 0);
+}
+/* 
+dialog::backdrop {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); 
+} */
+
+.my-clip-path {
+  clip-path: polygon(0 0, 100% 0, 91% 100%, 0 100%);
+}
+
+.container img {
+  width: 50%;
+  height: auto;
+  display: block;
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;     /* IE & Edge */
+    scrollbar-width: none;        /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;                /* Chrome, Safari */
+  }
+}
+
+
