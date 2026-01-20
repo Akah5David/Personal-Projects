@@ -34,16 +34,87 @@ export default function ViewVideoPage() {
   let rating = hero["vote_average"].toFixed(1);
 
   // ! formatting the genre_ids
-  const formattedGenres = hero.genre_ids.map(
-    (genre) => GENRE_LABELS[genre] ?? genre
+  const formattedGenres = hero.genres.map(
+    (genre) => GENRE_LABELS[genre] ?? genre,
   );
   console.log("FormattedGenres: ", formattedGenres);
 
-  // ! converting an array to a string
-  const genreLine = formattedGenres.join(".");
+  const maturity_rating = hero["release_dates"].results
+    .map((result) => {
+      const RD_object = result["release_dates"][0];
+      return {
+        iso_3166_1: result["iso_3166_1"],
+        release_dates: [
+          {
+            certification: RD_object.certification,
+            release_date: RD_object["release_date"],
+          },
+        ],
+      };
+    })
+    .filter(
+      (rating) => rating["release_dates"][0]?.certification !== "" && rating,
+    );
+
+  //* Making the Maturity rating array to contain objects with two key-value types certification and release_date
+  const formattedRating = maturity_rating.map((rating) => {
+    return {
+      certification: rating["release_dates"][0].certification,
+      release_date: rating["release_dates"][0].release_date,
+    };
+  });
+
+  //* creating an array that contains only values of certification key for every rating in the formattedRating and using splice() to limit the number of elements that the final array will contain and using join(", ") to convert to a string and separating each string with a comma ",", when a uniqueArray is derived using Set() constructor
+  const ratingArray = formattedRating.map((rating) => rating.certification);
+  const uniqueRating = [...new Set(ratingArray)];
+  const finalRating = uniqueRating.splice(0, 5).join(", ");
+
+  //* creating an array that contains only values of certification key for every rating in the formattedRating and using splice() to limit the number of elements that the final array will contain and using join(", ") to convert to a string and separating each string with a comma ",", when a uniqueArray is derived using Set() constructor
+  const releaseDateArray = formattedRating.map(
+    (rating) => rating["release_date"],
+  );
+  const uniqueDate = [...new Set(releaseDateArray)];
+  const releaseDate = uniqueDate[0];
+
+  const formattedReleaseDate = new Date(releaseDate).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    },
+  );
+
+  const movieDirector = hero.credits.crew.find(
+    (crew) => crew.job === "Director" && {},
+  );
+  console.log("movieDirector: ", movieDirector["profile_path"]);
+
+  const castsArray = hero.credits.cast.map((cast) => {
+    return {
+      id: cast.id,
+      original_name: cast["original_name"],
+      profile_path: cast["profile_path"],
+      character: cast.character,
+    };
+  });
+
+  const formattedCastsArray = castsArray.filter((cast) => {
+    const character = cast?.character || "";
+    const profilePath = cast?.profile_path;
+
+    return (
+      !character.toLowerCase().includes("(uncredited)") &&
+      profilePath !== null &&
+      profilePath !== ""
+    );
+  });
+
+  console.log("castArray: ", formattedCastsArray);
+
   return (
     <>
-      <header className="m-[80] w-screen h-screen">
+      <header className=" w-screen h-screen">
         <div className=" relative w-full h-full bg-orange-700">
           <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/10 via-black/20 to-black/50"></div>
           <div
@@ -92,72 +163,108 @@ export default function ViewVideoPage() {
         </div>
       </header>
       <main className="w-screen h-screen">
-        <section className="relative w-full grid grid-cols-10 bg-pink-900 py-5 my-20 pr-15 pl-11">
-          <div className="flex flex-col gap-10 col-span-5 row-1 bg-blue-700 px-[15px] py-3">
-            <div className="flex flex-col gap-5">
-              <div>
-                <h3 className="text-2xl font-bold">
-                  {hero.title}
-                  <span> ({year_of_release})</span>
-                </h3>
-                <p className="flex items-center gap-1 font-medium">
-                  <span className="text-lg">⭐</span>
-                  <span className="text-lg">{rating}</span>
-                  <span className="inline-block mx-1 w-1.5 h-1.5 bg-white rounded-full"></span>
-                  {formattedGenres.map((genre, index) => (
-                    <span
-                      key={index}
-                      className="text-lg flex items-center"
-                    >
-                      {genre}
-                      <span className="inline-block mx-1.5 w-1.5 h-1.5 bg-white rounded-full"></span>
+        <section className="flex flex-col gap-18 my-20  bg-green-600">
+          <div className="relative w-full grid grid-cols-10 bg-pink-900 py-5 pr-8 pl-4">
+            <div className="flex flex-col gap-10 col-span-5 row-1 rounded-2xl bg-blue-700 px-[15px] py-3">
+              <div className="flex flex-col gap-5">
+                <div className = "flex flex-col gap-2">
+                  <h3 className="text-2xl font-bold">
+                    {hero.title}
+                    <span> ({year_of_release})</span>
+                  </h3>
+                  <p className="flex items-center gap-1 font-medium">
+                    <span className="text-lg">⭐</span>
+                    <span className="text-lg">{rating}</span>
+                    <span className="inline-block mx-1 w-1.5 h-1.5 bg-white rounded-full"></span>
+                    {formattedGenres.map((genre, index) => (
+                      <span key={index} className="text-lg font-semibold flex items-center">
+                        {genre}
+                        <span className="inline-block mx-1.5 w-1.5 h-1.5 bg-white rounded-full"></span>
+                      </span>
+                    ))}
+
+                    <span className="text-lg font-semibold">
+                      {hours}h {minutes}m
                     </span>
-                  ))}
-                  
-                  <span className="text-lg">
-                    {hours}h {minutes}m
-                  </span>
+                  </p>
+                </div>
+                <p className="text-base font-medium">{hero.overview}</p>
+                <p className="text-base font-medium">
+                  As ancient codes collide with advanced technology, survival
+                  becomes more than a hunt—it becomes a test of identity,
+                  loyalty, and evolution.
                 </p>
               </div>
-              <p className = "text-sm">{hero.overview}</p>
-              <p className = "text-sm">
-                As ancient codes collide with advanced technology, survival
-                becomes more than a hunt—it becomes a test of identity, loyalty,
-                and evolution.
-              </p>
             </div>
-          </div>
-          <div className="sticky top-2 bg-[#3b38386b] col-start-7 col-end-11 self-start pl-5 pr-10 py-8 rounded-2xl">
-            <h3 className="text-white font-bold text-xl mb-4">
-              More Information
-            </h3>
-            <hr className=" border-0 bg-[#817d7d] h-[1px] w-full px-[10px]"></hr>
-            <div className="mt-4 flex flex-col gap-6">
-              <div>
-                <p className="uppercase font-medium">Maturity Rating:</p>
-                <p className="uppercase font-medium">TV - PG</p>
-              </div>
-              <div className="flex flex-col gap-3">
-                <p className="uppercase">genres</p>
-                <p className="font-light">
-                  Docuseries, Science & Nature docs, Nature & Ecology, Science &
-                  Nature TV, US TV shows
-                </p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="uppercase font-medium">Film Director:</p>
-                <div className="flex justify-between gap-5 items-center w-fit">
-                  <img
-                    src="https://images.pexels.com/photos/874158/pexels-photo-874158.jpeg"
-                    alt=""
-                    className="w-12 aspect-1/1 rounded-full"
-                  />
-                  <p className="font-light">John Doe</p>
+            <div className="sticky top-2 bg-[#3b38386b] col-start-7 col-end-11 self-start pl-5 pr-10 py-8 rounded-2xl">
+              <h3 className="text-white font-bold text-xl mb-4">
+                More Information
+              </h3>
+              <hr className=" border-0 bg-[#817d7d] h-[1px] w-full px-[10px]"></hr>
+              <div className="mt-4 flex flex-col gap-6">
+                <div className="flex flex-col gap-4">
+                  <p className="uppercase font-extrabold">
+                    maturity rating:{" "}
+                    <span className="font-normal capitalize ml-2">
+                      certification ({finalRating})
+                    </span>
+                  </p>
+                  <p className="uppercase font-extrabold">
+                    release date:{" "}
+                    <span className="font-normal capitalize ml-2">
+                      {formattedReleaseDate}
+                    </span>
+                  </p>
+                  <p className="uppercase font-extrabold">
+                    genres:{" "}
+                    <span className="font-normal capitalize ml-2">
+                      {hero.genres.join(", ")}
+                    </span>
+                  </p>
+                  <p className="uppercase font-extrabold">
+                    production country:{" "}
+                    <span className="font-normal capitalize ml-2">
+                      {hero["origin_country"]}
+                    </span>
+                  </p>
+                  <p className="uppercase font-extrabold">
+                    production company:{" "}
+                    <span className="font-normal capitalize ml-2">
+                      {hero["production_companies"][0].name}
+                    </span>
+                  </p>
+                  <p className="uppercase font-extrabold">
+                    film director:
+                    <span className="font-normal capitalize ml-2">
+                      {movieDirector["original_name"]}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+          <div className=" w-screen h-screen  px-4">
+            <p className=" uppercase font-extrabold text-5xl">top cast </p>
+            <ul className="mt-6 flex gap-4 overflow-scroll scrollbar-hide">
+              {formattedCastsArray.map((cast) => (
+                <li className="flex flex-col gap-5 " key={cast.id}>
+                  <div className=" w-[260px] aspect-1/1 ">
+                    <img
+                      src={`https://image.tmdb.org/t/p/original${cast["profile_path"]}`}
+                      alt={`${cast["original_name"]}`}
+                    ></img>
+                  </div>
+                  <div className = "text-center text-xl font-semibold">
+                    <p>{cast["original_name"]}</p>
+                    <p>as</p>
+                    <p>{cast.character}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
+
         <Actions actionMovies={actionMovies} />
         <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />

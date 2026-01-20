@@ -8,9 +8,8 @@ const __dirname = path.dirname(__filename);
 console.log("controller directory:", __dirname);
 
 import { safeFetch } from "../util/safeFetch.js";
-import { faCcDiscover } from "@fortawesome/free-brands-svg-icons";
-import { json } from "stream/consumers";
 
+// TODO I will Review the getHomeFiles since i don't understand what happened there.
 export const getHomeFiles = async (req, res, next) => {
   try {
     const headers = {
@@ -18,57 +17,76 @@ export const getHomeFiles = async (req, res, next) => {
       Authorization: `Bearer ${process.env.READ_ACCESS_TOKEN}`,
     };
 
-    // Fetch movie and TV genres concurrently
-    const [
-      movieGenreRes,
-      tvGenreRes,
-      popularMoviesRes,
-      topRatedMoviesRes,
-      upComingMoviesRes,
-      nowPlayingMoviesRes,
-    ] = await Promise.all([
-      safeFetch("https://api.themoviedb.org/3/genre/movie/list?language=en", {
+    // Helper to delay between requests
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    // Fetch critical endpoints first with delays
+    const movieGenreRes = await safeFetch(
+      "https://api.themoviedb.org/3/genre/movie/list?language=en",
+      { headers },
+    );
+    await delay(500);
+
+    const tvGenreRes = await safeFetch(
+      "https://api.themoviedb.org/3/genre/tv/list?language=en",
+      { headers },
+    );
+    await delay(500);
+
+    // Fetch optional data concurrently (only 3 at a time)
+    const optionalResults = await Promise.allSettled([
+      safeFetch("https://api.themoviedb.org/3/movie/popular?page=1", {
         headers,
       }),
-      safeFetch("https://api.themoviedb.org/3/genre/tv/list?language=en", {
+      safeFetch("https://api.themoviedb.org/3/tv/popular?page=1", { headers }),
+      safeFetch("https://api.themoviedb.org/3/movie/top_rated?page=1", {
         headers,
       }),
-      safeFetch("https://api.themoviedb.org/3/movie/popular", { headers }),
-      safeFetch("https://api.themoviedb.org/3/movie/top_rated", { headers }),
-      safeFetch("https://api.themoviedb.org/3/movie/upcoming", { headers }),
-      safeFetch("https://api.themoviedb.org/3/movie/now_playing", { headers }),
+    ]);
+    await delay(500);
+
+    const remainingResults = await Promise.allSettled([
+      safeFetch("https://api.themoviedb.org/3/movie/upcoming?page=1", {
+        headers,
+      }),
+      safeFetch("https://api.themoviedb.org/3/movie/now_playing?page=1", {
+        headers,
+      }),
     ]);
 
-    if (
-      !movieGenreRes.ok ||
-      !tvGenreRes.ok ||
-      !popularMoviesRes.ok ||
-      !topRatedMoviesRes.ok ||
-      !upComingMoviesRes.ok ||
-      !nowPlayingMoviesRes.ok
-    ) {
-      throw new Error("Failed to fetch genres");
-    }
+    // Combine results
+    const [popularMoviesRes, popularTvRes, topRatedMoviesRes] =
+      optionalResults.map((r) => (r.status === "fulfilled" ? r.value : null));
+    const [upComingMoviesRes, nowPlayingMoviesRes] = remainingResults.map(
+      (r) => (r.status === "fulfilled" ? r.value : null),
+    );
 
+    // Parse critical data
     const movieGenres = await movieGenreRes.json();
     const tvGenres = await tvGenreRes.json();
-    const popularMovies = await popularMoviesRes.json();
-    const topRatedMovies = await topRatedMoviesRes.json();
-    const upComingMovies = await upComingMoviesRes.json();
-    const nowPlayingMovies = await nowPlayingMoviesRes.json();
+    const popularMovies = popularMoviesRes
+      ? await popularMoviesRes.json()
+      : { results: [] };
+    const popularTvs = popularTvRes
+      ? await popularTvRes.json()
+      : { results: [] };
+    const topRatedMovies = topRatedMoviesRes
+      ? await topRatedMoviesRes.json()
+      : { results: [] };
+    const upComingMovies = upComingMoviesRes
+      ? await upComingMoviesRes.json()
+      : { results: [] };
+    const nowPlayingMovies = nowPlayingMoviesRes
+      ? await nowPlayingMoviesRes.json()
+      : { results: [] };
 
-    // ! searching for movies according to genre Id
-    const movieGenreCards = await Promise.all(
+    // Rest of your code...
+    const movieGenreCards = await Promise.allSettled(
       movieGenres.genres.map(async (genre) => {
         const moviesRes = await safeFetch(
           `https://api.themoviedb.org/3/discover/movie?with_genres=${genre.id}&sort_by=popularity.desc`,
-          { headers }
+          { headers },
         );
-
-        if (!moviesRes.ok) {
-          throw new Error("Failed to Fetch Data");
-        }
-
         const data = await moviesRes.json();
         const movie = data.results?.[0];
 
@@ -78,50 +96,52 @@ export const getHomeFiles = async (req, res, next) => {
             ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
             : null,
         };
-      })
+      }),
     );
 
-    // ! searching for tv according to genre Id
-    const tvGenreCards = await Promise.all(
+    const filteredMovieGenres = movieGenreCards
+      .filter((r) => r.status === "fulfilled")
+      .map((r) => r.value);
+
+    const tvGenreCards = await Promise.allSettled(
       tvGenres.genres.map(async (genre) => {
         const tvRes = await safeFetch(
           `https://api.themoviedb.org/3/discover/tv?with_genres=${genre.id}&sort_by=popularity.desc`,
-          { headers }
+          { headers },
         );
-
-        if (!tvRes.ok) {
-          throw new Error("Failed to Fetch Data");
-        }
-
         const data = await tvRes.json();
         const tv = data.results?.[0];
 
         return {
           ...genre,
-          image: tv?.poster_path
+          image: tv?.backdrop_path
             ? `https://image.tmdb.org/t/p/original${tv.backdrop_path}`
             : null,
         };
-      })
+      }),
     );
 
+    const filteredTvGenres = tvGenreCards
+      .filter((r) => r.status === "fulfilled")
+      .map((r) => r.value);
+
     const resData = {
-      movieGenres: movieGenreCards,
-      tvGenres: tvGenreCards,
+      movieGenres: filteredMovieGenres,
+      tvGenres: filteredTvGenres,
       popularMovies: popularMovies.results,
+      popularTvs: popularTvs.results,
       topRatedMovies: topRatedMovies.results,
       upComingMovies: upComingMovies.results,
       nowPlayingMovies: nowPlayingMovies.results,
     };
 
     console.log("Response Data:\n", resData);
-
     return res.status(200).json(resData);
   } catch (error) {
     console.error("TMDB fetch error:", error);
     return res.status(502).json({
-      error: "TMDB service unavailable",
-      message: "Failed to read data from TDMB",
+      error: error.message,
+      message: "Failed to read data from TMDB",
     });
   }
 };
@@ -132,7 +152,7 @@ export const Questions = async (req, res, next) => {
   try {
     const questionsPromise = await fs.readFile(
       path.join(__dirname, "..", "util", "question.json"),
-      "utf-8"
+      "utf-8",
     );
 
     if (!questionsPromise) {
@@ -164,37 +184,40 @@ export const getActionMovies = async (req, res, next) => {
       "https://api.themoviedb.org/3/genre/movie/list",
       {
         headers,
-      }
+      },
     );
 
     const data = await resp.json();
-    const movie = data.genres;
+    const movieGenres = data.genres;
+    console.log("This is Movie Genres: ", movieGenres);
 
-    // console.log("This is Movie Genres: ", movie);
+    let actionGenre = movieGenres.find((movie) => movie.name === "Action");
+    console.log("Action Genre: ", actionGenre);
 
-    const movieRes = await safeFetch(
-      `https://api.themoviedb.org/3/discover/movie?with_genres=${movie[0].id}`,
-      { headers }
+    //! requesting for movies that has genre id that represents action genre
+    const actionRes = await safeFetch(
+      `https://api.themoviedb.org/3/discover/movie?with_genres=${actionGenre.id}`,
+      { headers },
     );
-    const movieResData = await movieRes.json();
+
+    const movieResData = await actionRes.json();
     const actionMovies = movieResData.results;
     // console.log("The list of Action Movies", actionMovies);
 
+    //* Taking the first action Movie Object and using it's its details for hero section
     const heroMovie = actionMovies[0];
-
     const heroDetailsRes = await safeFetch(
       `https://api.themoviedb.org/3/movie/${heroMovie.id}?append_to_response=videos,images,credits,release_dates`,
-      { headers }
+      { headers },
     );
 
-    let heroDetails = await heroDetailsRes.json()
+    let heroDetails = await heroDetailsRes.json();
 
-    
     console.log("This is Hero Details: ", heroDetails);
 
     const newGenreId = heroMovie["genre_ids"]
       .map((genreId) => {
-        const genre = movie.find((g) => genreId === g.id);
+        const genre = movieGenres.find((g) => genreId === g.id);
         return genre?.name;
       })
       .filter(Boolean);
@@ -202,7 +225,7 @@ export const getActionMovies = async (req, res, next) => {
     console.log("This is the new Genre Id: ", newGenreId);
 
     return res.status(200).json({
-      hero: { ...heroMovie, ...heroDetails, genre_ids: newGenreId },
+      hero: { ...heroMovie, ...heroDetails, genres: newGenreId },
       actionMovies,
     });
   } catch (error) {

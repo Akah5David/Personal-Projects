@@ -8,6 +8,20 @@ import Section from "../Reusable-Components/SubscribeButton";
 export default function TvGenres({ tvGenres, tvGenreRef }) {
   const sliderRef = useRef(null);
 
+  // Guard against undefined data
+  if (!tvGenres || tvGenres.length === 0) {
+    return (
+      <section ref={tvGenreRef} className="relative inset-0 my-0 bg-black">
+        <div className="relative pl-[45px] pr-[15px] w-full py-[50px]">
+          <h1 className="text-[2rem] font-bold text-white pb-[1.5rem]">
+            TV
+          </h1>
+          <p className="text-gray-400">No movies available</p>
+        </div>
+      </section>
+    );
+  }
+
   // ! I don't understand this function and what it does.
   const SLIDE_AMOUNT = () => sliderRef.current.offsetWidth;
 
@@ -45,15 +59,15 @@ export default function TvGenres({ tvGenres, tvGenreRef }) {
             >
               <Link to={`/movie/${movie.id}`}>
                 <div
-                  className="relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-2/3  rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
+                  className="relative shadow-md bg-cover bg-center bg-no-repeat aspect-2/3  rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
                   style={{
                     backgroundImage: `url(${movie.image})`,
                     // scrollSnapAlign: "center",
                   }}
                 >
                   <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl">
-                    <div className="absolute bottom-1/6 left-1/6 z-40 text-white">
-                      <h2 className="text-5xl/10 mb-3 font-stretch-condensed font-bold">
+                    <div className="absolute bottom-1/6 left-[50%] translate-x-[-50%] z-40 text-white">
+                      <h2 className="text-2xl/10 mb-3 font-stretch-condensed font-bold">
                         {movie.name}
                       </h2>
                     </div>

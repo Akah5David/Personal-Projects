@@ -7,7 +7,20 @@ import Section from "../Reusable-Components/SubscribeButton";
 
 export default function PopularMovies({ upComingMovies, upComingRef }) {
   const sliderRef = useRef(null);
-  console.log("popular ref: ", upComingRef);
+
+  // Guard against undefined data
+  if (!upComingMovies || upComingMovies.length === 0) {
+    return (
+      <section ref={upComingRef} className="relative inset-0 my-0 bg-black">
+        <div className="relative pl-[45px] pr-[15px] w-full py-[50px]">
+          <h1 className="text-[2rem] font-bold text-white pb-[1.5rem]">
+            Up Coming
+          </h1>
+          <p className="text-gray-400">No movies available</p>
+        </div>
+      </section>
+    );
+  }
 
   const SLIDE_AMOUNT = () => sliderRef.current.offsetWidth;
 
@@ -52,18 +65,7 @@ export default function PopularMovies({ upComingMovies, upComingRef }) {
                     backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`,
                     // scrollSnapAlign: "center",
                   }}
-                >
-                  <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl">
-                    <div className="absolute bottom-1/6 left-1/6 z-40 text-white">
-                      <h2 className="text-5xl/10 mb-3 font-strech-condesed font-bold">
-                        {movie.title}
-                      </h2>
-                      <p className=" text-2xl/10 mt-2">
-                        <span>{movie["vote_count"]}</span> Vote Count
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ></div>
               </Link>
             </motion.li>
           ))}

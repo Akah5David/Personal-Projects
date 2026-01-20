@@ -6,6 +6,20 @@ import SliderButton from "../Reusable-Components/SliderButton";
 export default function TopRatedMovies({ topRatedMovies, topRatedRef }) {
   const sliderRef = useRef(null);
 
+  // Guard against undefined data
+  if (!topRatedMovies || topRatedMovies.length === 0) {
+    return (
+      <section ref={topRatedRef} className="relative inset-0 my-0 bg-black">
+        <div className="relative pl-[45px] pr-[15px] w-full py-[50px]">
+          <h1 className="text-[2rem] font-bold text-white pb-[1.5rem]">
+            Top Rated
+          </h1>
+          <p className="text-gray-400">No movies available</p>
+        </div>
+      </section>
+    );
+  }
+
   // ! I don't understand this function and what it does.
   const SLIDE_AMOUNT = () => sliderRef.current.offsetWidth;
 

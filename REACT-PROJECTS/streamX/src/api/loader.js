@@ -9,7 +9,20 @@ export async function homePage() {
     return { data, error: null };
   } catch (error) {
     console.error("Error fetching category data:", error);
-    return { data: null, error: error.message };
+
+    // Return safe defaults instead of null
+    return {
+      data: {
+        movieGenres: [],
+        tvGenres: [],
+        popularMovies: [],
+        popularTvs: [],
+        topRatedMovies: [],
+        upComingMovies: [],
+        nowPlayingMovies: [],
+      },
+      error: error.message,
+    };
   }
 }
 
@@ -19,7 +32,7 @@ export async function questionLoader() {
   if (!response.ok) {
     throw new Response(
       JSON.stringify({ message: "Network response was not ok" }),
-      { status: 404 }
+      { status: 404 },
     );
   }
 
