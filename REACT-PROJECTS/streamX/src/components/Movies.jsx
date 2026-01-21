@@ -1,7 +1,7 @@
-export default function Action({ actionMovies }) {
+export default function Movies({ genres_in_movie }) {
   return (
     <ul className="grid grid-flow-row grid-cols-5 grid-rows-4 gap-5 pl-4 pr-8">
-      {actionMovies.map((movie) => (
+      {genres_in_movie.map((movie) => (
         <li key={movie.id} >
           <div className="border-2 rounded-lg overflow-hidden flex flex-col gap-4">
             <img

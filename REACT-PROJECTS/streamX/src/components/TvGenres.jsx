@@ -52,23 +52,23 @@ export default function TvGenres({ tvGenres, tvGenreRef }) {
           className="flex gap-5 snap-x snap-mandatory scroll-smooth pb-19 pt-2 pl-6  select-none  overflow-scroll no-scrollbar"
           style={{ scrollBehavior: "smooth" }}
         >
-          {tvGenres.map((movie) => (
+          {tvGenres.map((tv) => (
             <motion.li
-              key={`${movie.id}`}
+              key={`${tv.id}`}
               className="flex-none w-[31%] snap-center snap-always scroll-m-6"
             >
-              <Link to={`/movie/${movie.id}`}>
+              <Link to={`/tv/${tv.name.toLowerCase()}`}>
                 <div
                   className="relative shadow-md bg-cover bg-center bg-no-repeat aspect-2/3  rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
                   style={{
-                    backgroundImage: `url(${movie.image})`,
+                    backgroundImage: `url(${tv.image})`,
                     // scrollSnapAlign: "center",
                   }}
                 >
                   <div className="absolute inset-0 z-30 bg-gradient-to-b from-black/5 via-black/20 to-black/98 rounded-3xl">
                     <div className="absolute bottom-1/6 left-[50%] translate-x-[-50%] z-40 text-white">
                       <h2 className="text-2xl/10 mb-3 font-stretch-condensed font-bold">
-                        {movie.name}
+                        {tv.name}
                       </h2>
                     </div>
                   </div>

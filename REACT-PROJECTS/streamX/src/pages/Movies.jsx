@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { Link, useParams, useLoaderData, useLocation } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 
 import NavBar from "../Reusable-Components/NavBar";
-import Actions from "../components/Action";
 import SubscribeButton from "../Reusable-Components/SubscribeButton";
 import Documentaries from "../components/Documentaries";
 import MoreDocumentaries from "../Reusable-Components/MoreDocumentaries";
 import Footer from "../components/Footer";
+import Movies from "../components/Movies";
 
 const GENRE_LABELS = {
   "Science Fiction": "Sci-Fi",
@@ -14,7 +14,6 @@ const GENRE_LABELS = {
 };
 
 export default function ViewVideoPage() {
-  const params = useParams();
   const LoadersData = useLoaderData();
   const location = useLocation();
 
@@ -53,7 +52,7 @@ export default function ViewVideoPage() {
       };
     })
     .filter(
-      (rating) => rating["release_dates"][0]?.certification !== "" && rating,
+      (rating) => rating?.release_dates?.[0]?.certification?.trim() !== "",
     );
 
   //* Making the Maturity rating array to contain objects with two key-value types certification and release_date
@@ -167,7 +166,7 @@ export default function ViewVideoPage() {
           <div className="relative w-full grid grid-cols-10 bg-pink-900 py-5 pr-8 pl-4">
             <div className="flex flex-col gap-10 col-span-5 row-1 rounded-2xl bg-blue-700 px-[15px] py-3">
               <div className="flex flex-col gap-5">
-                <div className = "flex flex-col gap-2">
+                <div className="flex flex-col gap-2">
                   <h3 className="text-2xl font-bold">
                     {hero.title}
                     <span> ({year_of_release})</span>
@@ -177,7 +176,10 @@ export default function ViewVideoPage() {
                     <span className="text-lg">{rating}</span>
                     <span className="inline-block mx-1 w-1.5 h-1.5 bg-white rounded-full"></span>
                     {formattedGenres.map((genre, index) => (
-                      <span key={index} className="text-lg font-semibold flex items-center">
+                      <span
+                        key={index}
+                        className="text-lg font-semibold flex items-center"
+                      >
                         {genre}
                         <span className="inline-block mx-1.5 w-1.5 h-1.5 bg-white rounded-full"></span>
                       </span>
@@ -254,7 +256,7 @@ export default function ViewVideoPage() {
                       alt={`${cast["original_name"]}`}
                     ></img>
                   </div>
-                  <div className = "text-center text-xl font-semibold">
+                  <div className="text-center text-xl font-semibold">
                     <p>{cast["original_name"]}</p>
                     <p>as</p>
                     <p>{cast.character}</p>
@@ -265,7 +267,7 @@ export default function ViewVideoPage() {
           </div>
         </section>
 
-        <Actions actionMovies={actionMovies} />
+        <Movies genres_in_movie={actionMovies} />
         <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />
       </main>

@@ -1,6 +1,10 @@
+import { API_BASE } from "../config/api";
+
 export async function homePage() {
+  console.log("API URL:", API_BASE);
+
   try {
-    const response = await fetch("http://localhost:3000/");
+    const response = await fetch(`${API_BASE}/api/home`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -27,7 +31,7 @@ export async function homePage() {
 }
 
 export async function questionLoader() {
-  const response = await fetch("http://localhost:3000/questions");
+  const response = await fetch(`${API_BASE}/api/questions`);
 
   if (!response.ok) {
     throw new Response(
@@ -42,8 +46,8 @@ export async function questionLoader() {
   return data.questionData;
 }
 
-const actionMovies = async () => {
-  const res = await fetch("http://localhost:3000/action");
+const actionMovies = async ({ params }) => {
+  const res = await fetch(`${API_BASE}/api/movie/${params.genre}`);
 
   if (!res.ok) {
     throw new Error("Unable to fetch the data");
@@ -55,12 +59,26 @@ const actionMovies = async () => {
   return actionMovies;
 };
 
-const ComponentLoaders = { homePage, questionLoader, actionMovies };
+const tvGenres = async ({ params }) => {
+  console.log("Params: ", params.genre);
+  const res = await fetch(`${API_BASE}/api/tv/${params.genre}`);
+
+  if (!res.ok) {
+    throw new Error("Unable to fetch the data");
+  }
+
+  const data = await res.json();
+  const tvGenres = data;
+
+  return tvGenres;
+};
+
+const ComponentLoaders = { homePage, questionLoader, actionMovies, tvGenres };
 
 export default ComponentLoaders;
 
 //error message will be the content of throw error
 
-//when u use throw Response useRoute error will return Response object then use resObject.json() to convert to  javascript object
+//when u use throw Response useRouteError will return Response object then use resObject.json() to convert to  javascript object
 
 //when u use throw Error useRouteError will return javascript error object  then u can access the message property of the error.

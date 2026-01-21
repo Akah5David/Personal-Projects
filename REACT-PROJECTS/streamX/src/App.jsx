@@ -9,7 +9,8 @@ import CartPage from "./pages/CartPage";
 import AuthPage from "./pages/AuthPage";
 import LogoutPage from "./pages/LogoutPage";
 import FooterPage from "./pages/FooterPage";
-import ActionMoviesPage from "./pages/ActionMovies";
+import MoviesPage from "./pages/Movies";
+import TvPage from "./pages/Tv";
 import PremiumSubscribePage from "./pages/PremiumSub";
 import ViewVideoPage from "./pages/ViewVideoPage";
 import LoadingFallback from "./pages/LoadingFallback";
@@ -17,7 +18,7 @@ import LoadingFallback from "./pages/LoadingFallback";
 // import { HomePage } from "./api/loader";
 
 function App() {
-  const { homePage, questionLoader, actionMovies } = ComponentLoaders;
+  const { homePage, questionLoader, actionMovies, tvGenres } = ComponentLoaders;
 
   console.log("ComponentLoaders ", homePage());
   const router = createBrowserRouter([
@@ -36,8 +37,13 @@ function App() {
     },
     {
       path: "/movie/:genre",
-      element: <ActionMoviesPage />,
+      element: <MoviesPage />,
       loader: actionMovies,
+    },
+    {
+      path: "/tv/:genre",
+      element: <TvPage />,
+      loader: tvGenres,
     },
   ]);
 

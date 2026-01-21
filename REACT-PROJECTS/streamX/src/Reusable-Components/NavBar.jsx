@@ -161,7 +161,7 @@ export default function Header({ LoadersData, scrollToSections }) {
 
   return (
     <>
-      <header className=" fixed w-full z-99 flex items-center gap-20 py-6 px-[50px] bg-black  text-white">
+      <header className=" fixed w-full z-99 flex items-center gap-20 py-6 px-[50px] bg-[#0000005e]  text-white">
         <div className="flex gap-2 items-center min-w-max ">
           <img src={logoImg} alt="Logo" className="h-[60px] w-[30px] " />
           <h3 className="text-white font-bold font-serif text-[25px]">
