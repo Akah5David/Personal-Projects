@@ -2,6 +2,7 @@ import { Outlet, useLoaderData } from "react-router-dom";
 
 import Header from "../components/HomeHeader";
 import MainPage from "../pages/Main";
+import ScrollToTop from "../components/ScrollToTop";
 import { useRef } from "react";
 // import FooterPage from "../components/Footer";
 
@@ -76,6 +77,7 @@ export default function Root() {
   };
   return (
     <>
+    <ScrollToTop />
       <Header
         HomePageData={HomePage.data}
         scrollToSections={scrollToSections}

@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { createPortal } from "react-dom";
 
-import SubscribeButton from "../Reusable-Components/SubscribeButton";
+import SubscribeButton from "../reusable_components/SubscribeButton";
 
 const CartModal = forwardRef(function CartModal({ closeModalFn }, ref) {
   const dialogRef = useRef();
@@ -52,7 +52,7 @@ const CartModal = forwardRef(function CartModal({ closeModalFn }, ref) {
         </div>
       </dialog>
     </>,
-    window.document.getElementById("cart-modal")
+    window.document.getElementById("cart-modal"),
   );
 });
 

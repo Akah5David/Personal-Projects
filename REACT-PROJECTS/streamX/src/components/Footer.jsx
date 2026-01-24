@@ -2,7 +2,7 @@ import logoImg from "../assets/svgs/logo.svg";
 import { Link } from "react-router-dom";
 export default function Footer() {
   return (
-    <section className="h-screen w-screen pb-[50px] py-[100px] pr-[100px] pl-[50px] bg-black grid grid-cols-5 gap-7">
+    <section className="h-screen w-screen pb-[50px] py-[100px] pr-[100px] pl-[50px]  grid grid-cols-5 gap-7">
       <div className="flex flex-col  col-span-2">
         <div className="mb-[19px] gap-5 flex flex-col">
           <div className="flex gap-2 items-center min-w-max ">

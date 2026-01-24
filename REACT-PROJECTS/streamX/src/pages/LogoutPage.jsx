@@ -1,4 +1,4 @@
-import SubscribeButton from "../Reusable-Components/SubscribeButton";
+import SubscribeButton from "../reusable_components/SubscribeButton";
 
 export default function SubscribePage() {
   return (

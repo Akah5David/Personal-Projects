@@ -1,4 +1,5 @@
 export default function Movies({ genres_in_movie }) {
+  console.log("genres_in_movie", genres_in_movie);
   return (
     <ul className="grid grid-flow-row grid-cols-5 grid-rows-4 gap-5 pl-4 pr-8">
       {genres_in_movie.map((movie) => (

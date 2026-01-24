@@ -1,9 +1,8 @@
-import SubscribeButton from "../Reusable-Components/SubscribeButton";
+import SubscribeButton from "../reusable_components/SubscribeButton";
 import QuestionsPage from "../components/Questions";
 import Footer from "../components/Footer";
 import { Link, useLoaderData } from "react-router-dom";
-import NavBar from "../Reusable-Components/NavBar";
-
+import NavBar from "../reusable_components/NavBar";
 
 export default function SubscribePage() {
   const LoadersData = useLoaderData();

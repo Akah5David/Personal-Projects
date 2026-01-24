@@ -1,8 +1,8 @@
-import SubscribeButton from "../Reusable-Components/SubscribeButton";
+import SubscribeButton from "../reusable_components/SubscribeButton";
 import QuestionsPage from "../components/Questions";
 import Footer from "../components/Footer";
 import { Link, useLoaderData } from "react-router-dom";
-import NavBar from "../Reusable-Components/NavBar";
+import NavBar from "../reusable_components/NavBar";
 
 export default function PremiumSubscribePage() {
   const LoadersData = useLoaderData();
@@ -54,7 +54,9 @@ export default function PremiumSubscribePage() {
                     <div className="rounded-full relative z-20 bottom-[7px] h-[7px] w-[50px] border-2 bg-[#272626] "></div>
                   </div>
 
-                  <p className="text-left text-xl ">Available in All Platform</p>
+                  <p className="text-left text-xl ">
+                    Available in All Platform
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-4 ">
@@ -130,8 +132,10 @@ export default function PremiumSubscribePage() {
                   Available on every device
                 </h1>
                 <div className="flex gap-10 items-center  flex-row">
-                  <div className="  
-                   justify-center gap-5 items-center flex flex-col ">
+                  <div
+                    className="  
+                   justify-center gap-5 items-center flex flex-col "
+                  >
                     <div className="">
                       <div className="aspect-17/11 w-[60px] border-2 border-white shadow-md/40 rounded-[2px] "></div>
                       <div className="flex flex-col items-center ">
@@ -229,13 +233,13 @@ export default function PremiumSubscribePage() {
                 <h1 className="text-[1.7em] font-medium font-sans text-white">
                   About the plan
                 </h1>
-                <p className = "text-xl">
+                <p className="text-xl">
                   Duis aute irure dolor in reprehenderit in voluptate velit esse
                   cillum dolore eu fugiat nulla pariatur excepteur sint occaecat
                   cupidatat non proident, sunt in culpa qui officia deserunt
                   mollit anim id est laborum mollit anim.
                 </p>
-                <p className = "text-xl">
+                <p className="text-xl">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Ut enim ad minim veniam, quis nostrud exercitation ullamco

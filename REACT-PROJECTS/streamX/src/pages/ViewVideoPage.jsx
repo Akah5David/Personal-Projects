@@ -1,9 +1,9 @@
 import { Link, useParams, useLoaderData, useLocation } from "react-router-dom";
 
-import NavBar from "../Reusable-Components/NavBar";
-import SubscribeButton from "../Reusable-Components/SubscribeButton";
+import NavBar from "../reusable_components/NavBar";
+import SubscribeButton from "../reusable_components/SubscribeButton";
 import Documentaries from "../components/Documentaries";
-import MoreDocumentaries from "../Reusable-Components/MoreDocumentaries";
+import MoreDocumentaries from "../reusable_components/MoreDocumentaries";
 import Footer from "../components/Footer";
 
 export default function ViewVideoPage() {
@@ -17,11 +17,11 @@ export default function ViewVideoPage() {
   console.log("ViewVideoPage data", LoadersData.categoriesData);
 
   const filteredData = LoadersData.categoriesData.find(
-    (data) => data.name === params.name
+    (data) => data.name === params.name,
   );
 
   const filteredCategory = LoadersData.categoriesData.filter(
-    (data) => data.name !== params.name
+    (data) => data.name !== params.name,
   );
 
   console.log("filteredCategory", filteredCategory);

@@ -73,7 +73,83 @@ const tvGenres = async ({ params }) => {
   return tvGenres;
 };
 
-const ComponentLoaders = { homePage, questionLoader, actionMovies, tvGenres };
+const nowPlaying = async ({ params }) => {
+  console.log("Params: ", params.id);
+  const res = await fetch(`${API_BASE}/api/nowPlaying/${params.id}`);
+
+  if (!res.ok) {
+    throw new Error("Unable to fetch the data");
+  }
+
+  const data = await res.json();
+  const nowPlaying = data;
+
+  console.log("NowPlaying: ", nowPlaying);
+
+  return nowPlaying;
+};
+
+//*Top Rated
+const topRated = async ({ params }) => {
+  console.log("Params: ", params.id);
+  const res = await fetch(`${API_BASE}/api/topRated/${params.id}`);
+
+  if (!res.ok) {
+    throw new Error("Unable to fetch the data");
+  }
+
+  const data = await res.json();
+  const topRated = data;
+
+  console.log("NowPlaying: ", topRated);
+
+  return topRated;
+};
+
+//*UpComing
+const upComing = async ({ params }) => {
+  console.log("Params: ", params.id);
+  const res = await fetch(`${API_BASE}/api/upComing/${params.id}`);
+
+  if (!res.ok) {
+    throw new Error("Unable to fetch the data");
+  }
+
+  const data = await res.json();
+  const upComing = data;
+
+  console.log("NowPlaying: ", upComing);
+
+  return upComing;
+};
+
+//*Popular
+const popular = async ({ params }) => {
+  console.log("Params: ", params.id);
+  const res = await fetch(`${API_BASE}/api/popular/${params.id}`);
+
+  if (!res.ok) {
+    throw new Error("Unable to fetch the data");
+  }
+
+  const data = await res.json();
+  const popular = data;
+
+  console.log("NowPlaying: ", popular);
+
+  return popular;
+};
+
+const ComponentLoaders = {
+  homePage,
+  questionLoader,
+  actionMovies,
+  tvGenres,
+  nowPlaying,
+  topRated,
+  popular,
+  upComing
+};
 
 export default ComponentLoaders;
 

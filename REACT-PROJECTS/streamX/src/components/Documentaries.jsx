@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import SliderButton from "../Reusable-Components/SliderButton";
-import Section from "../Reusable-Components/SubscribeButton";
+import SliderButton from "../reusable_components/SliderButton";
+import Section from "../reusable_components/SubscribeButton";
 
 export default function CategoriesPage({
   categories,

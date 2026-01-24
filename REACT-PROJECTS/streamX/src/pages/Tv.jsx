@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { Link, useLoaderData, useLocation } from "react-router-dom";
 
-import NavBar from "../Reusable-Components/NavBar";
+import NavBar from "../reusable_components/NavBar";
 import Tvs from "../components/Tv";
-import SubscribeButton from "../Reusable-Components/SubscribeButton";
+import SubscribeButton from "../reusable_components/SubscribeButton";
 import Documentaries from "../components/Documentaries";
-import MoreDocumentaries from "../Reusable-Components/MoreDocumentaries";
+import MoreDocumentaries from "../reusable_components/MoreDocumentaries";
 import Footer from "../components/Footer";
 
 const GENRE_LABELS = {

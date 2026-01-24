@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import SliderButton from "../Reusable-Components/SliderButton";
+import SliderButton from "../reusable_components/SliderButton";
 
 export default function NowPlayingMovies({ nowPlayingMovies, nowPlayingRef }) {
   const sliderRef = useRef(null);
@@ -41,35 +41,30 @@ export default function NowPlayingMovies({ nowPlayingMovies, nowPlayingRef }) {
   };
 
   return (
-    <section ref={nowPlayingRef} className="relative inset-0 my-0 bg-black">
-      <SliderButton handleNext={handleNext} handlePrev={handlePrev} />
-      <div className="relative pl-[45px] pr-[15px] w-full py-[50px] overflow-hidden">
-        <h1 className="text-[2rem] font-bold text-white pb-[1.5rem] ">
-          Now Playing
-        </h1>
-        <ul
-          ref={sliderRef}
-          className="flex gap-5 snap-x snap-mandatory scroll-smooth pb-19 pt-2 pl-6  select-none  overflow-scroll no-scrollbar"
-          style={{ scrollBehavior: "smooth" }}
-        >
-          {nowPlayingMovies.map((movie) => (
-            <motion.li
-              key={`${movie.id}`}
-              className="flex-none w-[31%] snap-center snap-always scroll-m-6"
-            >
-              <Link to={`/movie/${movie.id}`}>
-                <div
-                  className="relative shadow-md bg-cover bg-top-left bg-no-repeat aspect-2/3  rounded-3xl transition-transform duration-300 hover:scale-97 hover:bg-center"
-                  style={{
-                    backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`,
-                    // scrollSnapAlign: "center",
-                  }}
-                ></div>
-              </Link>
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
+      <section ref={nowPlayingRef} className="relative inset-0 my-0 ">
+        <SliderButton handleNext={handleNext} handlePrev={handlePrev} />
+        <div className=" pl-[15px] pr-[15px] w-full py-[20px] overflow-hidden">
+          <h1 className="text-[2rem] font-bold text-white ml-4">
+            Now Playing
+          </h1>
+          <div
+            ref={sliderRef}
+            className="flex gap-5 snap-x snap-mandatory scroll-smooth py-5 pl-4  select-none  overflow-scroll no-scrollbar "
+            style={{ scrollBehavior: "smooth" }}
+          >
+            {nowPlayingMovies.map((movie) => (
+                <Link to={`/nowPlaying/${movie.id}`}               key={`${movie.id}`}
+                className="flex-none w-[15%] aspect-1/1.5 snap-center snap-always scroll-m-6 border-2 rounded-3xl overflow-hidden hover:scale-110">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={`movie.original_name`}
+                    className="object-cover w-full h-full"
+                  />
+                </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+  

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getGenre } from "../controller/tv_genres.js";
+import { getGenre } from "../controller/tv.js";
 
 
 const router = Router();

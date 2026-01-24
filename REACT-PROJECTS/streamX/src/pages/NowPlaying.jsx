@@ -3,9 +3,9 @@ import { Link, useLoaderData, useLocation } from "react-router-dom";
 
 import NavBar from "../reusable_components/NavBar";
 import SubscribeButton from "../reusable_components/SubscribeButton";
-
+import Others from "../reusable_components/Others";
 import Footer from "../components/Footer";
-import Movies from "../components/Movies";
+
 
 const GENRE_LABELS = {
   "Science Fiction": "Sci-Fi",
@@ -24,10 +24,19 @@ export default function ViewVideoPage() {
   const extractedPath = location.pathname.split("/")[1];
   console.log("extractedPath", extractedPath);
 
-  const { hero, actionMovies } = LoadersData;
-  console.log("actionMovies: ", actionMovies);
+  const { hero, nowPlaying } = LoadersData;
 
-  let year_of_release = hero["release_date"].split("-")[0];
+  let date;
+
+  if (hero.release_date) {
+    date = "release_date";
+  }
+
+  if (hero.first_air_date) {
+    date = "first_air_date";
+  }
+
+  let year_of_release = hero[date].split("-")[0];
   let minutes = hero.runtime % 60;
   let hours = Math.trunc(hero.runtime / 60);
   let rating = hero["vote_average"].toFixed(1);
@@ -267,83 +276,10 @@ export default function ViewVideoPage() {
           </div>
         </section>
 
-        <Movies genres_in_movie={actionMovies} />
+        <Others others={nowPlaying} section="nowPlaying"/>
         <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />
       </main>
     </>
   );
 }
-
-// <header>
-//   <div className=" relative w-screen h-screen bg-orange-700">
-//     <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/70 via-black/90 to-black/100"></div>
-//     <div className="bg-[url(/images/background.jpeg)] bg-no-repeat bg-center bg-cover inset-0 absolute z-10 bg-local"></div>
-//     <div className="absolute z-30 inset-0">
-// <NavBar
-//   LoadersData={HomePageData}
-//   scrollToSections={scrollToSections}
-// />
-//       <div className="relative ml-[50px] my-[100px] w-[50%] pb-[30px] text-left ">
-//         <h1 className="text-white text-[60px] font-bold">
-//           Unlimited Animals documentaries in 4k
-//         </h1>
-//         <p className="text-white text-[20px]">
-//           Lorem ipsum dolor sit amet, consectetur adipiscing elit massa a
-//           netus elit cursus eget viverra vitae risus nunc facilisis feugiat.
-//         </p>
-//         <div className="w-full mt-[40px] flex items-center gap-10">
-//           <SubscribeButton btnAction="Subscribe today!" />
-//           <Link
-//             to="/"
-//             className="bg-[#c5c1c16b] py-4 px-4 rounded-full font-medium text-white"
-//           >
-//             Explore documentaries
-//           </Link>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </header>
-
-// {
-//   (" ");
-// }
-// <header className="m-[80] w-screen h-screen">
-//   <div className=" relative w-full h-full bg-orange-700">
-//     <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/30 via-black/40 to-black/100"></div>
-//     <div
-//       className="bg-no-repeat bg-center bg-cover inset-0 absolute z-10 bg-local"
-//       style={{
-//         backgroundImage: `url(https://image.tmdb.org/t/p/original/${hero.backdrop_path})`,
-//       }}
-//     ></div>
-//     <div className="absolute z-30 inset-0">
-//       <NavBar LoadersData={LoadersData} />
-//       <div className="relative ml-[50px] my-[100px] w-[50%] pb-[30px] text-left ">
-//         <h6 className="uppercase text-xl text-white">
-//           Popular on Savanna documentaries
-//         </h6>
-//         <h1 className="text-white text-[60px] font-bold">
-//           The Eye of The Leopard
-//         </h1>
-//         <p className="text-white text-[20px]">
-//           Lorem ipsum dolor sit amet, consectetur adipiscing elit massa a netus
-//           elit cursus eget viverra vitae risus nunc facilisis feugiat.
-//         </p>
-//         <div className="w-full mt-[40px] flex items-center gap-10">
-//           <SubscribeButton
-//             btnAction="Watch now"
-//             className="hover:bg-white hover:text-blue-700"
-//           />
-//           <Link
-//             to="/"
-//             className="bg-[#c5c1c16b] py-4 px-4 rounded-full font-medium text-white hover:bg-blue-400"
-//           >
-//             watch trailer
-//           </Link>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </header>;

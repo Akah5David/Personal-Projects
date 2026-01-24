@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import NavBar from "../Reusable-Components/NavBar";
+import NavBar from "../reusable_components/NavBar";
 import Footer from "../components/Footer";
-import Form from "../Reusable-Components/Form";
+import Form from "../reusable_components/Form";
 
 export default function LoginPage() {
   const { type } = useParams();

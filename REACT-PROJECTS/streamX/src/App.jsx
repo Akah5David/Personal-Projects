@@ -10,7 +10,12 @@ import AuthPage from "./pages/AuthPage";
 import LogoutPage from "./pages/LogoutPage";
 import FooterPage from "./pages/FooterPage";
 import MoviesPage from "./pages/Movies";
+import NowPlayingPage from "./pages/NowPlaying";
+import TopRatedPage from "./pages/TopRated";
+import PopularPage from "./pages/Popular";
+import UpComingPage from "./pages/UpComing";
 import TvPage from "./pages/Tv";
+import ScrollToTop from "./components/ScrollToTop";
 import PremiumSubscribePage from "./pages/PremiumSub";
 import ViewVideoPage from "./pages/ViewVideoPage";
 import LoadingFallback from "./pages/LoadingFallback";
@@ -18,7 +23,16 @@ import LoadingFallback from "./pages/LoadingFallback";
 // import { HomePage } from "./api/loader";
 
 function App() {
-  const { homePage, questionLoader, actionMovies, tvGenres } = ComponentLoaders;
+  const {
+    homePage,
+    questionLoader,
+    actionMovies,
+    tvGenres,
+    nowPlaying,
+    topRated,
+    upComing,
+    popular,
+  } = ComponentLoaders;
 
   console.log("ComponentLoaders ", homePage());
   const router = createBrowserRouter([
@@ -44,6 +58,26 @@ function App() {
       path: "/tv/:genre",
       element: <TvPage />,
       loader: tvGenres,
+    },
+    {
+      path: "/nowPlaying/:id",
+      element: <NowPlayingPage />,
+      loader: nowPlaying,
+    },
+    {
+      path: "/top_rated/:id",
+      element: <TopRatedPage />,
+      loader: topRated,
+    },
+    {
+      path: "/upcoming/:id",
+      element: <UpComingPage />,
+      loader: upComing,
+    },
+    {
+      path: "/popular/:id",
+      element: <PopularPage />,
+      loader: popular,
     },
   ]);
 

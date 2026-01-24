@@ -1,7 +1,7 @@
 import { Link, useOutletContext } from "react-router-dom";
 
-import NavBar from "../Reusable-Components/NavBar";
-import SubscribeButton from "../Reusable-Components/SubscribeButton";
+import NavBar from "../reusable_components/NavBar";
+import SubscribeButton from "../reusable_components/SubscribeButton";
 
 export default function Header({ HomePageData, scrollToSections }) {
   console.log("HomeHeader LoadersData", HomePageData);
@@ -9,7 +9,7 @@ export default function Header({ HomePageData, scrollToSections }) {
   return (
     <header>
       <div className=" relative w-screen h-screen bg-orange-700">
-        <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/70 via-black/90 to-black/100"></div>
+        <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/70 via-black/5 to-black/"></div>
         <div className="bg-[url(/images/background.jpeg)] bg-no-repeat bg-center bg-cover inset-0 absolute z-10 bg-local"></div>
         <div className="absolute z-30 inset-0">
           <NavBar

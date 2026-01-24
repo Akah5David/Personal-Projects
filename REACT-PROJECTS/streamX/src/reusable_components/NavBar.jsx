@@ -167,7 +167,7 @@ export default function Header({ LoadersData, scrollToSections }) {
           <h3 className="text-white font-bold font-serif text-[25px]">
             Streaming X
           </h3>
-          <h3>{windowPosition}</h3>
+          {/* <h3>{windowPosition}</h3> */}
         </div>
         <nav className="flex-1  ">
           <ul className="flex justify-end items-center gap-5  min-w-max">
