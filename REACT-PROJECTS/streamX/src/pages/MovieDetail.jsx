@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Link, useLoaderData, useLocation, useParams, useRevalidator } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
 
 import NavBar from "../reusable_components/NavBar";
 import SubscribeButton from "../reusable_components/SubscribeButton";
@@ -12,11 +18,10 @@ const GENRE_LABELS = {
   "Television Movie": "TV Movie",
 };
 
-export default function ViewVideoPage() {
+export default function MovieDetailPage() {
   const LoadersData = useLoaderData();
   const location = useLocation();
   const { genre, id } = useParams();
-
   const revalidator = useRevalidator();
 
   useEffect(() => {

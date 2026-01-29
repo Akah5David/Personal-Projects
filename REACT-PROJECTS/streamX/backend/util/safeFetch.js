@@ -1,7 +1,7 @@
 //! NOTE: I have not understood the below code
-export const safeFetch = async (url, options, retries = 3) => {
+export const safeFetch = async (url, options, retries = 4) => {
   const controller = new AbortController();
-  let timeout = setTimeout(() => controller.abort(), 15000); // Increased to 15s
+  let timeout = setTimeout(() => controller.abort(), 30000); // Increased to 15s
 
   try {
     const res = await fetch(url, { ...options, signal: controller.signal });

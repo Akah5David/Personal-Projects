@@ -68,10 +68,10 @@ export const getGenre = async (req, res, next) => {
       genres_in_tv,
     });
   } catch (error) {
-    console.log("Error From getActionMovies: ", error);
+    console.log("Error From getMovies: ", error);
     return res.status(502).json({
       error: error.message,
-      message: "Unable to Fetch ActionMovies form TDMB",
+      message: "Unable to Fetch Movies form TDMB",
     });
   }
 };

@@ -11,12 +11,12 @@ console.log("controller directory:", __dirname);
 import { safeFetch } from "../util/safeFetch.js";
 import { delay } from "framer-motion";
 
-export const getGenre = async (req, res, next) => {
-  const headers = {
-    accept: "application/json",
-    Authorization: `Bearer ${process.env.READ_ACCESS_TOKEN}`,
-  };
+const headers = {
+  accept: "application/json",
+  Authorization: `Bearer ${process.env.READ_ACCESS_TOKEN}`,
+};
 
+export const getGenre = async (req, res, next) => {
   try {
     const resp = await safeFetch(
       "https://api.themoviedb.org/3/genre/movie/list",
@@ -44,11 +44,11 @@ export const getGenre = async (req, res, next) => {
     );
 
     const movieResData = await actionRes.json();
-    const actionMovies = movieResData.results;
-    // console.log("The list of Action Movies", actionMovies);
+    const movies = movieResData.results;
+    // console.log("The list of Action Movies", movies);
 
     //* Taking the first action Movie Object and using it's its details for hero section
-    const heroMovie = actionMovies[0];
+    const heroMovie = movies[0];
     const heroDetailsRes = await safeFetch(
       `https://api.themoviedb.org/3/movie/${heroMovie.id}?append_to_response=videos,images,credits,release_dates`,
       { headers },
@@ -69,13 +69,81 @@ export const getGenre = async (req, res, next) => {
 
     return res.status(200).json({
       hero: { ...heroMovie, ...heroDetails, genres: newGenreId },
-      actionMovies,
+      movies,
     });
   } catch (error) {
-    console.log("Error From getActionMovies: ", error);
+    console.log("Error From getmovies: ", error);
     return res.status(502).json({
       error: error.message,
-      message: "Unable to Fetch ActionMovies form TDMB",
+      message: "Unable to Fetch movies form TDMB",
+    });
+  }
+};
+
+export const getMovie = async (req, res, next) => {
+  try {
+    const { genre, id } = req.params;
+    console.log("Movie Id: ", id);
+    const resp = await safeFetch(
+      "https://api.themoviedb.org/3/genre/movie/list",
+      {
+        headers,
+      },
+    );
+
+    const data = await resp.json();
+    const movieGenres = data.genres;
+    console.log("This is Movie Genres: ", movieGenres);
+
+    let selectedGenre = movieGenres.find(
+      (movie) => movie.name.toLowerCase() === genre.toLowerCase(),
+    );
+
+    console.log("selectedGenre: ", selectedGenre);
+
+    //! requesting for movies that has genre id that represents action genre
+    const actionRes = await safeFetch(
+      `https://api.themoviedb.org/3/discover/movie?with_genres=${selectedGenre.id}`,
+      { headers },
+    );
+
+    const movieResData = await actionRes.json();
+    const movies = movieResData.results;
+    // console.log("The list of Action Movies", movies.slice(0, 6));
+
+    //* Taking the first action Movie Object and using it's its details for hero section
+    const heroMovie = movies.find(
+      (movie) => parseInt(movie.id) === parseInt(id),
+    );
+    // console.log("hero Movie: ", heroMovie);
+    const heroDetailsRes = await safeFetch(
+      `https://api.themoviedb.org/3/movie/${heroMovie.id}?append_to_response=videos,images,credits,release_dates`,
+      { headers },
+    );
+
+    let heroDetails = await heroDetailsRes.json();
+
+    // console.log("This is Hero Details: ", heroDetails);
+
+    // * array containing only genre name
+    const availableGenres = heroDetails.genres
+      .map((genre) => {
+        return genre?.name;
+      })
+      .filter(Boolean);
+
+    console.log("This is the new Genre Id: ", availableGenres);
+    console.log("Hero", { ...heroMovie, ...heroDetails, genres: availableGenres })
+
+    return res.status(200).json({
+      hero: { ...heroMovie, ...heroDetails, genres: availableGenres },
+      movies,
+    });
+  } catch (error) {
+    console.log("Error From getmovies: ", error);
+    return res.status(502).json({
+      error: error.message,
+      message: "Unable to Fetch Movies form TDMB",
     });
   }
 };
@@ -124,10 +192,10 @@ export const nowPlaying = async (req, res, next) => {
       nowPlaying: nowPlayingList,
     });
   } catch (error) {
-    console.log("Error From getActionMovies: ", error);
+    console.log("Error From getNowPlayingMovies: ", error);
     return res.status(502).json({
       error: error.message,
-      message: "Unable to Fetch ActionMovies form TDMB",
+      message: "Unable to Fetch getNowPlayingMovies form TDMB",
     });
   }
 };
@@ -175,10 +243,10 @@ export const popular = async (req, res, next) => {
       popular: nowPlayingList,
     });
   } catch (error) {
-    console.log("Error From getActionMovies: ", error);
+    console.log("Error From getmovies: ", error);
     return res.status(502).json({
       error: error.message,
-      message: "Unable to Fetch ActionMovies form TDMB",
+      message: "Unable to Fetch movies form TDMB",
     });
   }
 };
@@ -228,14 +296,13 @@ export const upComing = async (req, res, next) => {
       upComing: nowPlayingList,
     });
   } catch (error) {
-    console.log("Error From getActionMovies: ", error);
+    console.log("Error From getmovies: ", error);
     return res.status(502).json({
       error: error.message,
-      message: "Unable to Fetch ActionMovies form TDMB",
+      message: "Unable to Fetch movies form TDMB",
     });
   }
 };
-
 
 //* Top Rated
 export const topRated = async (req, res, next) => {
@@ -282,12 +349,10 @@ export const topRated = async (req, res, next) => {
       topRated: nowPlayingList,
     });
   } catch (error) {
-    console.log("Error From getActionMovies: ", error);
+    console.log("Error From getmovies: ", error);
     return res.status(502).json({
       error: error.message,
-      message: "Unable to Fetch ActionMovies form TDMB",
+      message: "Unable to Fetch movies form TDMB",
     });
   }
 };
-
-

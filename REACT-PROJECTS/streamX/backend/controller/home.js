@@ -84,7 +84,7 @@ export const getHomeFiles = async (req, res, next) => {
     const movieGenreCards = await Promise.allSettled(
       movieGenres.genres.map(async (genre) => {
         const moviesRes = await safeFetch(
-          `https://api.themoviedb.org/3/discover/movie?with_genres=${genre.id}&sort_by=popularity.desc`,
+          `https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genre.id}`,
           { headers },
         );
         const data = await moviesRes.json();
@@ -106,7 +106,7 @@ export const getHomeFiles = async (req, res, next) => {
     const tvGenreCards = await Promise.allSettled(
       tvGenres.genres.map(async (genre) => {
         const tvRes = await safeFetch(
-          `https://api.themoviedb.org/3/discover/tv?with_genres=${genre.id}&sort_by=popularity.desc`,
+          `https://api.themoviedb.org/3/discover/tv?include_adult=true&include_video=true&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genre.id}`,
           { headers },
         );
         const data = await tvRes.json();
@@ -172,4 +172,3 @@ export const Questions = async (req, res, next) => {
     });
   }
 };
-

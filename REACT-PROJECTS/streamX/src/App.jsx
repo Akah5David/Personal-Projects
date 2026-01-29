@@ -10,6 +10,7 @@ import AuthPage from "./pages/AuthPage";
 import LogoutPage from "./pages/LogoutPage";
 import FooterPage from "./pages/FooterPage";
 import MoviesPage from "./pages/Movies";
+import MovieDetailPage from "./pages/MovieDetail";
 import NowPlayingPage from "./pages/NowPlaying";
 import TopRatedPage from "./pages/TopRated";
 import PopularPage from "./pages/Popular";
@@ -26,7 +27,7 @@ function App() {
   const {
     homePage,
     questionLoader,
-    actionMovies,
+    movies,
     tvGenres,
     nowPlaying,
     topRated,
@@ -35,6 +36,7 @@ function App() {
   } = ComponentLoaders;
 
   console.log("ComponentLoaders ", homePage());
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -52,12 +54,20 @@ function App() {
     {
       path: "/movie/:genre",
       element: <MoviesPage />,
-      loader: actionMovies,
+      loader: movies,
+      children: [
+        {
+          path: ":id",
+          element: <MoviesPage />,
+          loader: movies,
+        },
+      ],
     },
     {
       path: "/tv/:genre",
       element: <TvPage />,
       loader: tvGenres,
+      children: [{ path: ":id" }],
     },
     {
       path: "/nowPlaying/:id",

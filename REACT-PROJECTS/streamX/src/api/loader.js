@@ -46,17 +46,20 @@ export async function questionLoader() {
   return data.questionData;
 }
 
-const actionMovies = async ({ params }) => {
-  const res = await fetch(`${API_BASE}/api/movie/${params.genre}`);
+const movies = async ({ params }) => {
+  const dynamicUrl = params.id ? `${params.genre}/${params.id}` : params.genre;
+
+  console.log("dynamicUrl: ", dynamicUrl);
+  const res = await fetch(`${API_BASE}/api/movie/${dynamicUrl}`);
 
   if (!res.ok) {
     throw new Error("Unable to fetch the data");
   }
 
   const data = await res.json();
-  const actionMovies = data;
+  console.log("movies loader", data)
 
-  return actionMovies;
+  return data;
 };
 
 const tvGenres = async ({ params }) => {
@@ -143,12 +146,12 @@ const popular = async ({ params }) => {
 const ComponentLoaders = {
   homePage,
   questionLoader,
-  actionMovies,
+  movies,
   tvGenres,
   nowPlaying,
   topRated,
   popular,
-  upComing
+  upComing,
 };
 
 export default ComponentLoaders;
