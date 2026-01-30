@@ -67,7 +67,7 @@ function App() {
       path: "/tv/:genre",
       element: <TvPage />,
       loader: tvGenres,
-      children: [{ path: ":id" }],
+      children: [{ path: ":id", element: <TvPage />, loader: tvGenres }],
     },
     {
       path: "/nowPlaying/:id",

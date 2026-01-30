@@ -57,23 +57,25 @@ const movies = async ({ params }) => {
   }
 
   const data = await res.json();
-  console.log("movies loader", data)
+  console.log("movies loader", data);
 
   return data;
 };
 
 const tvGenres = async ({ params }) => {
-  console.log("Params: ", params.genre);
-  const res = await fetch(`${API_BASE}/api/tv/${params.genre}`);
+  const { genre, id } = params;
+  const dynamicRoute = id ? `${genre}/${id}` : genre;
+
+  console.log("dynamicRoute", dynamicRoute)
+  const res = await fetch(`${API_BASE}/api/tv/${dynamicRoute}`);
 
   if (!res.ok) {
     throw new Error("Unable to fetch the data");
   }
 
   const data = await res.json();
-  const tvGenres = data;
 
-  return tvGenres;
+  return data;
 };
 
 const nowPlaying = async ({ params }) => {

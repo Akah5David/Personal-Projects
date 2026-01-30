@@ -1,5 +1,11 @@
 import { useEffect } from "react";
-import { Link, useLoaderData, useLocation, useParams, useRevalidator } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
 
 import NavBar from "../reusable_components/NavBar";
 import SubscribeButton from "../reusable_components/SubscribeButton";
@@ -14,7 +20,6 @@ const GENRE_LABELS = {
 
 export default function ViewVideoPage() {
   const LoadersData = useLoaderData();
-  const location = useLocation();
   const { genre, id } = useParams();
 
   const revalidator = useRevalidator();
@@ -31,9 +36,7 @@ export default function ViewVideoPage() {
     window.scrollTo(0, 0);
   }, [LoadersData]); // Scroll when fresh data arrives
 
-  //converting the pathname in string format into an array
-  const extractedPath = location.pathname.split("/").slice(-1)[0];
-  console.log("extractedPath", extractedPath);
+
 
   const { hero, movies } = LoadersData;
   console.log("movies: ", movies);
@@ -279,83 +282,10 @@ export default function ViewVideoPage() {
           </div>
         </section>
 
-        <Others others={movies} genre={genre} />
+        <Others others={movies} genre={genre} classification = "movie" />
         <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />
       </main>
     </>
   );
 }
-
-// <header>
-//   <div className=" relative w-screen h-screen bg-orange-700">
-//     <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/70 via-black/90 to-black/100"></div>
-//     <div className="bg-[url(/images/background.jpeg)] bg-no-repeat bg-center bg-cover inset-0 absolute z-10 bg-local"></div>
-//     <div className="absolute z-30 inset-0">
-// <NavBar
-//   LoadersData={HomePageData}
-//   scrollToSections={scrollToSections}
-// />
-//       <div className="relative ml-[50px] my-[100px] w-[50%] pb-[30px] text-left ">
-//         <h1 className="text-white text-[60px] font-bold">
-//           Unlimited Animals documentaries in 4k
-//         </h1>
-//         <p className="text-white text-[20px]">
-//           Lorem ipsum dolor sit amet, consectetur adipiscing elit massa a
-//           netus elit cursus eget viverra vitae risus nunc facilisis feugiat.
-//         </p>
-//         <div className="w-full mt-[40px] flex items-center gap-10">
-//           <SubscribeButton btnAction="Subscribe today!" />
-//           <Link
-//             to="/"
-//             className="bg-[#c5c1c16b] py-4 px-4 rounded-full font-medium text-white"
-//           >
-//             Explore documentaries
-//           </Link>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </header>
-
-// {
-//   (" ");
-// }
-// <header className="m-[80] w-screen h-screen">
-//   <div className=" relative w-full h-full bg-orange-700">
-//     <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/30 via-black/40 to-black/100"></div>
-//     <div
-//       className="bg-no-repeat bg-center bg-cover inset-0 absolute z-10 bg-local"
-//       style={{
-//         backgroundImage: `url(https://image.tmdb.org/t/p/original/${hero.backdrop_path})`,
-//       }}
-//     ></div>
-//     <div className="absolute z-30 inset-0">
-//       <NavBar LoadersData={LoadersData} />
-//       <div className="relative ml-[50px] my-[100px] w-[50%] pb-[30px] text-left ">
-//         <h6 className="uppercase text-xl text-white">
-//           Popular on Savanna documentaries
-//         </h6>
-//         <h1 className="text-white text-[60px] font-bold">
-//           The Eye of The Leopard
-//         </h1>
-//         <p className="text-white text-[20px]">
-//           Lorem ipsum dolor sit amet, consectetur adipiscing elit massa a netus
-//           elit cursus eget viverra vitae risus nunc facilisis feugiat.
-//         </p>
-//         <div className="w-full mt-[40px] flex items-center gap-10">
-//           <SubscribeButton
-//             btnAction="Watch now"
-//             className="hover:bg-white hover:text-blue-700"
-//           />
-//           <Link
-//             to="/"
-//             className="bg-[#c5c1c16b] py-4 px-4 rounded-full font-medium text-white hover:bg-blue-400"
-//           >
-//             watch trailer
-//           </Link>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-// </header>;

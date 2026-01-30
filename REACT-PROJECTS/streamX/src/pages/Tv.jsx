@@ -1,8 +1,13 @@
 import { useEffect } from "react";
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
 
 import NavBar from "../reusable_components/NavBar";
-import Tvs from "../components/Tv";
+import Others from "../reusable_components/Others";
 import SubscribeButton from "../reusable_components/SubscribeButton";
 import Documentaries from "../components/Documentaries";
 import MoreDocumentaries from "../reusable_components/MoreDocumentaries";
@@ -15,19 +20,26 @@ const GENRE_LABELS = {
 
 export default function ViewVideoPage() {
   const LoadersData = useLoaderData();
-  const location = useLocation();
+  const revalidator = useRevalidator();
+  const { genre, id } = useParams();
+
+  useEffect(() => {
+    if (revalidator === "idle") {
+      revalidator.revalidate();
+    }
+  }, [genre, id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [LoadersData]);
 
   //converting the pathname in string format into an array
-  const extractedPath = location.pathname.split("/")[1];
-  console.log("extractedPath", extractedPath);
 
-  const { hero, genres_in_tv } = LoadersData;
+  const { hero, tvList } = LoadersData;
+  console.log("TV Hero", hero.first_air_date);
+  console.log("Tv List", tvList);
 
-  let year_of_release = hero["first_air_date"].split("-")[0];
+  let year_of_release = hero.first_air_date.split("-")[0];
   let minutes = hero.runtime % 60;
   let hours = Math.trunc(hero.runtime / 60);
   let rating = hero["vote_average"].toFixed(1);
@@ -68,16 +80,17 @@ export default function ViewVideoPage() {
   //     (rating) => rating["release_date"],
   //   );
   //   const uniqueDate = [...new Set(releaseDateArray)];
-  const releaseDate = hero.first_air_date;
+  const [day, month, year] = hero.first_air_date.split("-");
 
-  const formattedReleaseDate = new Date(releaseDate).toLocaleDateString(
-    "en-US",
-    {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    },
-  );
+  const formattedReleaseDate = new Date(
+    year,
+    month - 1,
+    day,
+  ).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   console.log("formattedReleaseDate", formattedReleaseDate);
   const createdBy = hero.created_by;
   const castsArray = hero.credits.cast.map((cast) => {
@@ -258,7 +271,7 @@ export default function ViewVideoPage() {
           </div>
         </section>
 
-        <Tvs genres_in_tv={genres_in_tv} />
+        <Others others={tvList} genre={genre} classification="tv" />
         <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />
       </main>

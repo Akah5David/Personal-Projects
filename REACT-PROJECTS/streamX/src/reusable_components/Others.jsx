@@ -1,16 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-export default function Others({ others, section, genre }) {
+export default function Others({ others, section, genre, classification }) {
   const navigate = useNavigate();
-  const sortedArray = [...others].sort(
-    (a, b) => b.vote_average - a.vote_average,
-  );
 
   // Use genre for /movie/:genre/:id route, otherwise use section for other routes
   const handleCardClick = (id) => {
-    if (genre) {
+    if (genre && classification) {
       // Navigate to /movie/:genre/:id
-      navigate(`/movie/${genre}/${id}`);
+      navigate(`/${classification}/${genre}/${id}`);
     } else if (section) {
       // Navigate to /:section/:id for other pages
       navigate(`/${section}/${id}`);
@@ -19,7 +16,7 @@ export default function Others({ others, section, genre }) {
 
   return (
     <div className="grid grid-auto-flow: row grid-cols-5 gap-5 pl-4 pr-8">
-      {sortedArray.map((o) => (
+      {others.map((o) => (
         <button
           onClick={() => handleCardClick(o.id)}
           key={o.id}
@@ -33,7 +30,8 @@ export default function Others({ others, section, genre }) {
             />
           </div>
           <div className="flex-1 flex flex-col p-3 justify-between">
-            <h3 className="text-sm line-clamp-2">{o.title}</h3>
+            {o.title && <h3 className="text-sm line-clamp-2">{o.title}</h3>}
+            {o.name && <h3 className="text-sm line-clamp-2">{o.name}</h3>}
             <span className="text-xs opacity-80">
               {o.vote_average.toFixed(2)}
             </span>
@@ -43,4 +41,3 @@ export default function Others({ others, section, genre }) {
     </div>
   );
 }
-

@@ -1,11 +1,16 @@
 import { useEffect } from "react";
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useRevalidator,
+  useParams,
+} from "react-router-dom";
 
 import NavBar from "../reusable_components/NavBar";
 import SubscribeButton from "../reusable_components/SubscribeButton";
 import Others from "../reusable_components/Others";
 import Footer from "../components/Footer";
-
 
 const GENRE_LABELS = {
   "Science Fiction": "Sci-Fi",
@@ -14,15 +19,18 @@ const GENRE_LABELS = {
 
 export default function ViewVideoPage() {
   const LoadersData = useLoaderData();
-  const location = useLocation();
+  const revalidator = useRevalidator();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (revalidator.state === "idle") {
+      revalidator.revalidate();
+    }
+  }, [id]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  //converting the pathname in string format into an array
-  const extractedPath = location.pathname.split("/")[1];
-  console.log("extractedPath", extractedPath);
+  }, [LoadersData]);
 
   const { hero, popular } = LoadersData;
 
@@ -276,7 +284,7 @@ export default function ViewVideoPage() {
           </div>
         </section>
 
-        <Others others={popular} section = "popular" />
+        <Others others={popular} section="popular" />
         <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />
       </main>

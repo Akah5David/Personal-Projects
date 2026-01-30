@@ -1,11 +1,16 @@
 import { useEffect } from "react";
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useParams,
+  useRevalidator,
+} from "react-router-dom";
 
 import NavBar from "../reusable_components/NavBar";
 import SubscribeButton from "../reusable_components/SubscribeButton";
 import Others from "../reusable_components/Others";
 import Footer from "../components/Footer";
-
 
 const GENRE_LABELS = {
   "Science Fiction": "Sci-Fi",
@@ -14,15 +19,21 @@ const GENRE_LABELS = {
 
 export default function ViewVideoPage() {
   const LoadersData = useLoaderData();
-  const location = useLocation();
+  const revalidator = useRevalidator();
+  const { id } = useParams();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if (revalidator.state === "idle") {
+      revalidator.revalidate();
+    }
+  }, [id]);
 
-  //converting the pathname in string format into an array
-  const extractedPath = location.pathname.split("/")[1];
-  console.log("extractedPath", extractedPath);
+  useEffect(() => {
+    // Scroll to top AFTER data has been updated
+    window.scrollTo(0, 0);
+  }, [LoadersData]); // Scroll when fresh data arrives
+
+
 
   const { hero, nowPlaying } = LoadersData;
 
@@ -276,7 +287,7 @@ export default function ViewVideoPage() {
           </div>
         </section>
 
-        <Others others={nowPlaying} section="nowPlaying"/>
+        <Others others={nowPlaying} section="nowPlaying" />
         <hr className="border-0 bg-[#90909092] h-[0.5px]  mt-[50px]" />
         <Footer />
       </main>
