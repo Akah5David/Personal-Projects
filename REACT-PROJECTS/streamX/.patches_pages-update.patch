@@ -1,0 +1,17 @@
+Pages update proposed changes (pages/*)
+
+1) Wrap page content with Tailwind container:
+- Replace top-level wrappers with: "<div className='container mx-auto px-4'>...</div>"
+
+2) Page grids and lists:
+- Use responsive grid utilities:
+  "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+
+3) ViewVideoPage, MovieDetail:
+- Media -> "w-full h-auto aspect-video object-cover"
+- Sidebar -> "hidden lg:block w-72"
+
+4) AuthPage, SubscribePage:
+- Forms -> centered layout "flex items-center justify-center min-h-[60vh] px-4"
+
+Notes: Update route wrappers in src/pages/* accordingly, and remove page-specific CSS where replaced by Tailwind.

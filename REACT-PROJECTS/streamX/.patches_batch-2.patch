@@ -1,0 +1,19 @@
+Batch 2 proposed changes (Modals, Sliders, Forms, Reusable components)
+
+1) src/reusable_components/Modal.jsx & ModalFooter.jsx
+- Modal wrapper -> "fixed inset-0 flex items-center justify-center z-50 p-4"
+- Dialog -> "bg-[#0b0b0b] rounded-lg w-full max-w-3xl mx-auto overflow-hidden"
+- Use "p-4 md:p-6" for modal padding
+
+2) src/reusable_components/SliderButton.jsx & Slider styles
+- Buttons -> "p-2 rounded-full bg-black/60 hover:bg-black/80 text-white"
+- Slider container -> "relative flex items-center gap-2"
+
+3) src/reusable_components/Form.jsx & SubscribeButton.jsx
+- Inputs -> "w-full px-3 py-2 rounded bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+- Buttons -> "inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded"
+
+4) Others.jsx, MoreDocumentaries.jsx
+- Convert layout to responsive flex/grid with "gap-4"
+
+Notes: Replace inline styles and CSS modules with Tailwind utilities and ensure touch targets are >=44px.

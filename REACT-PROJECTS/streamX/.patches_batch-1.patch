@@ -1,0 +1,26 @@
+Batch 1 proposed changes (NavBar, HomeHeader, Footer, SideBars, Movie grids)
+
+1) src/reusable_components/NavBar.jsx
+- Replace current layout classes with Tailwind:
+  - wrapper -> "w-full container mx-auto flex items-center justify-between px-4 py-3"
+  - brand -> "text-xl font-semibold"
+  - nav -> "hidden md:flex items-center space-x-4"
+  - mobile toggle -> "md:hidden"
+
+2) src/components/HomeHeader.jsx
+- Use responsive grid for hero:
+  - wrapper -> "w-full bg-[url('/path')] bg-cover bg-center"
+  - content -> "container mx-auto px-4 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-6 items-center"
+
+3) src/components/Footer.jsx
+- Footer -> "bg-slate-900 text-gray-300 py-8"
+- Columns -> "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 container mx-auto px-4"
+
+4) src/components/SideBars.jsx
+- Sidebar -> "hidden lg:block w-64 sticky top-20"
+
+5) Movie grid components (Movies.jsx, PopularMovies.jsx, TopRatedMovies.jsx, NowPlayingMovies.jsx, UpComingMovies.jsx)
+- Use responsive grid:
+  "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+
+Notes: These are proposed diffs; apply changes by replacing className values and removing non-responsive CSS rules.

@@ -1,4 +1,4 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import NavBar from "../reusable_components/NavBar";
 import SubscribeButton from "../reusable_components/SubscribeButton";
