@@ -80,6 +80,10 @@ export const getGenre = async (req, res, next) => {
   }
 };
 
+
+
+
+
 export const getMovie = async (req, res, next) => {
   try {
     const { genre, id } = req.params;

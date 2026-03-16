@@ -6,6 +6,7 @@ import profileImg from "../assets/svgs/profile.svg";
 
 import ModalFooter from "./ModalFooter";
 import MovieCategories from "../components/MovieCategories";
+import ToggableMenu from "./ToggableMenu";
 import NowPlayingMovies from "../components/NowPlayingMovies";
 import PopularMovies from "../components/PopularMovies";
 import TopRatedMovies from "../components/TopRatedMovies";
@@ -82,6 +83,7 @@ export default function Header({ LoadersData, scrollToSections }) {
   //   });
   // }
 
+  // Track window scroll position and update state, with cleanup on unmount
   useEffect(() => {
     const handleScroll = () => {
       setWindowPosition(() => window.scrollY);
@@ -93,6 +95,8 @@ export default function Header({ LoadersData, scrollToSections }) {
     };
   }, []);
 
+  //Destructed LoadersData to get explore and categories props
+  const { movieGenres, tvGenres, ...exploreMovies } = LoadersData;
   return (
     <>
       <header className=" fixed w-full z-99 flex items-center gap-20 py-6 px-[50px] bg-[#0000005e]  text-white">
@@ -208,7 +212,16 @@ export default function Header({ LoadersData, scrollToSections }) {
           <ModalFooter />
         </div>
       )}
-      {openMovieMenu && <MovieCategories scrollToSections={scrollToSections} />}
+      {openMovieMenu && (
+        <div
+          onMouseEnter={openMovieMenuFn}
+          onMouseLeave={closeMovieMenuFn}
+          className="grid grid-cols-3 grid-rows-1 text-black fixed top-[95px] left-1/2 -translate-x-1/2 w-[40%] z-100 opacity-95 overflow-hidden rounded-2xl bg-[#ffffff]"
+        >
+          <ToggableMenu categories={movieGenres} explore={exploreMovies} />
+        </div>
+      )}
+
       {toggleModal && (
         <CartModal ref={cartModalRef} closeModalFn={closeCartModal} />
       )}
