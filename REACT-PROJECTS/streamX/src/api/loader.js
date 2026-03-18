@@ -17,13 +17,28 @@ export async function homePage() {
     // Return safe defaults instead of null
     return {
       data: {
-        movieGenres: [],
-        tvGenres: [],
-        popularMovies: [],
-        popularTvs: [],
-        topRatedMovies: [],
-        upComingMovies: [],
-        nowPlayingMovies: [],
+        movie: {
+          movieGenres: [],
+          popularMovies: [],
+          topRatedMovies: [],
+          upComingMovies: [],
+          nowPlayingMovies: [],
+          trendingMovies: [],
+        },
+        tv: {
+          tvGenres: [],
+          tvSeries: {
+            airingTodayTv: [],
+            onTheAirTv: [],
+            popularTv: [],
+            topRatedTv: [],
+            trendingTvShows: [],
+          },
+        },
+        trending: {
+          trendingMovies: [],
+          trendingTvShows: [],
+        },
       },
       error: error.message,
     };
@@ -66,7 +81,7 @@ const tvGenres = async ({ params }) => {
   const { genre, id } = params;
   const dynamicRoute = id ? `${genre}/${id}` : genre;
 
-  console.log("dynamicRoute", dynamicRoute)
+  console.log("dynamicRoute", dynamicRoute);
   const res = await fetch(`${API_BASE}/api/tv/${dynamicRoute}`);
 
   if (!res.ok) {

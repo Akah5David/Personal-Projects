@@ -20,31 +20,34 @@ export default function MainPage() {
   console.log("HomePage Data: ", homePage);
   console.log("Questions: ", questions);
 
+  const movieData = homePage.movie;
+  const tvData = homePage.tv;
+
   return (
     <div className="  min-w-screen min-h-screen max-w-screen max-h-screen">
       <NowPlayingMovies
         nowPlayingRef={sectionRefs.nowPlayingRef}
-        nowPlayingMovies={homePage.nowPlayingMovies}
+        nowPlayingMovies={movieData.nowPlayingMovies}
       />
       <PopularMovies
         popularRef={sectionRefs.popularRef}
-        popularMovies={homePage.popularMovies}
+        popularMovies={movieData.popularMovies}
       />
       <TopRatedMovies
         topRatedRef={sectionRefs.topRatedRef}
-        topRatedMovies={homePage.topRatedMovies}
+        topRatedMovies={movieData.topRatedMovies}
       />
       <UpComingMovies
         upComingRef={sectionRefs.upComingRef}
-        upComingMovies={homePage.upComingMovies}
+        upComingMovies={movieData.upComingMovies}
       />
       <MovieGenres
         movieGenreRef={sectionRefs.movieGenreRef}
-        movieGenres={homePage.movieGenres}
+        movieGenres={movieData.movieGenres}
       />
       <TvGenres
         tvGenreRef={sectionRefs.tvGenreRef}
-        tvGenres={homePage.tvGenres}
+        tvGenres={tvData.tvGenres}
       />
       {/* <DocumentariesPage categories={homePage} /> */}
       <SubscriptionPage />

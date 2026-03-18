@@ -33,42 +33,88 @@ export const getHomeFiles = async (req, res, next) => {
     );
     await delay(500);
 
-    // Fetch optional data concurrently (only 3 at a time)
+    // Fetch Movie List concurrently (only 3 at a time)
     const optionalResults = await Promise.allSettled([
       safeFetch("https://api.themoviedb.org/3/movie/popular?page=1", {
         headers,
       }),
-      safeFetch("https://api.themoviedb.org/3/tv/popular?page=1", { headers }),
       safeFetch("https://api.themoviedb.org/3/movie/top_rated?page=1", {
         headers,
       }),
-    ]);
-    await delay(500);
-
-    const remainingResults = await Promise.allSettled([
       safeFetch("https://api.themoviedb.org/3/movie/upcoming?page=1", {
         headers,
       }),
       safeFetch("https://api.themoviedb.org/3/movie/now_playing?page=1", {
         headers,
       }),
+      safeFetch("https://api.themoviedb.org/3/trending/movie/day?page=1", {
+        headers,
+      }),
     ]);
 
-    // Combine results
-    const [popularMoviesRes, popularTvRes, topRatedMoviesRes] =
-      optionalResults.map((r) => (r.status === "fulfilled" ? r.value : null));
-    const [upComingMoviesRes, nowPlayingMoviesRes] = remainingResults.map(
-      (r) => (r.status === "fulfilled" ? r.value : null),
-    );
+    await delay(500);
 
-    // Parse critical data
+    // Fetch All TV Series Lists concurrently (only 3 at a time)
+    const TVSeriesResult = await Promise.allSettled([
+      safeFetch("https://api.themoviedb.org/3/tv/airing_today?page=1", {
+        headers,
+      }),
+      safeFetch("https://api.themoviedb.org/3/tv/on_the_air?page=1", {
+        headers,
+      }),
+      safeFetch("https://api.themoviedb.org/3/tv/popular?page=1", {
+        headers,
+      }),
+      safeFetch("https://api.themoviedb.org/3/tv/top_rated?page=1", {
+        headers,
+      }),
+      safeFetch("https://api.themoviedb.org/3/trending/tv/day?page=1", {
+        headers,
+      }),
+    ]);
+
+    await delay(500);
+
+    // Fetch Trending Movies and TV concurrently (only 3 at a time)
+    const TrendingRequest = await Promise.allSettled([]);
+
+    // Extracting the response of Movie Lists request
+    const [
+      popularMoviesRes,
+      topRatedMoviesRes,
+      upComingMoviesRes,
+      nowPlayingMoviesRes,
+      trendingMovieRes,
+    ] = optionalResults.map((r) => (r.status === "fulfilled" ? r.value : null));
+
+    //Extracting TV series response if Successful
+    const [
+      airingTodayTVRes,
+      onTheAirTVRes,
+      popularTVRes,
+      topRatedTVRes,
+      trendingTVRes,
+    ] = TVSeriesResult.map((r) => (r.status === "fulfilled" ? r.value : null));
+    console.log("TV series List: ", {
+      airingTodayTVRes,
+      onTheAirTVRes,
+      popularTVRes,
+      topRatedTVRes,
+      trendingTVRes,
+      trendingMovieRes,
+    });
+
+    //Parse the Trending Responses
+
+    console.log("Trending List: ", {
+      trendingMovies,
+      trendingTvs,
+    });
+
+    // Parse critical movie data
     const movieGenres = await movieGenreRes.json();
-    const tvGenres = await tvGenreRes.json();
     const popularMovies = popularMoviesRes
       ? await popularMoviesRes.json()
-      : { results: [] };
-    const popularTvs = popularTvRes
-      ? await popularTvRes.json()
       : { results: [] };
     const topRatedMovies = topRatedMoviesRes
       ? await topRatedMoviesRes.json()
@@ -79,6 +125,34 @@ export const getHomeFiles = async (req, res, next) => {
     const nowPlayingMovies = nowPlayingMoviesRes
       ? await nowPlayingMoviesRes.json()
       : { results: [] };
+    const trendingMovies = trendingMovieRes
+      ? trendingMovieRes.json()
+      : { results: [] };
+
+    // Parsing critical TV data
+    const tvGenres = await tvGenreRes.json();
+    const airingTodayTV = airingTodayTVRes
+      ? await airingTodayTVRes.json()
+      : { results: [] };
+    const onTheAirTV = onTheAirTVRes
+      ? await onTheAirTVRes.json()
+      : { results: [] };
+    const popularTV = popularTVRes
+      ? await popularTVRes.json()
+      : { results: [] };
+    const topRatedTV = topRatedTVRes
+      ? await topRatedTVRes.json()
+      : { results: [] };
+    const trendingTvs = trendingTVRes ? trendingTVRes.json() : { results: [] };
+
+    console.log("parsed TV series List: ", {
+      airingTodayTV,
+      onTheAirTV,
+      popularTV,
+      topRatedTV,
+      trendingTvs,
+      trendingMovies,
+    });
 
     // Rest of your code...
     const movieGenreCards = await Promise.allSettled(
@@ -126,15 +200,29 @@ export const getHomeFiles = async (req, res, next) => {
       .map((r) => r.value);
 
     const resData = {
-      movieGenres: filteredMovieGenres,
-      tvGenres: filteredTvGenres,
-      popularMovies: popularMovies.results,
-      popularTvs: popularTvs.results,
-      topRatedMovies: topRatedMovies.results,
-      upComingMovies: upComingMovies.results,
-      nowPlayingMovies: nowPlayingMovies.results,
+      movie: {
+        movieGenres: filteredMovieGenres,
+        popularMovies: popularMovies.results,
+        topRatedMovies: topRatedMovies.results,
+        upComingMovies: upComingMovies.results,
+        nowPlayingMovies: nowPlayingMovies.results,
+        trendingMovies: trendingMovies.results,
+      },
+      tv: {
+        tvGenres: filteredTvGenres,
+        tvSeries: {
+          airingTodayTv: airingTodayTV.results,
+          onTheAirTv: onTheAirTV.results,
+          popularTv: popularTV.results,
+          topRatedTv: topRatedTV.results,
+          trendingTvShows: trendingTvs.results,
+        },
+      },
+      trending: {
+        trendingMovies: trendingMovies.results,
+        trendingTvShows: trendingTvs.results,
+      },
     };
-
     console.log("Response Data:\n", resData);
     return res.status(200).json(resData);
   } catch (error) {

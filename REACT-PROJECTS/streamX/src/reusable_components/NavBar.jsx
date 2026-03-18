@@ -19,7 +19,8 @@ export default function Header({ LoadersData, scrollToSections }) {
   console.log("Subscribe LoadersData", LoadersData);
   const [pageMenuOpen, setPageMenuOpen] = useState(false);
   const [openMovieMenu, setOpenMovieMenu] = useState(false);
-  const [toggleModal, setToggleModal] = useState(false);
+  const [openTVMenu, setOpenTVMenu] = useState(false);
+  const [toggleCartModal, setToggleCartModal] = useState(false);
   const [windowPosition, setWindowPosition] = useState(0);
 
   const pageMenuCloseTimeout = useRef(null);
@@ -34,7 +35,7 @@ export default function Header({ LoadersData, scrollToSections }) {
   //A function that opens the modal when the cart button is pressed
   function openCartModal() {
     cartModalRef.current?.open();
-    setToggleModal(true);
+    setToggleCartModal(true);
   }
 
   //Functions that cancels the current reading time of set setTimeout when the mouse is place on the button and set the MenuOpen state to true causing the menu to appear
@@ -65,9 +66,22 @@ export default function Header({ LoadersData, scrollToSections }) {
     }, 200);
   }
 
+  function openTVMenuFn() {
+    if (tvMenuCloseTimeout.current) {
+      clearTimeout(tvMenuCloseTimeout.current);
+    }
+    setOpenTVMenu(true);
+  }
+
+  function closeTVMenuFn() {
+    tvMenuCloseTimeout.current = setTimeout(() => {
+      setOpenTVMenu(false);
+    }, 200);
+  }
+
   //This function calls the close() method of the Modal element when a close button is pressed or when we press escape on the keyboard
   function closeCartModal() {
-    setToggleModal(false);
+    setToggleCartModal(false);
     cartModalRef.current?.close();
   }
 
@@ -95,8 +109,18 @@ export default function Header({ LoadersData, scrollToSections }) {
     };
   }, []);
 
+  console.log("NavBar LoadersData: ", LoadersData)
   //Destructed LoadersData to get explore and categories props
-  const { movieGenres, tvGenres, ...exploreMovies } = LoadersData;
+  const { movie, tv } = LoadersData;
+  const { movieGenres, ...exploreMovies } = movie;
+  const { tvGenres, tvSeries } = tv;
+  const formattedTvSeries = {
+    AiringToday: tvSeries.airingTodayTv,
+    OnTheAir: tvSeries.onTheAirTv,
+    PopularTvShows: tvSeries.popularTv,
+    TopRatedTvShows: tvSeries.topRatedTv,
+    trendingTvShows: tvSeries.trendingTvShows,
+  };
   return (
     <>
       <header className=" fixed w-full z-99 flex items-center gap-20 py-6 px-[50px] bg-[#0000005e]  text-white">
@@ -135,7 +159,11 @@ export default function Header({ LoadersData, scrollToSections }) {
                 <path d="M29.994,10.183L15.363,24.812L0.733,10.184c-0.977-0.978-0.977-2.561,0-3.536c0.977-0.977,2.559-0.976,3.536,0 l11.095,11.093L26.461,6.647c0.977-0.976,2.559-0.976,3.535,0C30.971,7.624,30.971,9.206,29.994,10.183z"></path>{" "}
               </svg>
             </li>
-            <li className="flex items-center gap-2 hover:hover:text-[#ffffff34]">
+            <li
+              onMouseEnter={openTVMenuFn}
+              onMouseLeave={closeTVMenuFn}
+              className="flex items-center gap-2 hover:hover:text-[#ffffff34]"
+            >
               <Link
                 to="/"
                 onClick={(e) => {
@@ -218,11 +246,28 @@ export default function Header({ LoadersData, scrollToSections }) {
           onMouseLeave={closeMovieMenuFn}
           className="grid grid-cols-3 grid-rows-1 text-black fixed top-[95px] left-1/2 -translate-x-1/2 w-[40%] z-100 opacity-95 overflow-hidden rounded-2xl bg-[#ffffff]"
         >
-          <ToggableMenu categories={movieGenres} explore={exploreMovies} />
+          <ToggableMenu
+            categories={movieGenres}
+            explore={exploreMovies}
+            type="movie"
+          />
+        </div>
+      )}
+      {openTVMenu && (
+        <div
+          onMouseEnter={openTVMenuFn}
+          onMouseLeave={closeTVMenuFn}
+          className="grid grid-cols-3 grid-rows-1 text-black fixed top-[95px] left-1/2 -translate-x-1/2 w-[40%] z-100 opacity-95 overflow-hidden rounded-2xl bg-[#ffffff]"
+        >
+          <ToggableMenu
+            categories={tvGenres}
+            explore={formattedTvSeries}
+            type="tv"
+          />
         </div>
       )}
 
-      {toggleModal && (
+      {toggleCartModal && (
         <CartModal ref={cartModalRef} closeModalFn={closeCartModal} />
       )}
     </>
